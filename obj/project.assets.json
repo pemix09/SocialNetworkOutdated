@@ -1,35 +1,43 @@
 {
   "version": 3,
   "targets": {
-    ".NETCoreApp,Version=v3.1": {}
+    "net5.0": {}
   },
   "libraries": {},
   "projectFileDependencyGroups": {
-    ".NETCoreApp,Version=v3.1": []
+    "net5.0": []
   },
   "packageFolders": {
-    "/home/shizzed/.nuget/packages/": {}
+    "C:\\Users\\visra\\.nuget\\packages\\": {},
+    "D:\\Programy\\VisualStudioShared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/shizzed/Dokumenty/studia/programowanie w .NET/SocialNetwork/SocialNetwork/SocialNetwork.csproj",
+      "projectUniqueName": "C:\\Users\\visra\\source\\repos\\SocialNetwork\\SocialNetwork.csproj",
       "projectName": "SocialNetwork",
-      "projectPath": "/home/shizzed/Dokumenty/studia/programowanie w .NET/SocialNetwork/SocialNetwork/SocialNetwork.csproj",
-      "packagesPath": "/home/shizzed/.nuget/packages/",
-      "outputPath": "/home/shizzed/Dokumenty/studia/programowanie w .NET/SocialNetwork/SocialNetwork/obj/",
+      "projectPath": "C:\\Users\\visra\\source\\repos\\SocialNetwork\\SocialNetwork.csproj",
+      "packagesPath": "C:\\Users\\visra\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\visra\\source\\repos\\SocialNetwork\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "D:\\Programy\\VisualStudioShared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "/home/shizzed/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\visra\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
-        "netcoreapp3.1"
+        "net5.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
-        "netcoreapp3.1": {
+        "net5.0": {
+          "targetAlias": "net5.0",
           "projectReferences": {}
         }
       },
@@ -40,7 +48,8 @@
       }
     },
     "frameworks": {
-      "netcoreapp3.1": {
+      "net5.0": {
+        "targetAlias": "net5.0",
         "imports": [
           "net461",
           "net462",
@@ -59,7 +68,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.1.408/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
       }
     }
   }
