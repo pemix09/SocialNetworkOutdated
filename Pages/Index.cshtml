@@ -1,10 +1,44 @@
-﻿@page
+﻿
+@page
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManage
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Social Network";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+
+
+@if (SignInManager.IsSignedIn(User))
+{
+
+    <div class="text-center">
+        <h1 class="display-4">Welcome</h1>
+        <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    </div>
+}
+else
+{
+       <section class="welcome">
+           
+           <div class="welcomePage">
+               <div >
+                   <img class="welcomeImage" src="~/src/smile.jpg" alt="smilling man">
+               </div>
+               <div class="LogoAndText">
+                    <div class="logo">
+                        <img class="logo" src="~/src/socialNetworkLogo.png" alt="Social Network Logo" />
+                    </div>
+                    <div class="welcomeText">
+                        <h1>
+                       Witaj w social network,
+                       jedyne takie miejsce do kontaktu
+                       ze znajomymi
+                        </h1>
+                   </div>
+               </div>
+           </div>
+        </section>
+    
+}

@@ -1,0 +1,41 @@
+﻿body {
+}
+
+.welcome {
+    background-color: rgb(26, 26, 37);
+    height: 100vh;
+    color: white;
+    font-size: 40px;
+}
+
+.welcomePage {
+    display: flex;
+    height: 100%;
+    justify-content: flex-end;
+    align-items: center;
+    text-align:left;
+}
+
+.welcomeText {
+    padding: 10px;
+    width: 600px;
+    margin-right:200px;
+}
+
+.welcomeImage {
+    margin: 50px;
+    width: 1000px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.logo{
+    width:400px;
+}
+
+.LogoAndText {
+    margin: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    align-items: center;
+}
