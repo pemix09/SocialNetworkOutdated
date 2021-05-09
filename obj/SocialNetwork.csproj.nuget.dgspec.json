@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\pemix\\Documents\\studia\\programowanie .NET\\SocialNetwork\\SocialNetwork\\SocialNetwork.csproj": {}
+    "C:\\Users\\visra\\source\\repos\\SocialNetwork\\SocialNetwork.csproj": {}
   },
   "projects": {
-    "C:\\Users\\pemix\\Documents\\studia\\programowanie .NET\\SocialNetwork\\SocialNetwork\\SocialNetwork.csproj": {
+    "C:\\Users\\visra\\source\\repos\\SocialNetwork\\SocialNetwork.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\pemix\\Documents\\studia\\programowanie .NET\\SocialNetwork\\SocialNetwork\\SocialNetwork.csproj",
+        "projectUniqueName": "C:\\Users\\visra\\source\\repos\\SocialNetwork\\SocialNetwork.csproj",
         "projectName": "SocialNetwork",
-        "projectPath": "C:\\Users\\pemix\\Documents\\studia\\programowanie .NET\\SocialNetwork\\SocialNetwork\\SocialNetwork.csproj",
-        "packagesPath": "C:\\Users\\pemix\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\pemix\\Documents\\studia\\programowanie .NET\\SocialNetwork\\SocialNetwork\\obj\\",
+        "projectPath": "C:\\Users\\visra\\source\\repos\\SocialNetwork\\SocialNetwork.csproj",
+        "packagesPath": "C:\\Users\\visra\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\visra\\source\\repos\\SocialNetwork\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "D:\\Programy\\VisualStudioShared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\pemix\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\visra\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
