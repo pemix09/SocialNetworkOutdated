@@ -44,3 +44,11 @@
 #PostBox{
     height:200px;
 }
+
+.filebasket {
+    font-size: 15px;
+    height: 200px;
+    color: black;
+    border: solid 3px black;
+    background-color:lightgrey;
+}

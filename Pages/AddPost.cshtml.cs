@@ -15,5 +15,6 @@ namespace SocialNetwork.Pages
         public void OnGet()
         {
         }
+
     }
 }
