@@ -1,9 +1,8 @@
 {
   "runtimeOptions": {
     "additionalProbingPaths": [
-      "C:\\Users\\visra\\.dotnet\\store\\|arch|\\|tfm|",
-      "C:\\Users\\visra\\.nuget\\packages",
-      "D:\\Programy\\VisualStudioShared\\NuGetPackages"
+      "C:\\Users\\pemix\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\pemix\\.nuget\\packages"
     ]
   }
 }
