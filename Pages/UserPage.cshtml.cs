@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace SocialNetwork.Pages
 {
-    public class ProfileSiteModel : PageModel
+    public class UserPageModel : PageModel
     {
         public void OnGet()
         {

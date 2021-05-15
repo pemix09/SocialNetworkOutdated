@@ -255,3 +255,4 @@ C:\Users\pemix\Documents\studia\programowanie .NET\SocialNetwork\Social Network\
 C:\Users\pemix\Documents\studia\programowanie .NET\SocialNetwork\Social Network\obj\Debug\net5.0\SocialNetwork.genruntimeconfig.cache
 C:\Users\pemix\Documents\studia\programowanie .NET\SocialNetwork\Social Network\obj\Debug\net5.0\Razor\Data\DAL\LocalDB.cshtml.g.cs
 C:\Users\pemix\Documents\studia\programowanie .NET\SocialNetwork\Social Network\obj\Debug\net5.0\Razor\Pages\AddPost.cshtml.g.cs
+C:\Users\pemix\Documents\studia\programowanie .NET\SocialNetwork\Social Network\obj\Debug\net5.0\Razor\Pages\UserPage.cshtml.g.cs
