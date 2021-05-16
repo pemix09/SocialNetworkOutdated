@@ -38,9 +38,9 @@
             success: function (message) {
                 $("#fileBasket").html(message);
             },
-            error: function () {
+            error: function (e) {
                 $("#fileBasket").html
-                    ("There was error uploading files!");
+                    ("There was error uploading files!"+e);
             },
             beforeSend: function () {
                 $("#progress").show();

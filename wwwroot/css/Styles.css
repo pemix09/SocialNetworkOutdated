@@ -6,15 +6,14 @@
     height: 100vh;
     color: white;
     font-size: 40px;
-    
+    padding:100px;
 }
 
 .welcomePage {
     display: flex;
     height: 100%;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center;
-    text-align:left;
 }
 
 .welcomeText {
@@ -24,13 +23,17 @@
 }
 
 .welcomeImage {
-    margin: 50px;
     width: 1000px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .logo{
     width:400px;
+}
+
+.miniLogo{
+    width:40px;
+    margin-left:10px;
 }
 
 .LogoAndText {
