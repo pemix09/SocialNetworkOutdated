@@ -1,46 +1,54 @@
 ﻿$(document).ready(function () {
-
-    $("#progress").hide();
-
-    $("#fileBasket").on("dragenter", function (evt) {
+    InitDragAndDrop();
+    DragDropOperation();
+})
+function InitDragAndDrop() {
+    $("$divUploadFile").on("dragenter", function (evt) {
+        evt.preventDefault();
+        evt.stopPropagation();
+    });
+    $("$divUploadFile").on("dragover", function (evt) {
         evt.preventDefault();
         evt.stopPropagation();
     });
 
-    $("#fileBasket").on("dragover", function (evt) {
+    $("$divUploadFile").on("drop", function (evt) {
         evt.preventDefault();
         evt.stopPropagation();
     });
-
-    $("#fileBasket").on("drop", function (evt) {
+}
+function DragDropOperation() {
+    $("$divUploadFile").on("drop", function (evt) {
         evt.preventDefault();
         evt.stopPropagation();
         var files = evt.originalEvent.dataTransfer.files;
-        var fileNames = "";
+        var filenames = "";
+
         if (files.length > 0) {
-            fileNames += "Uploading <br/>"
+            filenames += "Przesyłanie obrazu <br/>";
             for (var i = 0; i < files.length; i++) {
-                fileNames += files[i].name + "<br />";
+                filenames += files[i].name + "<br/>";
             }
         }
-        $("#fileBasket").html(fileNames)
+        $("$divUploadFile").html(filenames);
 
         var data = new FormData();
         for (var i = 0; i < files.length; i++) {
             data.append(files[i].name, files[i]);
         }
+
         $.ajax({
             type: "POST",
-            url: "/controllers/UploadFiles.cs",
+            url: "/Home/UploadFiles",
             contentType: false,
             processData: false,
             data: data,
             success: function (message) {
-                $("#fileBasket").html(message);
+                $("#divUploadFile").html(message);
             },
             error: function (e) {
-                $("#fileBasket").html
-                    ("There was error uploading files!"+e.error);
+                $("#divUploadFile").html
+                    ("There was error uploading files!" + e.error);
             },
             beforeSend: function () {
                 $("#progress").show();
@@ -48,6 +56,7 @@
             complete: function () {
                 $("#progress").hide();
             }
+
         });
     });
-});
+}
