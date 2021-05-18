@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -9,7 +13,7 @@
     <link rel="stylesheet" href="~/css/Styles.css" />
 </head>
 <body>
-    <header >
+    <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
                 <div>
@@ -22,9 +26,17 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <partial name="_LoginPartial" />
-                </div>
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    <form class="form-inline my-2 my-lg-0" method="get">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Wyszukaj użytkownika..." aria-label="Search" name="searchQuery">
+                        <button class="btn btn-outline-primary my-2 my-sm-0" asp-page="Index" type="submit">Wyszukaj</button>
+                    </form>
+                }
+                    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                        <partial name="_LoginPartial" />
+                    </div>
+                
             </div>
         </nav>
     </header>
