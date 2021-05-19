@@ -55,3 +55,41 @@
     border: solid 3px black;
     background-color:lightgrey;
 }
+
+.index-page{
+    padding-left: 30px;
+    padding-right:30px;
+    padding-top:50px;
+    padding-bottom:50px;
+    margin:20px;
+}
+
+.index-page-left{
+    width:66%
+}
+
+.index-page-right{
+    width:33%
+}
+.msg {
+}
+
+    .msg::after {
+        position: absolute;
+        top: 7px;
+        left: 22px;
+        font-size: 11px;
+        text-align: center;
+        content: '!';
+        color: #fff;
+        background-color: #0a66d6;
+        border-radius: 19px;
+        width: 16px;
+        height: 16px;
+    }
+
+@media only screen and (max-width: 890px) {
+    .msg::after {
+        left: 2.9vw;
+    }
+}
