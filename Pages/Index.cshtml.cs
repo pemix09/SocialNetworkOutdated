@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using SocialNetwork.Models;
 
 namespace SocialNetwork.Pages
 {
@@ -13,6 +14,8 @@ namespace SocialNetwork.Pages
     {
         public bool newMessages { get; set; }
         private readonly ILogger<IndexModel> _logger;
+        public User user=new User();
+        public Post post = new Post();
 
         public IndexModel(ILogger<IndexModel> logger)
         {
@@ -22,6 +25,10 @@ namespace SocialNetwork.Pages
 
         public void OnGet(string searchQuery)
         {
+            if(HttpContext != null)
+            {
+                user.nickname = HttpContext.User.Identity.Name;
+            }
 
         }
     }

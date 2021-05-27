@@ -15,15 +15,22 @@
 
 @if (SignInManager.IsSignedIn(User))
 {
-    <div class="index-page">
-        <section style="margin-right:15px;" class="col-sm-7">
-            <h1 class="display-4">Welcome</h1>
-            <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-        </section>
-        <section class="col-sm-3">
-
-        </section>
-        
+    <div class="welcomePage">
+            <section style="margin-right:15px;" class="col-sm-7">
+                <h1 class="display-4">Welcome</h1>
+                <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+            </section>
+            <section class="col-sm-4">
+                <div class="PictureName">
+                    <div>
+                        <img src="~/src/duaLipa.png" alt="Twoje zdjęcie profilowe" class="ProfilePicture" />
+                    </div>
+                    <div class="ProfileName">
+                        Witaj @Model.user.nickname
+                    </div>
+                </div>
+                
+            </section>
     </div>
 }
 else

@@ -6,7 +6,7 @@
     height: 100vh;
     color: white;
     font-size: 40px;
-    padding:100px;
+    padding:50px;
 }
 
 .welcomePage {
@@ -14,6 +14,8 @@
     height: 100%;
     justify-content: space-between;
     align-items: center;
+    margin:20px;
+    padding:50px;
 }
 
 .welcomeText {
@@ -56,14 +58,31 @@
     background-color:lightgrey;
 }
 
-.index-page{
+.index-page {
     padding-left: 30px;
-    padding-right:30px;
-    padding-top:50px;
-    padding-bottom:50px;
-    margin:20px;
+    padding-right: 30px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    margin: 20px;
+    display: flex;
+    justify-content: space-between;
 }
 
+.ProfilePicture{
+    width:200px;
+    border-radius:50%;
+    margin:20px;
+}
+.PictureName {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-right:50px;
+}
+
+.ProfileName {
+    
+}
 .index-page-left{
     width:66%
 }
