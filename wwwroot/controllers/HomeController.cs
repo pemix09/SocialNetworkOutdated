@@ -23,24 +23,33 @@ namespace SocialNetwork.wwwroot.controllers
         {
             return View();
         }
-        [HttpPost]
-        public IActionResult UploadFiles()
+        public IActionResult Upload()
         {
-            long size = 0;
-            var files = Request.Form.Files;
+            return View();
+        }
 
-            foreach (var file in files)
+        [HttpPost]
+        public IActionResult Upload(IFormFile file)
+        {
+            // Extract file name from whatever was posted by browser
+            var fileName = System.IO.Path.GetFileName(file.FileName);
+
+            // If file with same name exists delete it
+            if (System.IO.File.Exists(fileName))
             {
-                string filename = hostingEnv.WebRootPath + $@"\src\{file.FileName}";
-                size += file.Length;
-                using (FileStream fs = System.IO.File.Create(filename))
-                {
-                    file.CopyTo(fs);
-                    fs.Flush();
-                }
+                System.IO.File.Delete(fileName);
             }
-            string message = $"{files.Count} file(s) / {size} bytes uploaded successfully!";
-            return Json(message);
+
+            // Create new local file and copy contents of uploaded file
+            using (var localFile = System.IO.File.OpenWrite(fileName))
+            using (var uploadedFile = file.OpenReadStream())
+            {
+                uploadedFile.CopyTo(localFile);
+            }
+
+            ViewBag.Message = "File successfully uploaded";
+
+            return View();
         }
     }
 }
