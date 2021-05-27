@@ -8,6 +8,15 @@ namespace SocialNetwork.Models
 {
     public class Post
     {
+        public Post(int _id, string _name, string content, DateTime _date,string photo64,int autID)
+        {
+            id = _id;
+            name = _name;
+            stringContent = content;
+            date = _date;
+            base64Photo = photo64;
+            authorID = autID;
+        }
         public int id { get; set; }
         [Display(Name = "Nazwa Posta")]
         [MinLength(2)]

@@ -18,6 +18,18 @@
     padding:50px;
 }
 
+.Post {
+    display: flex;
+    flex-direction:row;
+    justify-content: space-around;
+    align-items: center;
+}
+.PostContent{
+    display:flex;
+    flex-direction:column;
+    justify-content:space-around;
+    align-items:center;
+}
 .welcomeText {
     padding: 10px;
     width: 600px;

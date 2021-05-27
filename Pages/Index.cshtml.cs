@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using SocialNetwork.Models;
+using SocialNetwork.Data.DAL;
 
 namespace SocialNetwork.Pages
 {
@@ -15,8 +16,8 @@ namespace SocialNetwork.Pages
         public bool newMessages { get; set; }
         private readonly ILogger<IndexModel> _logger;
         public User user=new User();
-        public Post post = new Post();
-
+        public List<Post> posts;
+        public LocalDB db = new LocalDB();
         public IndexModel(ILogger<IndexModel> logger)
         {
             _logger = logger;
@@ -28,6 +29,7 @@ namespace SocialNetwork.Pages
             if(HttpContext != null)
             {
                 user.nickname = HttpContext.User.Identity.Name;
+                posts = db.GetPosts(1);
             }
 
         }

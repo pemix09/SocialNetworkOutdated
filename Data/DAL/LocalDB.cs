@@ -65,12 +65,19 @@ namespace SocialNetwork.Data.DAL
 
         public List<Post> GetPosts(int userID)
         {
-            throw new NotImplementedException();
+            DateTime now = DateTime.Now;
+            Post post1 = new Post(1, "nowy post", "Ciekawe co tu się stanie", now, "djęcie", 12),
+                post2 = new Post(4, "nowy postXdsadD", "Cidsadsaekawe co tu się stanie", now, "djęcidsae", 13),
+                post3 = new Post(4, "nowdd", "Cidsadsaekawe co tu się staniedadas", now, "djęcdasie", 14);
+            return new List<Post> { post1,post2,post3 };
         }
 
         public List<User> GetSearchResults(string searchQuery)
         {
-            throw new NotImplementedException();
+            User user1 = new User();
+            user1.nickname = "xs";
+            user1.firstName = "Przemek";
+            return new List<User> { user1 };
         }
 
         public User GetUser(int userID)
