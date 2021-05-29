@@ -7,6 +7,7 @@ namespace SocialNetwork.Models
 {
     interface IDBContext
     {
+        //nie mam pojęcia co z tym zrobić, ale to chyba powinno być w innym folderze? DAL czy cos w tym stylu???
         List<Post> GetPosts(int userID);
         List<Comment> GetPostComments(int postID);
         List<User> GetFriends(int userID);

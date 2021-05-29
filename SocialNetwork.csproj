@@ -20,6 +20,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Pages\Posts\" />
+    <Folder Include="Pages\Users\" />
     <Folder Include="wwwroot\UploadedImageDirectory\" />
   </ItemGroup>
 
