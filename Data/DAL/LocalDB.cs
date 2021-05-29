@@ -64,12 +64,14 @@ namespace SocialNetwork.Data.DAL
         }
 
         public List<Post> GetPosts(int userID)
-        {
+        {/*
             DateTime now = DateTime.Now;
+            
             Post post1 = new Post(1, "nowy post", "Ciekawe co tu się stanie", now, "djęcie", 12),
                 post2 = new Post(4, "nowy postXdsadD", "Cidsadsaekawe co tu się stanie", now, "djęcidsae", 13),
                 post3 = new Post(4, "nowdd", "Cidsadsaekawe co tu się staniedadas", now, "djęcdasie", 14);
-            return new List<Post> { post1,post2,post3 };
+            return new List<Post> { post1,post2,post3 };*/
+            throw new NotImplementedException();
         }
 
         public List<User> GetSearchResults(string searchQuery)

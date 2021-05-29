@@ -9,6 +9,7 @@ namespace SocialNetwork.Models
 {
     public class Post
     {
+        /*
         public Post(int _id, string _name, string content, DateTime _date, string photo64, int autID)
         {
             postID = _id;
@@ -17,7 +18,8 @@ namespace SocialNetwork.Models
             date = _date;
             base64Photo = photo64;
             userID = autID;
-        }
+        }*/
+        //powyższe nawala błędami jak jest, konstruktor chyba powinien być zamieniony na jakas funkcje w get w jednej ze stron
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)] //zakomentuj, jesli id ma byc generowane automatycznie
         public int postID { get; set; }

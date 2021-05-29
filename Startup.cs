@@ -30,11 +30,11 @@ namespace SocialNetwork
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("LocalDB")));
+            //services.AddDbContext<ApplicationDbContext>(options =>
+            //options.UseSqlServer(Configuration.GetConnectionString("LocalDB")));
             services.AddDatabaseDeveloperPageExceptionFilter();
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+            //services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
+           //     .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddSingleton<IFileProvider>(
            new PhysicalFileProvider(
                Path.Combine(Directory.GetCurrentDirectory(), "wwwroot")));
@@ -43,6 +43,9 @@ namespace SocialNetwork
             services.AddControllers();
             services.AddRazorPages();
             services.Add(new ServiceDescriptor(typeof(IBase64), new Base64Converter(Configuration)));
+
+            services.AddDbContext<SocialNetworkContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("SocialNetworkContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
