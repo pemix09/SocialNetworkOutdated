@@ -33,8 +33,8 @@ namespace SocialNetwork
             //services.AddDbContext<ApplicationDbContext>(options =>
             //options.UseSqlServer(Configuration.GetConnectionString("LocalDB")));
             services.AddDatabaseDeveloperPageExceptionFilter();
-            //services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
-           //     .AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
+                .AddEntityFrameworkStores<SocialNetworkContext>();
             services.AddSingleton<IFileProvider>(
            new PhysicalFileProvider(
                Path.Combine(Directory.GetCurrentDirectory(), "wwwroot")));
