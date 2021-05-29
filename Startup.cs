@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using SocialNetwork.Models;
 
 namespace SocialNetwork
 {
@@ -41,7 +42,7 @@ namespace SocialNetwork
             services.AddMvc(options => options.EnableEndpointRouting = false);
             services.AddControllers();
             services.AddRazorPages();
-            
+            services.Add(new ServiceDescriptor(typeof(IBase64), new Base64Converter(Configuration)));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -13,6 +13,12 @@ namespace SocialNetwork.Pages
     {
         [BindProperty]
         public Post post { get; set; }
+        public IBase64 converter;
+
+        public AddPostModel(IBase64 Base64Converter)
+        {
+            converter = Base64Converter;
+        }
         public void OnGet()
         {
         }
@@ -33,7 +39,7 @@ namespace SocialNetwork.Pages
             {
                 uploadedFile.CopyTo(localFile);
             }
-
+            
 
             return RedirectToPage("Index");
         }
