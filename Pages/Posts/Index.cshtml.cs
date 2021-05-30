@@ -13,18 +13,24 @@ namespace SocialNetwork.Pages.Posts
     public class IndexModel : PageModel
     {
         private readonly SocialNetwork.Data.SocialNetworkContext _context;
-
+        
         public IndexModel(SocialNetwork.Data.SocialNetworkContext context)
         {
             _context = context;
         }
-
+        
         public IList<Post> Post { get;set; }
-
+        
+        /*
         public async Task OnGetAsync()
         {
             Post = await _context.Post
                 .Include(p => p.User).ToListAsync();
+        }*/
+        public void OnGet()
+        {
+            
         }
+
     }
 }
