@@ -29,7 +29,7 @@ namespace SocialNetwork.Pages.Users
                 return NotFound();
             }
 
-            User = await _context.User.FirstOrDefaultAsync(m => m.id == id);
+            User = await _context.Users.FirstOrDefaultAsync(m => m.ID == id);
 
             if (User == null)
             {
@@ -45,11 +45,11 @@ namespace SocialNetwork.Pages.Users
                 return NotFound();
             }
 
-            User = await _context.User.FindAsync(id);
+            User = await _context.Users.FindAsync(id);
 
             if (User != null)
             {
-                _context.User.Remove(User);
+                _context.Users.Remove(User);
                 await _context.SaveChangesAsync();
             }
 

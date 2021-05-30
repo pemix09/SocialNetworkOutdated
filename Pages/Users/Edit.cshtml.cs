@@ -30,7 +30,7 @@ namespace SocialNetwork.Pages.Users
                 return NotFound();
             }
 
-            User = await _context.User.FirstOrDefaultAsync(m => m.id == id);
+            User = await _context.Users.FirstOrDefaultAsync(m => m.ID == id);
 
             if (User == null)
             {
@@ -56,7 +56,7 @@ namespace SocialNetwork.Pages.Users
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!UserExists(User.id))
+                if (!UserExists(User.ID))
                 {
                     return NotFound();
                 }
@@ -71,7 +71,7 @@ namespace SocialNetwork.Pages.Users
 
         private bool UserExists(int id)
         {
-            return _context.User.Any(e => e.id == id);
+            return _context.Users.Any(e => e.ID == id);
         }
     }
 }

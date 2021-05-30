@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SocialNetwork.Migrations
 {
-    public partial class CreateIdentitySchema : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -11,21 +11,18 @@ namespace SocialNetwork.Migrations
                 name: "User",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "int", nullable: false)
+                    ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     firstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     lastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     birthDate = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     nickname = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    phone = table.Column<long>(type: "bigint", nullable: false),
-                    messageID = table.Column<int>(type: "int", nullable: false),
-                    commentID = table.Column<int>(type: "int", nullable: false),
-                    postID = table.Column<int>(type: "int", nullable: false)
+                    phone = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_User", x => x.id);
+                    table.PrimaryKey("PK_User", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -47,7 +44,7 @@ namespace SocialNetwork.Migrations
                         name: "FK_Message_User_userID",
                         column: x => x.userID,
                         principalTable: "User",
-                        principalColumn: "id",
+                        principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -60,8 +57,8 @@ namespace SocialNetwork.Migrations
                     stringContent = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     base64Photo = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    posX = table.Column<float>(type: "real", nullable: false),
-                    posY = table.Column<float>(type: "real", nullable: false),
+                    posX = table.Column<float>(type: "real", nullable: true),
+                    posY = table.Column<float>(type: "real", nullable: true),
                     userID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -71,7 +68,7 @@ namespace SocialNetwork.Migrations
                         name: "FK_Post_User_userID",
                         column: x => x.userID,
                         principalTable: "User",
-                        principalColumn: "id",
+                        principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -81,8 +78,8 @@ namespace SocialNetwork.Migrations
                 {
                     commentID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    userID = table.Column<int>(type: "int", nullable: false),
                     postID = table.Column<int>(type: "int", nullable: false),
+                    userID = table.Column<int>(type: "int", nullable: true),
                     stringContent = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     base64Image = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     date = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -101,8 +98,8 @@ namespace SocialNetwork.Migrations
                         name: "FK_Comment_User_userID",
                         column: x => x.userID,
                         principalTable: "User",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(

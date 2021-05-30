@@ -42,7 +42,7 @@ namespace SocialNetwork.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("userID")
+                    b.Property<int?>("userID")
                         .HasColumnType("int");
 
                     b.HasKey("commentID");
@@ -100,10 +100,10 @@ namespace SocialNetwork.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<float>("posX")
+                    b.Property<float?>("posX")
                         .HasColumnType("real");
 
-                    b.Property<float>("posY")
+                    b.Property<float?>("posY")
                         .HasColumnType("real");
 
                     b.Property<string>("stringContent")
@@ -122,16 +122,13 @@ namespace SocialNetwork.Migrations
 
             modelBuilder.Entity("SocialNetwork.Models.User", b =>
                 {
-                    b.Property<int>("id")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("birthDate")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("commentID")
-                        .HasColumnType("int");
 
                     b.Property<string>("email")
                         .IsRequired()
@@ -143,20 +140,14 @@ namespace SocialNetwork.Migrations
                     b.Property<string>("lastName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("messageID")
-                        .HasColumnType("int");
-
                     b.Property<string>("nickname")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long>("phone")
-                        .HasColumnType("bigint");
+                    b.Property<string>("phone")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("postID")
-                        .HasColumnType("int");
-
-                    b.HasKey("id");
+                    b.HasKey("ID");
 
                     b.ToTable("User");
                 });
@@ -170,10 +161,8 @@ namespace SocialNetwork.Migrations
                         .IsRequired();
 
                     b.HasOne("SocialNetwork.Models.User", "User")
-                        .WithMany("Comments")
-                        .HasForeignKey("userID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("userID");
 
                     b.Navigation("Post");
 
@@ -209,8 +198,6 @@ namespace SocialNetwork.Migrations
 
             modelBuilder.Entity("SocialNetwork.Models.User", b =>
                 {
-                    b.Navigation("Comments");
-
                     b.Navigation("Messages");
 
                     b.Navigation("Posts");

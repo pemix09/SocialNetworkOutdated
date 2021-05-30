@@ -28,7 +28,7 @@ namespace SocialNetwork.Pages
         {
             if(HttpContext != null)
             {
-                user.nickname = HttpContext.User.Identity.Name;
+                //user.nickname = HttpContext.User.Identity.Name;
                // posts = db.GetPosts(1);
             }
 

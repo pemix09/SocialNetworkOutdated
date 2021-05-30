@@ -13,7 +13,7 @@
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="User.id" />
+            <input type="hidden" asp-for="User.ID" />
             <div class="form-group">
                 <label asp-for="User.firstName" class="control-label"></label>
                 <input asp-for="User.firstName" class="form-control" />
@@ -43,21 +43,6 @@
                 <label asp-for="User.phone" class="control-label"></label>
                 <input asp-for="User.phone" class="form-control" />
                 <span asp-validation-for="User.phone" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="User.messageID" class="control-label"></label>
-                <input asp-for="User.messageID" class="form-control" />
-                <span asp-validation-for="User.messageID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="User.commentID" class="control-label"></label>
-                <input asp-for="User.commentID" class="form-control" />
-                <span asp-validation-for="User.commentID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="User.postID" class="control-label"></label>
-                <input asp-for="User.postID" class="form-control" />
-                <span asp-validation-for="User.postID" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

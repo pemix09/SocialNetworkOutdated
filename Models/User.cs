@@ -11,7 +11,7 @@ namespace SocialNetwork.Models
     {
         //Wyjdzie kiedyś jakieś wyrażenia regularne wykorzystać
         [Key]
-        public int id { get; set; }
+        public int ID { get; set; }
         [Display(Name = "Imię")]
         [MinLength(2)]
         [DataType(DataType.Text)]
@@ -34,13 +34,8 @@ namespace SocialNetwork.Models
         [Display(Name = "Nr telefonu")]
         [MinLength(7)]
         [DataType(DataType.PhoneNumber)]
-        public Int64 phone { get; set; }
-        public int messageID { get; set; }
-        public int commentID { get; set; }
-        public int postID { get; set; }
-
+        public string phone { get; set; }
         public ICollection<Message> Messages { get; set; }
-        public ICollection<Comment> Comments { get; set; }
         public ICollection<Post> Posts { get; set; }
     }
 }

@@ -28,7 +28,7 @@ namespace SocialNetwork.Pages.Users
                 return NotFound();
             }
 
-            User = await _context.User.FirstOrDefaultAsync(m => m.id == id);
+            User = await _context.Users.FirstOrDefaultAsync(m => m.ID == id);
 
             if (User == null)
             {
