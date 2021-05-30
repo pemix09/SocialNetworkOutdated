@@ -19,7 +19,7 @@ namespace SocialNetwork.Models
         void AddUser(User user);
         User GetUser(int userID);
         void EditUser(int userID, User editedUser);
-        void DelteUser(int userID);
+        void DeleteUser(int userID);
         List<User> GetSearchResults(string searchQuery);
         List<Message> GetMessages(int userID);
     }
