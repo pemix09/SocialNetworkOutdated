@@ -24,6 +24,12 @@
             @Html.DisplayFor(model => model.User.lastName)
         </dd>
         <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.User.gender)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.User.gender)
+        </dd>
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.User.birthDate)
         </dt>
         <dd class="col-sm-10">
@@ -40,6 +46,12 @@
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.User.email)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.User.password)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.User.password)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.User.phone)

@@ -20,6 +20,9 @@ namespace SocialNetwork.Models
         [MinLength(2)]
         [DataType(DataType.Text)]
         public string lastName { get; set; }
+        [Display(Name = "Płeć")]
+        [Required]
+        public string gender { get; set; }
         [Display(Name = "Data urodzenia")]
         [DataType(DataType.Date)]
         public string birthDate { get; set; }
@@ -31,6 +34,14 @@ namespace SocialNetwork.Models
         [Required(ErrorMessage = "Pole 'E-mail' jest wymagane")]
         [DataType(DataType.EmailAddress)]
         public string email { get; set; }
+        [Display(Name = "Hasło")]
+        [MinLength(6)]
+        [StringLength(30)]
+        public string password { get; set; }
+        [NotMapped]
+        public string passwordSalt { get; set; }
+        [NotMapped]
+        public string passwordIterCount { get; set; }
         [Display(Name = "Nr telefonu")]
         [MinLength(7)]
         [DataType(DataType.PhoneNumber)]
