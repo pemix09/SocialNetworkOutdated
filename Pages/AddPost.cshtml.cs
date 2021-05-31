@@ -19,44 +19,87 @@ namespace SocialNetwork.Pages
         public IBase64 converter;
         private readonly IHttpContextAccessor _httpContextAccessor;
         string userID;
+        public string _returnURL;
 
         public AddPostModel(IBase64 Base64Converter, IHttpContextAccessor httpContextAccessor)
         {
             converter = Base64Converter;
             _httpContextAccessor = httpContextAccessor;
+            userID = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
         }
         public void OnGet()
         {
-            userID = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
         }
-        public IActionResult OnPost(IFormFile file)
+        public IActionResult OnPost(IFormFile file, string returnUrl = null)
         {
+            _returnURL = returnUrl;
             // Extract file name from whatever was posted by browser
-            var fileName = System.IO.Path.GetFileName(file.FileName);
-
-            string base64Photo;
-
-            // If file with same name exists delete it
-            if (System.IO.File.Exists(fileName))
+            if(file == null)
             {
+                DateTime now = DateTime.Now;
+                post.date = now;
+                post.userID = this.userID;
+                if (ModelState.IsValid == true)
+                {
+                    //DodajPost(post)
+                    if (_returnURL != null)
+                    {
+                        return RedirectToPage(_returnURL);
+                    }
+                    else
+                    {
+                        return RedirectToPage("Index");
+
+                    }
+                }
+                return Page();
+
+            }
+            else
+            {
+                string base64Photo;
+                var fileName = System.IO.Path.GetFileName(file.FileName);
+                // If file with same name exists delete it
+                if (System.IO.File.Exists(fileName))
+                {
+                    System.IO.File.Delete(fileName);
+                }
+
+                // Create new local file and copy contents of uploaded file
+                using (var localFile = System.IO.File.OpenWrite(fileName))
+                using (var uploadedFile = file.OpenReadStream())
+                {
+                    uploadedFile.CopyTo(localFile);
+                }
+                if (fileName != null)
+                {
+                    base64Photo = converter.GetBase64FromPicture(fileName);
+                    post.base64Photo = base64Photo;
+                }
+
+                DateTime now = DateTime.Now;
+                post.date = now;
+                post.userID = this.userID;
                 System.IO.File.Delete(fileName);
+                //Dobra mamy userID, zdjêcie w formacie Base64 itd. teraz wywo³aæ metodê dodawania tego postu
+                //DodajPost(...)
+                if (ModelState.IsValid == true)
+                {
+                    //DodajPost(post)
+                    if (_returnURL != null)
+                    {
+                        return RedirectToPage(_returnURL);
+                    }
+                    else
+                    {
+                        return RedirectToPage("Index");
+
+                    }
+                }
+                return Page();
             }
 
-            // Create new local file and copy contents of uploaded file
-            using (var localFile = System.IO.File.OpenWrite(fileName))
-            using (var uploadedFile = file.OpenReadStream())
-            {
-                uploadedFile.CopyTo(localFile);
-            }
-            base64Photo = converter.GetBase64FromPicture(fileName);
-            DateTime now = DateTime.Now;
-
-            System.IO.File.Delete(fileName);
-
-            //Dobra mamy userID, zdjêcie w formacie Base64 itd. teraz wywo³aæ metodê dodawania tego postu
-            //DodajPost(...)
-
-            return RedirectToPage("Index");
+            
         }
     }
 }

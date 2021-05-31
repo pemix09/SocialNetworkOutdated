@@ -33,8 +33,8 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
         [BindProperty]
         public InputModel Input { get; set; }
 
-        [BindProperty]
-        public User user { get; set; }
+       /* [BindProperty]
+        public User user { get; set; }*/
         public string ReturnUrl { get; set; }
 
         public IList<AuthenticationScheme> ExternalLogins { get; set; }
@@ -73,14 +73,15 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
-                    _logger.LogInformation("User created a new account with password.");
+                    _logger.LogInformation("U¿ytkownik poprawnie stworzy³ swoje konto");
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     return LocalRedirect(returnUrl);
                 }
                 foreach (var error in result.Errors)
                 {
-                    ModelState.AddModelError(string.Empty, error.Description);
+                    ModelState.AddModelError("EmailTaken", "Podany adres Email jest ju¿ u¿ywany");
+                    //ModelState.AddModelError(string.Empty, error.Description);
                 }
             }
 

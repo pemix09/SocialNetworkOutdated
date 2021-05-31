@@ -10,7 +10,7 @@ namespace SocialNetwork.Models
     public class Post
     {
         public Post() { }
-        public Post(int PostID, string Name, string StringContent, DateTime Date, string Base64Photo, int UserID)
+        public Post(int PostID, string Name, string StringContent, DateTime Date, string Base64Photo, string UserID)
         {
             postID = PostID;
             name = Name;
@@ -26,11 +26,11 @@ namespace SocialNetwork.Models
         [Display(Name = "Nazwa Posta")]
         [MinLength(2)]
         [StringLength(100)]//varchar(100)
-        [Required]
+        [Required(ErrorMessage ="Nazwa posta jest wymagana")]
         public string name { get; set; }
         [Display(Name = "Opis Posta")]//opis posta? czy zawartość posta?
         [MinLength(10)]
-        [Required]//chyba post jednak powinien cos zawierac
+        [Required(ErrorMessage ="Opis posta jest wymagany")]//chyba post jednak powinien cos zawierac
         public string stringContent { get; set; }
         //Data posta, która jest ważna z powodu tego, kiedy został on zrobiony
         [Required]
@@ -41,7 +41,7 @@ namespace SocialNetwork.Models
         public float? posX { get; set; }
         public float? posY { get; set; }
         [Required]//FK
-        public int userID { get; set; }
+        public string userID { get; set; }
         [Required]//to jest chyba zbedne, ale poki co zostawiam
         public User User { get; set; }//AUTOR
         public ICollection<Comment> Comments { get; set; }
