@@ -1,34 +1,45 @@
 ﻿body {
+    height: 100%;
+    margin: 0;
+}
+.p {
+    font-size: 15px !important;
 }
 
 .welcome {
     background-color: rgb(26, 26, 37);
-    height: 100vh;
     color: white;
     font-size: 40px;
-    padding:50px;
+    margin-bottom:60px;
 }
 
 .welcomePage {
     display: flex;
     height: 100%;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    margin:20px;
-    padding:50px;
+    margin: 20px;
+    padding: 50px;
+    flex: 1 1 auto;
 }
 
 .Post {
-    display: flex;
-    flex-direction:row;
-    justify-content: space-around;
-    align-items: center;
+    width:100%;
+    height:300px;
+    border:solid;
+    border-color:black;
+    padding:20px;
+    margin:40px;
 }
 .PostContent{
-    display:flex;
-    flex-direction:column;
-    justify-content:space-around;
-    align-items:center;
+    font-size:15px
+}
+.PostPage {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 1 1 auto;
 }
 .welcomeText {
     padding: 10px;
