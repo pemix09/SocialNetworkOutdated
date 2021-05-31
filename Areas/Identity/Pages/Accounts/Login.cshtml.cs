@@ -13,16 +13,15 @@ using Microsoft.Extensions.Logging;
 namespace SocialNetwork.Areas.Identity.Pages.Accounts
 {
     [AllowAnonymous]
-    public class RegisterModel : PageModel
+    public class LoginModel : PageModel
     {
-        private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
-        private readonly ILogger<RegisterModel> _logger;
+        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly ILogger<LoginModel> _logger;
 
-        public RegisterModel(
-            UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager,
-            ILogger<RegisterModel> logger)
+        public LoginModel(SignInManager<IdentityUser> signInManager,
+            ILogger<LoginModel> logger,
+            UserManager<IdentityUser> userManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -32,56 +31,69 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
         [BindProperty]
         public InputModel Input { get; set; }
 
+        public IList<AuthenticationScheme> ExternalLogins { get; set; }
+
         public string ReturnUrl { get; set; }
 
-        public IList<AuthenticationScheme> ExternalLogins { get; set; }
+        [TempData]
+        public string ErrorMessage { get; set; }
 
         public class InputModel
         {
-            [Required(ErrorMessage ="Adres Email jest wymagany")]
+            [Required(ErrorMessage ="Adres email jest wymagany")]
             [EmailAddress]
             [Display(Name = "Adres Email")]
             public string Email { get; set; }
 
-            [Required(ErrorMessage ="Has³o jest wymagane")]
-            [StringLength(100, ErrorMessage = "Has³o musi sk³adaæ siê z od 6 do 100 znaków", MinimumLength = 6)]
+            [Required(ErrorMessage ="Has³o jest wymagane!")]
             [DataType(DataType.Password)]
-            [Display(Name = "Has³o")]
+            [Display(Name ="Has³o")]
             public string Password { get; set; }
 
-            [DataType(DataType.Password)]
-            [Display(Name = "Powtórz has³o")]
-            [Compare("Password", ErrorMessage = "Has³a s¹ ró¿ne")]
-            public string ConfirmPassword { get; set; }
+            [Display(Name = "Zapamiêtaj mnie")]
+            public bool RememberMe { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)
         {
+            if (!string.IsNullOrEmpty(ErrorMessage))
+            {
+                ModelState.AddModelError(string.Empty, ErrorMessage);
+            }
+
+            returnUrl ??= Url.Content("~/");
+
+            // Clear the existing external cookie to ensure a clean login process
+            await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
+
             ReturnUrl = returnUrl;
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl ??= Url.Content("~/");
+
+
             if (ModelState.IsValid)
             {
-                var user = new IdentityUser { UserName = Input.Email, Email = Input.Email };
-                var result = await _userManager.CreateAsync(user, Input.Password);
+                // This doesn't count login failures towards account lockout
+                // To enable password failures to trigger account lockout, set lockoutOnFailure: true
+                var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
-                    _logger.LogInformation("User created a new account with password.");
-
-                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    _logger.LogInformation("User logged in.");
                     return LocalRedirect(returnUrl);
                 }
-                foreach (var error in result.Errors)
+                else
                 {
-                    ModelState.AddModelError(string.Empty, error.Description);
+                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    return Page();
                 }
             }
 
             // If we got this far, something failed, redisplay form
             return Page();
         }
-    }
+    
+}
 }
