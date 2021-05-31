@@ -58,14 +58,12 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
             public string ConfirmPassword { get; set; }
         }
 
-        public async Task OnGetAsync(Task<string> returnUrl = null)
+        public async Task OnGetAsync()
         {
-            ReturnUrl = await returnUrl;
         }
 
-        public async Task<IActionResult> OnPostAsync(string returnUrl = null)
+        public async Task<IActionResult> OnPostAsync()
         {
-            returnUrl ??= Url.Content("~/");
             if (ModelState.IsValid)
             {
                 
@@ -76,12 +74,12 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
                     _logger.LogInformation("U¿ytkownik poprawnie stworzy³ swoje konto");
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
-                    return LocalRedirect(returnUrl);
+                    return Redirect("~/");
                 }
                 foreach (var error in result.Errors)
                 {
-                    ModelState.AddModelError("EmailTaken", "Podany adres Email jest ju¿ u¿ywany");
-                    //ModelState.AddModelError(string.Empty, error.Description);
+                    //ModelState.AddModelError("EmailTaken", "Podany adres Email jest ju¿ u¿ywany");
+                    ModelState.AddModelError(string.Empty, error.Description);
                 }
             }
 

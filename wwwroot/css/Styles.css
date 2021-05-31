@@ -157,10 +157,11 @@
 }
 
 .PictureButton {
-    border:none;
-    background-color:rgb(0,0,0,0);
-    fill:white;
-    color:white;
+    border: none;
+    background-color: rgb(0,0,0,0);
+    fill: white;
+    color: white;
+    outline: none;
 }
 .PictureButton:hover{
     fill:red;
