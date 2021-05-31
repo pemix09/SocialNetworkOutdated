@@ -9,43 +9,64 @@ namespace SocialNetwork.Models
 {
     public class User
     {
+        public enum Gender
+        {
+            male, female
+        }
         //Wyjdzie kiedyś jakieś wyrażenia regularne wykorzystać
         [Key]
         public int ID { get; set; }
         [Display(Name = "Imię")]
         [MinLength(2)]
         [DataType(DataType.Text)]
-        public string firstName { get; set; }
+        [DisplayFormat(ConvertEmptyStringToNull = false)]
+        [Required(AllowEmptyStrings = true)]
+        [StringLength(50)]
+#nullable enable
+        public string? firstName { get; set; }
         [Display(Name = "Nazwisko")]
         [MinLength(2)]
         [DataType(DataType.Text)]
-        public string lastName { get; set; }
+        [DisplayFormat(ConvertEmptyStringToNull = false)]
+        [Required(AllowEmptyStrings = true)]
+        [StringLength(50)]
+        public string? lastName { get; set; }
         [Display(Name = "Płeć")]
-        [Required]
-        public string gender { get; set; }
+        [StringLength(30)]
+        public Gender? gender { get; set; }
         [Display(Name = "Data urodzenia")]
         [DataType(DataType.Date)]
-        public string birthDate { get; set; }
+        public string? birthDate { get; set; }
+        #nullable disable
         [Display(Name = "Nazwa użytkownika")]
         [Required(ErrorMessage = "Pole 'Nazwa użytkownika' jest wymagane")]
         [DataType(DataType.Text)]
+        [StringLength(30)]
         public string nickname { get; set; }
         [Display(Name = "E-mail")]
         [Required(ErrorMessage = "Pole 'E-mail' jest wymagane")]
         [DataType(DataType.EmailAddress)]
+        [StringLength(100)]
         public string email { get; set; }
         [Display(Name = "Hasło")]
         [MinLength(6)]
         [StringLength(30)]
         public string password { get; set; }
+        [StringLength(250)]
         [NotMapped]
-        public string passwordSalt { get; set; }
+        #nullable enable
+        public string? passwordSalt { get; set; }
+        [StringLength(250)]
         [NotMapped]
-        public string passwordIterCount { get; set; }
+        public string? passwordIterCount { get; set; }
         [Display(Name = "Nr telefonu")]
+        [StringLength(15)]
         [MinLength(7)]
         [DataType(DataType.PhoneNumber)]
-        public string phone { get; set; }
+        [DisplayFormat(ConvertEmptyStringToNull = false)]
+        [Required(AllowEmptyStrings = true)]
+        public string? phone { get; set; }
+        #nullable disable
         public ICollection<Message> Messages { get; set; }
         public ICollection<Post> Posts { get; set; }
     }

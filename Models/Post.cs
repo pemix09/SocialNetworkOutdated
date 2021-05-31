@@ -10,7 +10,7 @@ namespace SocialNetwork.Models
     public class Post
     {
         public Post() { }
-        public Post(int PostID, string Name, string StringContent, DateTime Date, string Base64Photo, string UserID)
+        public Post(int PostID, string Name, string StringContent, DateTime Date, string Base64Photo, int UserID)
         {
             postID = PostID;
             name = Name;
@@ -19,10 +19,11 @@ namespace SocialNetwork.Models
             base64Photo = Base64Photo;
             userID = UserID;
         }
-        //powyższe nawala błędami jak jest, konstruktor chyba powinien być zamieniony na jakas funkcje w get w jednej ze stron
+        
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)] //zakomentuj, jesli id ma byc generowane automatycznie
         public int postID { get; set; }
+        
         [Display(Name = "Nazwa Posta")]
         [MinLength(2)]
         [StringLength(100)]//varchar(100)
@@ -37,12 +38,12 @@ namespace SocialNetwork.Models
         [DataType(DataType.DateTime)]
         public DateTime date { get; set; }
         [DataType(DataType.Text)]
+        #nullable enable
         public string? base64Photo { get; set; }
         public float? posX { get; set; }
         public float? posY { get; set; }
-        [Required]//FK
-        public string userID { get; set; }
-        [Required]//to jest chyba zbedne, ale poki co zostawiam
+        public int? userID { get; set; }
+        #nullable disable
         public User User { get; set; }//AUTOR
         public ICollection<Comment> Comments { get; set; }
     }

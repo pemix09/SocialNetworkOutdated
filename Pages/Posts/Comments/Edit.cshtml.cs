@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using SocialNetwork.Data;
 using SocialNetwork.Models;
 
-namespace SocialNetwork.Pages.Users
+namespace SocialNetwork.Pages.Posts.Comments
 {
     public class EditModel : PageModel
     {
@@ -21,7 +21,7 @@ namespace SocialNetwork.Pages.Users
         }
 
         [BindProperty]
-        public new User User { get; set; }
+        public Comment Comment { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -30,12 +30,16 @@ namespace SocialNetwork.Pages.Users
                 return NotFound();
             }
 
-            User = await _context.Users.FirstOrDefaultAsync(m => m.ID == id);
+            Comment = await _context.Comments
+                .Include(c => c.Post)
+                .Include(c => c.User).FirstOrDefaultAsync(m => m.commentID == id);
 
-            if (User == null)
+            if (Comment == null)
             {
                 return NotFound();
             }
+           ViewData["postID"] = new SelectList(_context.Posts, "postID", "name");
+           ViewData["userID"] = new SelectList(_context.Users, "ID", "email");
             return Page();
         }
 
@@ -48,7 +52,7 @@ namespace SocialNetwork.Pages.Users
                 return Page();
             }
 
-            _context.Attach(User).State = EntityState.Modified;
+            _context.Attach(Comment).State = EntityState.Modified;
 
             try
             {
@@ -56,7 +60,7 @@ namespace SocialNetwork.Pages.Users
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!UserExists(User.ID))
+                if (!CommentExists(Comment.commentID))
                 {
                     return NotFound();
                 }
@@ -69,9 +73,9 @@ namespace SocialNetwork.Pages.Users
             return RedirectToPage("./Index");
         }
 
-        private bool UserExists(int id)
+        private bool CommentExists(int id)
         {
-            return _context.Users.Any(e => e.ID == id);
+            return _context.Comments.Any(e => e.commentID == id);
         }
     }
 }

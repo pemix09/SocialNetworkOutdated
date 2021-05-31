@@ -18,10 +18,10 @@ namespace SocialNetwork.Models
         public DateTime date { get; set; }
         [Required]
         [DataType(DataType.Text)]
-        public int userID { get; set; }
+        public int? userID { get; set; }
         [Required]
         [DataType(DataType.Text)]
-        public int recevingUserID { get; set; }
+        public int? recevingUserID { get; set; }
         [Required]
         public Boolean isRead { get; set; }
         public User User { get; set; }//nie mam pewności, ale chyba warto przypisac wiadomość do wysyłającego

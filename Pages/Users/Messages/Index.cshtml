@@ -1,0 +1,60 @@
+﻿@page
+@model SocialNetwork.Pages.Users.Messages.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Message[0].messageContent)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Message[0].date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Message[0].recevingUserID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Message[0].isRead)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Message[0].User)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Message) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.messageContent)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.recevingUserID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.isRead)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.email)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.messageID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.messageID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.messageID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

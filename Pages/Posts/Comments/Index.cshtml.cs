@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using SocialNetwork.Data;
 using SocialNetwork.Models;
 
-namespace SocialNetwork.Pages.Users
+namespace SocialNetwork.Pages.Posts.Comments
 {
     public class IndexModel : PageModel
     {
@@ -19,11 +19,13 @@ namespace SocialNetwork.Pages.Users
             _context = context;
         }
 
-        public new IList<User> User { get;set; }
+        public IList<Comment> Comment { get;set; }
 
         public async Task OnGetAsync()
         {
-            User = await _context.Users.ToListAsync();
+            Comment = await _context.Comments
+                .Include(c => c.Post)
+                .Include(c => c.User).ToListAsync();
         }
     }
 }
