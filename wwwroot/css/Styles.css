@@ -24,12 +24,14 @@
 }
 
 .Post {
-    width:100%;
+    width:80vw;
     height:300px;
     border:solid;
-    border-color:black;
+    border-color:white;
     padding:20px;
     margin:40px;
+    display:flex;
+    flex-direction:row;
 }
 .PostContent{
     font-size:15px
@@ -40,6 +42,17 @@
     justify-content: center;
     align-items: center;
     flex: 1 1 auto;
+}
+.PostTitleContent{
+
+}
+.PostTileAndButtons{
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    justify-content:space-between;
+    color:white;
+    gap:10px;
 }
 .welcomeText {
     padding: 10px;
@@ -134,4 +147,11 @@
     .msg::after {
         left: 2.9vw;
     }
+}
+.svgButtons {
+    fill:white
+}
+
+.svgButtons:hover {
+    fill: red;
 }
