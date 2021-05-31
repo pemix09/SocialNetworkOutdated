@@ -17,7 +17,7 @@ namespace SocialNetwork.Models
         }
         public string GetBase64FromPicture(string filePath)
         {
-            byte[] imageArray = System.IO.File.ReadAllBytes(@"image file path");
+            byte[] imageArray = System.IO.File.ReadAllBytes(filePath);
             string base64ImageRepresentation = Convert.ToBase64String(imageArray);
             return base64ImageRepresentation;
         }
