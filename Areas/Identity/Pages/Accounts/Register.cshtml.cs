@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using SocialNetwork.Models;
 
 namespace SocialNetwork.Areas.Identity.Pages.Accounts
 {
@@ -32,6 +33,8 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
         [BindProperty]
         public InputModel Input { get; set; }
 
+        [BindProperty]
+        public User user { get; set; }
         public string ReturnUrl { get; set; }
 
         public IList<AuthenticationScheme> ExternalLogins { get; set; }
@@ -65,6 +68,7 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
             returnUrl ??= Url.Content("~/");
             if (ModelState.IsValid)
             {
+                
                 var user = new IdentityUser { UserName = Input.Email, Email = Input.Email };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
