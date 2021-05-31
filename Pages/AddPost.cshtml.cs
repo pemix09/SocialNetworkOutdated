@@ -25,7 +25,7 @@ namespace SocialNetwork.Pages
         {
             converter = Base64Converter;
             _httpContextAccessor = httpContextAccessor;
-            userID = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            userID = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);//Zwracany ci¹g znaków?
         }
         public void OnGet()
         {
@@ -38,7 +38,7 @@ namespace SocialNetwork.Pages
             {
                 DateTime now = DateTime.Now;
                 post.date = now;
-                post.userID = this.userID;
+                post.userID = Int32.Parse(this.userID);//userID to userID, a nie identyfikator typu string, potrzebna nowa kolumna?
                 if (ModelState.IsValid == true)
                 {
                     //DodajPost(post)
@@ -79,7 +79,7 @@ namespace SocialNetwork.Pages
 
                 DateTime now = DateTime.Now;
                 post.date = now;
-                post.userID = this.userID;
+                post.userID = Int32.Parse(this.userID);
                 System.IO.File.Delete(fileName);
                 //Dobra mamy userID, zdjêcie w formacie Base64 itd. teraz wywo³aæ metodê dodawania tego postu
                 //DodajPost(...)

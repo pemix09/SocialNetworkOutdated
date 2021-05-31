@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using SocialNetwork.Data;
 using SocialNetwork.Models;
 
-namespace SocialNetwork.Pages.Users
+namespace SocialNetwork.Pages.Posts
 {
     public class CreateModel : PageModel
     {
@@ -25,7 +25,7 @@ namespace SocialNetwork.Pages.Users
         }
 
         [BindProperty]
-        public new User User { get; set; }
+        public Post Post { get; set; }
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
@@ -35,7 +35,7 @@ namespace SocialNetwork.Pages.Users
                 return Page();
             }
 
-            _context.Users.Add(User);
+            _context.Posts.Add(Post);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

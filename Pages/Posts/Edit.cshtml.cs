@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using SocialNetwork.Data;
 using SocialNetwork.Models;
 
-namespace SocialNetwork.Pages.Users
+namespace SocialNetwork.Pages.Posts
 {
     public class EditModel : PageModel
     {
@@ -21,7 +21,7 @@ namespace SocialNetwork.Pages.Users
         }
 
         [BindProperty]
-        public new User User { get; set; }
+        public Post Post { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -30,9 +30,9 @@ namespace SocialNetwork.Pages.Users
                 return NotFound();
             }
 
-            User = await _context.Users.FirstOrDefaultAsync(m => m.ID == id);
+            Post = await _context.Posts.FirstOrDefaultAsync(m => m.postID == id);
 
-            if (User == null)
+            if (Post == null)
             {
                 return NotFound();
             }
@@ -48,7 +48,7 @@ namespace SocialNetwork.Pages.Users
                 return Page();
             }
 
-            _context.Attach(User).State = EntityState.Modified;
+            _context.Attach(Post).State = EntityState.Modified;
 
             try
             {
@@ -56,7 +56,7 @@ namespace SocialNetwork.Pages.Users
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!UserExists(User.ID))
+                if (!PostExists(Post.postID))
                 {
                     return NotFound();
                 }
@@ -69,9 +69,9 @@ namespace SocialNetwork.Pages.Users
             return RedirectToPage("./Index");
         }
 
-        private bool UserExists(int id)
+        private bool PostExists(int id)
         {
-            return _context.Users.Any(e => e.ID == id);
+            return _context.Posts.Any(e => e.postID == id);
         }
     }
 }

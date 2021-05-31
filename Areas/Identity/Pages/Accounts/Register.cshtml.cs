@@ -58,9 +58,9 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
             public string ConfirmPassword { get; set; }
         }
 
-        public async Task OnGetAsync(string returnUrl = null)
+        public async Task OnGetAsync(Task<string> returnUrl = null)
         {
-            ReturnUrl = returnUrl;
+            ReturnUrl = await returnUrl;
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)

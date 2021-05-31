@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using SocialNetwork.Data;
 using SocialNetwork.Models;
 
-namespace SocialNetwork.Pages.Users
+namespace SocialNetwork.Pages.Posts.Comments
 {
     public class DetailsModel : PageModel
     {
@@ -19,7 +19,7 @@ namespace SocialNetwork.Pages.Users
             _context = context;
         }
 
-        public new User User { get; set; }
+        public Comment Comment { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -28,9 +28,11 @@ namespace SocialNetwork.Pages.Users
                 return NotFound();
             }
 
-            User = await _context.Users.FirstOrDefaultAsync(m => m.ID == id);
+            Comment = await _context.Comments
+                .Include(c => c.Post)
+                .Include(c => c.User).FirstOrDefaultAsync(m => m.commentID == id);
 
-            if (User == null)
+            if (Comment == null)
             {
                 return NotFound();
             }

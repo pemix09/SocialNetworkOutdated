@@ -10,8 +10,8 @@ using SocialNetwork.Data;
 namespace SocialNetwork.Migrations
 {
     [DbContext(typeof(SocialNetworkContext))]
-    [Migration("20210531122023_ZmianaPost")]
-    partial class ZmianaPost
+    [Migration("20210531172938_modelUpdate1")]
+    partial class modelUpdate1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -237,7 +237,7 @@ namespace SocialNetwork.Migrations
                     b.Property<int>("postID")
                         .HasColumnType("int");
 
-                    b.Property<float>("score")
+                    b.Property<float?>("score")
                         .HasColumnType("real");
 
                     b.Property<string>("stringContent")
@@ -273,10 +273,12 @@ namespace SocialNetwork.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("recevingUserID")
+                    b.Property<int?>("recevingUserID")
+                        .IsRequired()
                         .HasColumnType("int");
 
-                    b.Property<int>("userID")
+                    b.Property<int?>("userID")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.HasKey("messageID");
@@ -289,9 +291,6 @@ namespace SocialNetwork.Migrations
             modelBuilder.Entity("SocialNetwork.Models.Post", b =>
                 {
                     b.Property<int>("postID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserID")
                         .HasColumnType("int");
 
                     b.Property<string>("base64Photo")
@@ -315,13 +314,12 @@ namespace SocialNetwork.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("userID")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("userID")
+                        .HasColumnType("int");
 
                     b.HasKey("postID");
 
-                    b.HasIndex("UserID");
+                    b.HasIndex("userID");
 
                     b.ToTable("Post");
                 });
@@ -338,28 +336,36 @@ namespace SocialNetwork.Migrations
 
                     b.Property<string>("email")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("firstName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("gender")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int?>("gender")
+                        .HasMaxLength(30)
+                        .HasColumnType("int");
 
                     b.Property<string>("lastName")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("nickname")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
                     b.Property<string>("password")
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
 
                     b.Property<string>("phone")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
 
                     b.HasKey("ID");
 
@@ -449,9 +455,7 @@ namespace SocialNetwork.Migrations
                 {
                     b.HasOne("SocialNetwork.Models.User", "User")
                         .WithMany("Posts")
-                        .HasForeignKey("UserID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("userID");
 
                     b.Navigation("User");
                 });

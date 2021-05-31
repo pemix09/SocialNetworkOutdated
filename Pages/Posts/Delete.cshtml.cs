@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using SocialNetwork.Data;
 using SocialNetwork.Models;
 
-namespace SocialNetwork.Pages.Users
+namespace SocialNetwork.Pages.Posts
 {
     public class DeleteModel : PageModel
     {
@@ -20,7 +20,7 @@ namespace SocialNetwork.Pages.Users
         }
 
         [BindProperty]
-        public new User User { get; set; }
+        public Post Post { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -29,9 +29,9 @@ namespace SocialNetwork.Pages.Users
                 return NotFound();
             }
 
-            User = await _context.Users.FirstOrDefaultAsync(m => m.ID == id);
+            Post = await _context.Posts.FirstOrDefaultAsync(m => m.postID == id);
 
-            if (User == null)
+            if (Post == null)
             {
                 return NotFound();
             }
@@ -45,11 +45,11 @@ namespace SocialNetwork.Pages.Users
                 return NotFound();
             }
 
-            User = await _context.Users.FindAsync(id);
+            Post = await _context.Posts.FindAsync(id);
 
-            if (User != null)
+            if (Post != null)
             {
-                _context.Users.Remove(User);
+                _context.Posts.Remove(Post);
                 await _context.SaveChangesAsync();
             }
 
