@@ -16,6 +16,9 @@ namespace SocialNetwork.Models
         //Wyjdzie kiedyś jakieś wyrażenia regularne wykorzystać
         [Key]
         public int ID { get; set; }
+
+        //stringID będzie od razu przypisywane przy tworzeniu konta użytkownika
+        public string stringID { get; set; }
         [Display(Name = "Imię")]
         [MinLength(2)]
         [DataType(DataType.Text)]
