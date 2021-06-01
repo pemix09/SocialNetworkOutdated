@@ -21,20 +21,47 @@
         <form asp-route-returnUrl="@Model.ReturnUrl" method="post" id="RegisterPost">
             <hr />
             <div class="form-group">
-                <label asp-for="Input.Email"></label>
-                <input asp-for="Input.Email" class="form-control" />
-                <span asp-validation-for="Input.Email" class="text-danger"></span>
+                <label asp-for="@Model.user.email"></label>
+                <input asp-for="@Model.user.email" class="form-control" />
+                <span asp-validation-for="@Model.user.email" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Input.Password"></label>
-                <input asp-for="Input.Password" class="form-control" />
-                <span asp-validation-for="Input.Password" class="text-danger"></span>
+            <div class="RowFlex">
+                <div class="form-group" style="width:400px">
+                    <label asp-for="@Model.user.phone"></label>
+                    <input asp-for="@Model.user.phone" class="form-control" />
+                    <span asp-validation-for="@Model.user.phone" class="text-danger"></span>
+                </div>
+                <div class="form-group" style="width:400px">
+                    <label asp-for="@Model.user.nickname"></label>
+                    <input asp-for="@Model.user.nickname" class="form-control" />
+                    <span asp-validation-for="@Model.user.nickname" class="text-danger"></span>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Input.ConfirmPassword"></label>
-                <input asp-for="Input.ConfirmPassword" class="form-control" />
-                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+            <div class="RowFlex">
+                <div class="form-group" style="width:400px">
+                    <label asp-for="@Model.user.firstName"></label>
+                    <input asp-for="@Model.user.firstName" class="form-control" />
+                    <span asp-validation-for="@Model.user.firstName" class="text-danger"></span>
+                </div>
+                <div class="form-group" style="width:400px">
+                    <label asp-for="@Model.user.lastName"></label>
+                    <input asp-for="@Model.user.lastName" class="form-control" />
+                    <span asp-validation-for="@Model.user.lastName" class="text-danger"></span>
+                </div>
             </div>
+            <div class="RowFlex">
+                <div class="form-group">
+                    <label asp-for="Input.Password"></label>
+                    <input asp-for="Input.Password" class="form-control" />
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.ConfirmPassword"></label>
+                    <input asp-for="Input.ConfirmPassword" class="form-control" />
+                    <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                </div>
+            </div>
+
         </form>
     </div>
 

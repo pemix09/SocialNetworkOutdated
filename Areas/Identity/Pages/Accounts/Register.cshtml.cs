@@ -33,20 +33,20 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
         [BindProperty]
         public InputModel Input { get; set; }
 
-       /* [BindProperty]
-        public User user { get; set; }*/
+        [BindProperty]
+        public User user { get; set; }
         public string ReturnUrl { get; set; }
 
         public IList<AuthenticationScheme> ExternalLogins { get; set; }
 
         public class InputModel
         {
-            [Required(ErrorMessage ="Adres Email jest wymagany")]
+            [Required(ErrorMessage = "Adres Email jest wymagany")]
             [EmailAddress]
             [Display(Name = "Adres Email")]
             public string Email { get; set; }
 
-            [Required(ErrorMessage ="Has³o jest wymagane")]
+            [Required(ErrorMessage = "Has³o jest wymagane")]
             [StringLength(100, ErrorMessage = "Has³o musi sk³adaæ siê z od 6 do 100 znaków", MinimumLength = 6)]
             [DataType(DataType.Password)]
             [Display(Name = "Has³o")]
@@ -67,13 +67,13 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
             if (ModelState.IsValid)
             {
                 
-                var user = new IdentityUser { UserName = Input.Email, Email = Input.Email };
-                var result = await _userManager.CreateAsync(user, Input.Password);
+                var userD = new IdentityUser { UserName = user.nickname, Email = user.email };
+                var result = await _userManager.CreateAsync(userD, Input.Password);
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("U¿ytkownik poprawnie stworzy³ swoje konto");
 
-                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    await _signInManager.SignInAsync(userD, isPersistent: false);
                     return Redirect("~/");
                 }
                 foreach (var error in result.Errors)
