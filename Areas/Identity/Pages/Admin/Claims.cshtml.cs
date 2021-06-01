@@ -49,7 +49,10 @@ namespace SocialNetwork.Areas.Identity.Pages.Admin
                 //Redirect to NotFound
                 return RedirectToPage("Index");
             }
-            Id= User.stringID;
+            if(id>0)
+            {
+                Id = User.stringID;
+            }
             IdentityUser user = await UserManager.FindByIdAsync(Id);
             Claims = await UserManager.GetClaimsAsync(user);
             return Page();
@@ -84,8 +87,17 @@ namespace SocialNetwork.Areas.Identity.Pages.Admin
                                                               [Required] string oldValue,
                                                               int id, string stringID)
         {
-            User = await _context.Users.FirstOrDefaultAsync(m => m.ID == id);
-            IdentityUser user = await UserManager.FindByIdAsync(User.stringID);
+            IdentityUser user;
+            if (id > 0)
+            {
+                User = await _context.Users.FirstOrDefaultAsync(m => m.ID == id);
+                user = await UserManager.FindByIdAsync(User.stringID);
+            }
+            else
+            {
+                string ID = httpAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                user = await UserManager.FindByIdAsync(ID);
+            }
             if (ModelState.IsValid)
             {
                 var claimNew = new Claim(type, value);
@@ -100,8 +112,17 @@ namespace SocialNetwork.Areas.Identity.Pages.Admin
                                                                 [Required] string value,
                                                                 int id, string stringID)
         {
-            User = await _context.Users.FirstOrDefaultAsync(m => m.ID == id);
-            IdentityUser user = await UserManager.FindByIdAsync(User.stringID);
+            IdentityUser user;
+            if (id>0)
+            {
+                User = await _context.Users.FirstOrDefaultAsync(m => m.ID == id);
+                user = await UserManager.FindByIdAsync(User.stringID);
+            }
+            else
+            {
+                string ID = httpAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier); 
+                user = await UserManager.FindByIdAsync(ID);
+            }
             if (ModelState.IsValid)
             {
                 var claim = new Claim(type, value);
