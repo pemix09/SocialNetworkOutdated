@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using SocialNetwork.Data;
 using SocialNetwork.Models;
 
-namespace SocialNetwork.Pages.Users.Messages
+namespace SocialNetwork.Pages.UsersInfo
 {
     public class EditModel : PageModel
     {
@@ -21,7 +21,7 @@ namespace SocialNetwork.Pages.Users.Messages
         }
 
         [BindProperty]
-        public Message Message { get; set; }
+        public UserInfo UserInfo { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -30,14 +30,12 @@ namespace SocialNetwork.Pages.Users.Messages
                 return NotFound();
             }
 
-            Message = await _context.Messages
-                .Include(m => m.User).FirstOrDefaultAsync(m => m.messageID == id);
+            UserInfo = await _context.Users.FirstOrDefaultAsync(m => m.ID == id);
 
-            if (Message == null)
+            if (UserInfo == null)
             {
                 return NotFound();
             }
-           ViewData["userID"] = new SelectList(_context.Users, "ID", "email");
             return Page();
         }
 
@@ -50,7 +48,7 @@ namespace SocialNetwork.Pages.Users.Messages
                 return Page();
             }
 
-            _context.Attach(Message).State = EntityState.Modified;
+            _context.Attach(UserInfo).State = EntityState.Modified;
 
             try
             {
@@ -58,7 +56,7 @@ namespace SocialNetwork.Pages.Users.Messages
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!MessageExists(Message.messageID))
+                if (!UserInfoExists(UserInfo.ID))
                 {
                     return NotFound();
                 }
@@ -71,9 +69,9 @@ namespace SocialNetwork.Pages.Users.Messages
             return RedirectToPage("./Index");
         }
 
-        private bool MessageExists(int id)
+        private bool UserInfoExists(int id)
         {
-            return _context.Messages.Any(e => e.messageID == id);
+            return _context.Users.Any(e => e.ID == id);
         }
     }
 }

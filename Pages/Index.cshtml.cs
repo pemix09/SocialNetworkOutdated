@@ -16,7 +16,7 @@ namespace SocialNetwork.Pages
     {
         public bool newMessages { get; set; }
         private readonly ILogger<IndexModel> _logger;
-        public User user=new User();
+        public UserInfo user=new UserInfo();
         public List<Post> posts;
         public LocalDB db = new LocalDB();
         public IndexModel(ILogger<IndexModel> logger)

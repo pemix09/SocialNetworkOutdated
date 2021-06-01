@@ -24,6 +24,6 @@ namespace SocialNetwork.Models
         public int? recevingUserID { get; set; }
         [Required]
         public Boolean isRead { get; set; }
-        public User User { get; set; }//nie mam pewności, ale chyba warto przypisac wiadomość do wysyłającego
+        public UserInfo User { get; set; }//nie mam pewności, ale chyba warto przypisac wiadomość do wysyłającego
     }
 }

@@ -41,7 +41,7 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
         public InputModel Input { get; set; }
 
         [BindProperty]
-        public User user { get; set; }
+        public UserInfo user { get; set; }
         public string ReturnUrl { get; set; }
 
         public IList<AuthenticationScheme> ExternalLogins { get; set; }

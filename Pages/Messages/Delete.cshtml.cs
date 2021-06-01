@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using SocialNetwork.Data;
 using SocialNetwork.Models;
 
-namespace SocialNetwork.Pages.Users.Messages
+namespace SocialNetwork.Pages.Messages
 {
     public class DeleteModel : PageModel
     {

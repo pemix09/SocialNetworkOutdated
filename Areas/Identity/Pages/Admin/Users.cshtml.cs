@@ -14,8 +14,8 @@ namespace SocialNetwork.Areas.Identity.Pages.Admin
     {
         public SocialNetworkContext _DbCtx { get; set; }
 
-        public IEnumerable<User> Users { get; set; }
-                        = Enumerable.Empty<User>();
+        public IEnumerable<UserInfo> Users { get; set; }
+                        = Enumerable.Empty<UserInfo>();
 
         public UsersModel(SocialNetworkContext dbCtx)
         {

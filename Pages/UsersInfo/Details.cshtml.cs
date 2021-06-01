@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using SocialNetwork.Data;
 using SocialNetwork.Models;
 
-namespace SocialNetwork.Pages.Users.Messages
+namespace SocialNetwork.Pages.UsersInfo
 {
     public class DetailsModel : PageModel
     {
@@ -19,7 +19,7 @@ namespace SocialNetwork.Pages.Users.Messages
             _context = context;
         }
 
-        public Message Message { get; set; }
+        public UserInfo UserInfo { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -28,10 +28,9 @@ namespace SocialNetwork.Pages.Users.Messages
                 return NotFound();
             }
 
-            Message = await _context.Messages
-                .Include(m => m.User).FirstOrDefaultAsync(m => m.messageID == id);
+            UserInfo = await _context.Users.FirstOrDefaultAsync(m => m.ID == id);
 
-            if (Message == null)
+            if (UserInfo == null)
             {
                 return NotFound();
             }

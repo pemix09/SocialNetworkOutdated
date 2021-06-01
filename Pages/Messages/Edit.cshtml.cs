@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using SocialNetwork.Data;
 using SocialNetwork.Models;
 
-namespace SocialNetwork.Pages.Users
+namespace SocialNetwork.Pages.Messages
 {
     public class EditModel : PageModel
     {
@@ -21,7 +21,7 @@ namespace SocialNetwork.Pages.Users
         }
 
         [BindProperty]
-        public new User User { get; set; }
+        public Message Message { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -30,12 +30,14 @@ namespace SocialNetwork.Pages.Users
                 return NotFound();
             }
 
-            User = await _context.Users.FirstOrDefaultAsync(m => m.ID == id);
+            Message = await _context.Messages
+                .Include(m => m.User).FirstOrDefaultAsync(m => m.messageID == id);
 
-            if (User == null)
+            if (Message == null)
             {
                 return NotFound();
             }
+           ViewData["userID"] = new SelectList(_context.Users, "ID", "email");
             return Page();
         }
 
@@ -48,7 +50,7 @@ namespace SocialNetwork.Pages.Users
                 return Page();
             }
 
-            _context.Attach(User).State = EntityState.Modified;
+            _context.Attach(Message).State = EntityState.Modified;
 
             try
             {
@@ -56,7 +58,7 @@ namespace SocialNetwork.Pages.Users
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!UserExists(User.ID))
+                if (!MessageExists(Message.messageID))
                 {
                     return NotFound();
                 }
@@ -69,9 +71,9 @@ namespace SocialNetwork.Pages.Users
             return RedirectToPage("./Index");
         }
 
-        private bool UserExists(int id)
+        private bool MessageExists(int id)
         {
-            return _context.Users.Any(e => e.ID == id);
+            return _context.Messages.Any(e => e.messageID == id);
         }
     }
 }

@@ -32,7 +32,7 @@ namespace SocialNetwork.Pages.Posts.Comments
 
             Comment = await _context.Comments
                 .Include(c => c.Post)
-                .Include(c => c.User).FirstOrDefaultAsync(m => m.commentID == id);
+                .Include(c => c.UserInfo).FirstOrDefaultAsync(m => m.commentID == id);
 
             if (Comment == null)
             {

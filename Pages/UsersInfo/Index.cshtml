@@ -1,5 +1,5 @@
 ﻿@page
-@model SocialNetwork.Pages.Users.IndexModel
+@model SocialNetwork.Pages.UsersInfo.IndexModel
 
 @{
     ViewData["Title"] = "Index";
@@ -14,35 +14,41 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.User[0].firstName)
+                @Html.DisplayNameFor(model => model.UserInfo[0].stringID)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.User[0].lastName)
+                @Html.DisplayNameFor(model => model.UserInfo[0].firstName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.User[0].gender)
+                @Html.DisplayNameFor(model => model.UserInfo[0].lastName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.User[0].birthDate)
+                @Html.DisplayNameFor(model => model.UserInfo[0].gender)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.User[0].nickname)
+                @Html.DisplayNameFor(model => model.UserInfo[0].birthDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.User[0].email)
+                @Html.DisplayNameFor(model => model.UserInfo[0].nickname)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.User[0].password)
+                @Html.DisplayNameFor(model => model.UserInfo[0].email)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.User[0].phone)
+                @Html.DisplayNameFor(model => model.UserInfo[0].password)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserInfo[0].phone)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.User) {
+@foreach (var item in Model.UserInfo) {
         <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.stringID)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.firstName)
             </td>

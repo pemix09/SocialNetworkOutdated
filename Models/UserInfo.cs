@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SocialNetwork.Models
 {
-    public class User
+    public class UserInfo
     {
         public enum Gender
         {
@@ -16,7 +16,7 @@ namespace SocialNetwork.Models
         //Wyjdzie kiedyś jakieś wyrażenia regularne wykorzystać
         [Key]
         public int ID { get; set; }
-
+        //trzeba bedzie usunac pewne pola zmieniajac wiekszosc na identity
         //stringID będzie od razu przypisywane przy tworzeniu konta użytkownika
         public string stringID { get; set; }
         [Display(Name = "Imię")]

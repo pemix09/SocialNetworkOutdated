@@ -1,0 +1,74 @@
+﻿@page
+@model SocialNetwork.Pages.UsersInfo.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>UserInfo</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="UserInfo.stringID" class="control-label"></label>
+                <input asp-for="UserInfo.stringID" class="form-control" />
+                <span asp-validation-for="UserInfo.stringID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserInfo.firstName" class="control-label"></label>
+                <input asp-for="UserInfo.firstName" class="form-control" />
+                <span asp-validation-for="UserInfo.firstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserInfo.lastName" class="control-label"></label>
+                <input asp-for="UserInfo.lastName" class="form-control" />
+                <span asp-validation-for="UserInfo.lastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserInfo.gender" class="control-label"></label>
+                <input asp-for="UserInfo.gender" class="form-control" />
+                <span asp-validation-for="UserInfo.gender" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserInfo.birthDate" class="control-label"></label>
+                <input asp-for="UserInfo.birthDate" class="form-control" />
+                <span asp-validation-for="UserInfo.birthDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserInfo.nickname" class="control-label"></label>
+                <input asp-for="UserInfo.nickname" class="form-control" />
+                <span asp-validation-for="UserInfo.nickname" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserInfo.email" class="control-label"></label>
+                <input asp-for="UserInfo.email" class="form-control" />
+                <span asp-validation-for="UserInfo.email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserInfo.password" class="control-label"></label>
+                <input asp-for="UserInfo.password" class="form-control" />
+                <span asp-validation-for="UserInfo.password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserInfo.phone" class="control-label"></label>
+                <input asp-for="UserInfo.phone" class="form-control" />
+                <span asp-validation-for="UserInfo.phone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

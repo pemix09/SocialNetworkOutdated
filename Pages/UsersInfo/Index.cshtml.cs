@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using SocialNetwork.Data;
 using SocialNetwork.Models;
 
-namespace SocialNetwork.Pages.Users
+namespace SocialNetwork.Pages.UsersInfo
 {
     public class IndexModel : PageModel
     {
@@ -19,11 +19,11 @@ namespace SocialNetwork.Pages.Users
             _context = context;
         }
 
-        public new IList<User> User { get;set; }
+        public IList<UserInfo> UserInfo { get;set; }
 
         public async Task OnGetAsync()
         {
-            User = await _context.Users.ToListAsync();
+            UserInfo = await _context.Users.ToListAsync();
         }
     }
 }

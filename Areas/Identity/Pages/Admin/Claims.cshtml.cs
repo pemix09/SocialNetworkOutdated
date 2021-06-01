@@ -20,7 +20,7 @@ namespace SocialNetwork.Areas.Identity.Pages.Admin
         public ApplicationClaimsTypes ApplicationClaimsTypes = new();
         public List<String> AppClaimTypes;
         IHttpContextAccessor httpAccessor;
-        public User User = new();
+        public UserInfo User = new();
         public SocialNetwork.Data.SocialNetworkContext _context;
         public ClaimsModel(UserManager<IdentityUser> mgr, IHttpContextAccessor httpContextAccessor,
             SocialNetwork.Data.SocialNetworkContext context)

@@ -25,7 +25,7 @@ namespace SocialNetwork.Pages.Posts.Comments
         {
             Comment = await _context.Comments
                 .Include(c => c.Post)
-                .Include(c => c.User).ToListAsync();
+                .Include(c => c.UserInfo).ToListAsync();
         }
     }
 }

@@ -29,7 +29,7 @@
                 @Html.DisplayNameFor(model => model.Comment[0].Post)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Comment[0].User)
+                @Html.DisplayNameFor(model => model.Comment[0].UserInfo)
             </th>
             <th></th>
         </tr>
@@ -53,7 +53,7 @@
                 @Html.DisplayFor(modelItem => item.Post.name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.User.email)
+                @Html.DisplayFor(modelItem => item.UserInfo.email)
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.commentID">Edit</a> |

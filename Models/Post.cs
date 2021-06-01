@@ -44,7 +44,7 @@ namespace SocialNetwork.Models
         public float? posY { get; set; }
         public int? userID { get; set; }
         #nullable disable
-        public User User { get; set; }//AUTOR
+        public UserInfo User { get; set; }//AUTOR
         public ICollection<Comment> Comments { get; set; }
     }
 }

@@ -25,6 +25,6 @@ namespace SocialNetwork.Models
         public DateTime date { get; set; }
         //jeden komentarz należy do jednego postu i autora
         public Post Post { get; set; }
-        public User User { get; set; }
+        public UserInfo UserInfo { get; set; }
     }
 }

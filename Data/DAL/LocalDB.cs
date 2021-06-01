@@ -13,7 +13,7 @@ namespace SocialNetwork.Data.DAL
             throw new NotImplementedException();
         }
 
-        public void AddUser(User user)
+        public void AddUser(UserInfo user)
         {
             throw new NotImplementedException();
         }
@@ -33,17 +33,17 @@ namespace SocialNetwork.Data.DAL
             throw new NotImplementedException();
         }
 
-        public void EditUser(int userID, User editedUser)
+        public void EditUser(int userID, UserInfo editedUser)
         {
             throw new NotImplementedException();
         }
 
-        public List<User> GetFollowedUsers(int userID)
+        public List<UserInfo> GetFollowedUsers(int userID)
         {
             throw new NotImplementedException();
         }
 
-        public List<User> GetFriends(int userID)
+        public List<UserInfo> GetFriends(int userID)
         {
             throw new NotImplementedException();
         }
@@ -73,21 +73,21 @@ namespace SocialNetwork.Data.DAL
             return new List<Post> { post1,post2,post3 };
         }
 
-        public List<User> GetSearchResults(string searchQuery)
+        public List<UserInfo> GetSearchResults(string searchQuery)
         {
-            User user1 = new User(), user2=new User(), user3=new User();
+            UserInfo user1 = new UserInfo(), user2=new UserInfo(), user3=new UserInfo();
             user1.nickname = "xs";
             user1.firstName = "Przemek";
             user2.nickname = "kozak";
             user2.firstName = "Damian";
             user3.nickname = "dasdas";
             user3.firstName = "Ola";
-            return new List<User> { user1, user2, user3 };
+            return new List<UserInfo> { user1, user2, user3 };
         }
 
-        public User GetUser(int userID)
+        public UserInfo GetUser(int userID)
         {
-            User user = new User();
+            UserInfo user = new UserInfo();
             user.nickname = "lol";
             user.firstName = "Damian";
             return user;
