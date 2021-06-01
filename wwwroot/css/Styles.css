@@ -170,6 +170,17 @@
     fill:red;
     color:red;
 }
+.headerButtons {
+    border: none;
+    background-color: rgb(0,0,0,0);
+    fill: black;
+    color: black;
+    outline: none;
+}
+.headerButtons:hover{
+    fill:red;
+    color:red;
+}
 
 .RowFlex {
     display: flex;
