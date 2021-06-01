@@ -73,6 +73,9 @@
     width:40px;
     margin-left:10px;
 }
+.BigLogo{
+    width:200px;
+}
 
 .LogoAndText {
     margin: 50px;
@@ -166,4 +169,11 @@
 .PictureButton:hover{
     fill:red;
     color:red;
+}
+
+.RowFlex {
+    display: flex;
+    flex-direction:row;
+    justify-content: space-between;
+    align-items: center;
 }
