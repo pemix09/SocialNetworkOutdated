@@ -9,7 +9,7 @@ using SocialNetwork.Models;
 
 namespace SocialNetwork.Data
 {
-    public class SocialNetworkContext : IdentityDbContext<IdentityUser>
+    public class SocialNetworkContext : IdentityDbContext<AppUser>
     {
         public SocialNetworkContext (DbContextOptions<SocialNetworkContext> options)
             : base(options)
@@ -22,6 +22,11 @@ namespace SocialNetwork.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            modelBuilder.HasDefaultSchema("Identity");
+            modelBuilder.Entity<AppUser>(entity =>
+            {
+                entity.ToTable(name: "IdentityUser");//Zmiana na "User" kiedys
+            });
             modelBuilder.Entity<UserInfo>().ToTable("User");
             modelBuilder.Entity<Post>().ToTable("Post");
             modelBuilder.Entity<Comment>().ToTable("Comment");

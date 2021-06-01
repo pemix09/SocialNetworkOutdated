@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SocialNetwork.Models
 {
-    public class UserInfo
+    public class UserInfo //: Iden
     {
        /* public enum Gender
         {
@@ -69,7 +70,9 @@ namespace SocialNetwork.Models
         [DisplayFormat(ConvertEmptyStringToNull = false)]
         [Required(AllowEmptyStrings = true)]
         public string? phone { get; set; }
-        #nullable disable
+        [DataType(DataType.Text)]
+        public string? base64Photo { get; set; }
+#nullable disable
         public ICollection<Message> Messages { get; set; }
         public ICollection<Post> Posts { get; set; }
     }

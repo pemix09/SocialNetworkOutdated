@@ -35,8 +35,8 @@ namespace SocialNetwork
             //services.AddDbContext<ApplicationDbContext>(options =>
             //options.UseSqlServer(Configuration.GetConnectionString("LocalDB")));
             services.AddDatabaseDeveloperPageExceptionFilter();
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
-                .AddEntityFrameworkStores<SocialNetworkContext>();
+            //services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
+            //    .AddEntityFrameworkStores<SocialNetworkContext>();
             services.AddSingleton<IFileProvider>(
            new PhysicalFileProvider(
                Path.Combine(Directory.GetCurrentDirectory(), "wwwroot")));
@@ -49,6 +49,11 @@ namespace SocialNetwork
             services.AddDbContext<SocialNetworkContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("SocialNetworkContext")));
             services.AddTransient<IEmailSender, EmailSender>();
+            services.AddDbContext<SocialNetworkContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SocialNetworkContext")));
+            services.AddIdentity<AppUser, IdentityRole>()
+                    .AddEntityFrameworkStores<SocialNetworkContext>()
+                    .AddDefaultUI()
+                    .AddDefaultTokenProviders();
 
         }
 

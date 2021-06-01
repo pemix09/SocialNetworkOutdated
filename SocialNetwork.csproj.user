@@ -12,5 +12,7 @@
     <WebStackScaffolding_IsReferencingScriptLibrariesSelected>True</WebStackScaffolding_IsReferencingScriptLibrariesSelected>
     <WebStackScaffolding_LayoutPageFile />
     <WebStackScaffolding_DbContextTypeFullName>SocialNetwork.Data.SocialNetworkContext</WebStackScaffolding_DbContextTypeFullName>
+    <Controller_SelectedScaffolderID>RazorPageScaffolder</Controller_SelectedScaffolderID>
+    <Controller_SelectedScaffolderCategoryPath>root/Common/RazorPage</Controller_SelectedScaffolderCategoryPath>
   </PropertyGroup>
 </Project>

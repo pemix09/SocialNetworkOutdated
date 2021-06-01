@@ -2,8 +2,8 @@
 @model SocialNetwork.Areas.Identity.Pages.Admin.AdminPanelModel
 @using Microsoft.AspNetCore.Identity
 @using SocialNetwork.Models;
-@inject SignInManager<IdentityUser> SignInManager
-@inject UserManager<IdentityUser> UserManage
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManage
 @{
     //bardzo fajnie można wydobyć dane obecnego użytkownika
     var user = await UserManage.GetUserAsync(User);

@@ -17,16 +17,16 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
     [AllowAnonymous]
     public class RegisterModel : PageModel
     {
-        private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly SignInManager<AppUser> _signInManager;
+        private readonly UserManager<AppUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly SocialNetwork.Data.SocialNetworkContext _context;
 
         public IdConverter IDconverter = new();
 
         public RegisterModel(
-            UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager,
+            UserManager<AppUser> userManager,
+            SignInManager<AppUser> signInManager,
             ILogger<RegisterModel> logger,
             SocialNetwork.Data.SocialNetworkContext context
             )
@@ -56,7 +56,7 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
             if (ModelState.IsValid)
             {
                 
-                var userD = new IdentityUser { UserName = user.nickname, Email = user.email };
+                var userD = new AppUser { UserName = user.nickname, Email = user.email };
                 var result = await _userManager.CreateAsync(userD, Input.Password);
                 if (result.Succeeded)
                 {

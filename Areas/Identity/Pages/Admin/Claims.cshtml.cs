@@ -22,7 +22,7 @@ namespace SocialNetwork.Areas.Identity.Pages.Admin
         IHttpContextAccessor httpAccessor;
         public UserInfo User = new();
         public SocialNetwork.Data.SocialNetworkContext _context;
-        public ClaimsModel(UserManager<IdentityUser> mgr, IHttpContextAccessor httpContextAccessor,
+        public ClaimsModel(UserManager<AppUser> mgr, IHttpContextAccessor httpContextAccessor,
             SocialNetwork.Data.SocialNetworkContext context)
         {
             UserManager = mgr;
@@ -35,7 +35,7 @@ namespace SocialNetwork.Areas.Identity.Pages.Admin
         }
 
 
-        public UserManager<IdentityUser> UserManager { get; set; }
+        public UserManager<AppUser> UserManager { get; set; }
 
         [BindProperty(SupportsGet = true)]
         public string Id { get; set; }
@@ -53,7 +53,7 @@ namespace SocialNetwork.Areas.Identity.Pages.Admin
             {
                 Id = User.stringID;
             }
-            IdentityUser user = await UserManager.FindByIdAsync(Id);
+            AppUser user = await UserManager.FindByIdAsync(Id);
             Claims = await UserManager.GetClaimsAsync(user);
             return Page();
         }
@@ -64,7 +64,7 @@ namespace SocialNetwork.Areas.Identity.Pages.Admin
                                                              string hiddenStringID)
         {
 
-            IdentityUser user = await UserManager.FindByIdAsync(hiddenStringID);
+            AppUser user = await UserManager.FindByIdAsync(hiddenStringID);
 
             if (ModelState.IsValid)
             {
@@ -87,7 +87,7 @@ namespace SocialNetwork.Areas.Identity.Pages.Admin
                                                               [Required] string oldValue,
                                                               int id, string stringID)
         {
-            IdentityUser user;
+            AppUser user;
             if (id > 0)
             {
                 User = await _context.Users.FirstOrDefaultAsync(m => m.ID == id);
@@ -112,7 +112,7 @@ namespace SocialNetwork.Areas.Identity.Pages.Admin
                                                                 [Required] string value,
                                                                 int id, string stringID)
         {
-            IdentityUser user;
+            AppUser user;
             if (id>0)
             {
                 User = await _context.Users.FirstOrDefaultAsync(m => m.ID == id);
