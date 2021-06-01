@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using SocialNetwork.Data;
 using SocialNetwork.Models;
 
-namespace SocialNetwork.Pages.UsersInfo
+namespace SocialNetwork.Pages.UserInfos
 {
     public class CreateModel : PageModel
     {

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using SocialNetwork.Data;
 using SocialNetwork.Models;
 
-namespace SocialNetwork.Pages.UsersInfo
+namespace SocialNetwork.Pages.UserInfos
 {
     public class IndexModel : PageModel
     {

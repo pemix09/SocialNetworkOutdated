@@ -8,17 +8,18 @@ using Microsoft.EntityFrameworkCore;
 using SocialNetwork.Data;
 using SocialNetwork.Models;
 
-namespace SocialNetwork.Pages.UsersInfo
+namespace SocialNetwork.Pages.UserInfos
 {
-    public class DetailsModel : PageModel
+    public class DeleteModel : PageModel
     {
         private readonly SocialNetwork.Data.SocialNetworkContext _context;
 
-        public DetailsModel(SocialNetwork.Data.SocialNetworkContext context)
+        public DeleteModel(SocialNetwork.Data.SocialNetworkContext context)
         {
             _context = context;
         }
 
+        [BindProperty]
         public UserInfo UserInfo { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
@@ -35,6 +36,24 @@ namespace SocialNetwork.Pages.UsersInfo
                 return NotFound();
             }
             return Page();
+        }
+
+        public async Task<IActionResult> OnPostAsync(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            UserInfo = await _context.Users.FindAsync(id);
+
+            if (UserInfo != null)
+            {
+                _context.Users.Remove(UserInfo);
+                await _context.SaveChangesAsync();
+            }
+
+            return RedirectToPage("./Index");
         }
     }
 }

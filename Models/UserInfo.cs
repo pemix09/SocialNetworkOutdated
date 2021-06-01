@@ -9,10 +9,10 @@ namespace SocialNetwork.Models
 {
     public class UserInfo
     {
-        public enum Gender
+       /* public enum Gender
         {
             male, female
-        }
+        }*/
         //Wyjdzie kiedyś jakieś wyrażenia regularne wykorzystać
         [Key]
         public int ID { get; set; }
@@ -36,7 +36,7 @@ namespace SocialNetwork.Models
         public string? lastName { get; set; }
         [Display(Name = "Płeć")]
         [StringLength(30)]
-        public Gender? gender { get; set; }
+        public string? gender { get; set; }
         [Display(Name = "Data urodzenia")]
         [DataType(DataType.Date)]
         public string? birthDate { get; set; }
