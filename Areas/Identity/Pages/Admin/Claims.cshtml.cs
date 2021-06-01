@@ -10,6 +10,8 @@ using System.Linq;
 using SocialNetwork.Data;
 using System;
 using Microsoft.AspNetCore.Http;
+using SocialNetwork.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace SocialNetwork.Areas.Identity.Pages.Admin
 {
@@ -18,7 +20,10 @@ namespace SocialNetwork.Areas.Identity.Pages.Admin
         public ApplicationClaimsTypes ApplicationClaimsTypes = new();
         public List<String> AppClaimTypes;
         IHttpContextAccessor httpAccessor;
-        public ClaimsModel(UserManager<IdentityUser> mgr, IHttpContextAccessor httpContextAccessor)
+        public User User = new();
+        public SocialNetwork.Data.SocialNetworkContext _context;
+        public ClaimsModel(UserManager<IdentityUser> mgr, IHttpContextAccessor httpContextAccessor,
+            SocialNetwork.Data.SocialNetworkContext context)
         {
             UserManager = mgr;
             httpAccessor = httpContextAccessor;
@@ -26,6 +31,7 @@ namespace SocialNetwork.Areas.Identity.Pages.Admin
 
             //tutaj przypisujemy ID u¿ytkownika w postaci string do Id
             Id = httpAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            _context = context;
         }
 
 
@@ -35,24 +41,27 @@ namespace SocialNetwork.Areas.Identity.Pages.Admin
         public string Id { get; set; }
 
         public IEnumerable<Claim> Claims { get; set; }
-
-        public async Task<IActionResult> OnGetAsync()
+        public async Task<IActionResult> OnGetAsync(int id, string stringID)
         {
+            User = await _context.Users.FirstOrDefaultAsync(m => m.ID == id);
             if (string.IsNullOrEmpty(Id))
             {
                 //Redirect to NotFound
                 return RedirectToPage("Index");
             }
+            Id= User.stringID;
             IdentityUser user = await UserManager.FindByIdAsync(Id);
             Claims = await UserManager.GetClaimsAsync(user);
             return Page();
         }
 
         public async Task<IActionResult> OnPostAddClaimAsync([Required] string type,
-                                                             [Required] string value)
+                                                             [Required] string value,
+                                                             int id, string stringID,
+                                                             string hiddenStringID)
         {
 
-            IdentityUser user = await UserManager.FindByIdAsync(Id);
+            IdentityUser user = await UserManager.FindByIdAsync(hiddenStringID);
 
             if (ModelState.IsValid)
             {
@@ -72,9 +81,11 @@ namespace SocialNetwork.Areas.Identity.Pages.Admin
 
         public async Task<IActionResult> OnPostEditClaimAsync([Required] string type,
                                                               [Required] string value,
-                                                              [Required] string oldValue)
+                                                              [Required] string oldValue,
+                                                              int id, string stringID)
         {
-            IdentityUser user = await UserManager.FindByIdAsync(Id);
+            User = await _context.Users.FirstOrDefaultAsync(m => m.ID == id);
+            IdentityUser user = await UserManager.FindByIdAsync(User.stringID);
             if (ModelState.IsValid)
             {
                 var claimNew = new Claim(type, value);
@@ -86,9 +97,11 @@ namespace SocialNetwork.Areas.Identity.Pages.Admin
         }
 
         public async Task<IActionResult> OnPostDeleteClaimAsync([Required] string type,
-                                                                [Required] string value)
+                                                                [Required] string value,
+                                                                int id, string stringID)
         {
-            IdentityUser user = await UserManager.FindByIdAsync(Id);
+            User = await _context.Users.FirstOrDefaultAsync(m => m.ID == id);
+            IdentityUser user = await UserManager.FindByIdAsync(User.stringID);
             if (ModelState.IsValid)
             {
                 var claim = new Claim(type, value);

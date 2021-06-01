@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using SocialNetwork.Models;
+using SocialNetwork.Services;
 
 namespace SocialNetwork.Areas.Identity.Pages.Accounts
 {
@@ -19,15 +20,21 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
+        private readonly SocialNetwork.Data.SocialNetworkContext _context;
+
+        public IdConverter IDconverter = new();
 
         public RegisterModel(
             UserManager<IdentityUser> userManager,
             SignInManager<IdentityUser> signInManager,
-            ILogger<RegisterModel> logger)
+            ILogger<RegisterModel> logger,
+            SocialNetwork.Data.SocialNetworkContext context
+            )
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
+            _context = context;
         }
 
         [BindProperty]
@@ -39,24 +46,6 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
 
         public IList<AuthenticationScheme> ExternalLogins { get; set; }
 
-        public class InputModel
-        {
-            [Required(ErrorMessage = "Adres Email jest wymagany")]
-            [EmailAddress]
-            [Display(Name = "Adres Email")]
-            public string Email { get; set; }
-
-            [Required(ErrorMessage = "Has³o jest wymagane")]
-            [StringLength(100, ErrorMessage = "Has³o musi sk³adaæ siê z od 6 do 100 znaków", MinimumLength = 6)]
-            [DataType(DataType.Password)]
-            [Display(Name = "Has³o")]
-            public string Password { get; set; }
-
-            [DataType(DataType.Password)]
-            [Display(Name = "Powtórz has³o")]
-            [Compare("Password", ErrorMessage = "Has³a s¹ ró¿ne")]
-            public string ConfirmPassword { get; set; }
-        }
 
         public async Task OnGetAsync()
         {
@@ -71,9 +60,19 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
                 var result = await _userManager.CreateAsync(userD, Input.Password);
                 if (result.Succeeded)
                 {
+                    user.stringID = userD.Id;
+
+                    //logowanie informacji o dodaniu u¿ytkownika
                     _logger.LogInformation("U¿ytkownik poprawnie stworzy³ swoje konto");
 
+                    //zalogowanie u¿ytkownika
                     await _signInManager.SignInAsync(userD, isPersistent: false);
+
+                    //dodanie u¿ytkownika do tabeli
+                    _context.Users.Add(user);
+                    await _context.SaveChangesAsync();
+
+
                     return Redirect("~/");
                 }
                 foreach (var error in result.Errors)

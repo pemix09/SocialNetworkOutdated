@@ -22,7 +22,11 @@
     padding: 50px;
     flex: 1 1 auto;
 }
-
+.welcomePageAdmin {
+    height: 100%;
+    margin: 20px;
+    padding: 50px;
+}
 .Post {
     width:80vw;
     height:300px;

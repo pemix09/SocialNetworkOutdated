@@ -3,39 +3,35 @@
 @{
 }
 
-<div class="m-2">
+<section class="welcomePageAdmin">
+    <div class="m-2">
 
-    <table style="color:white;" class="table table-sm table-striped table-bordered">
-        <thead>
-            <tr>
-            <th>Imię</th>
-            <th>Nazwisko</th>
-            <th>Pseudonim</th>
-            <th>Adres email</th>
-            <th>Role</th><th />
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var user in Model.Users)
-            {
+        <table style="color:white;" class="table table-sm table-striped table-bordered">
+            <thead>
                 <tr>
-                    <td>@user.firstName</td>
-                    <td>@user.lastName</td>
-                    <td>@user.nickname</td>
-                    <td>@user.email</td>
-                    <td>
-                        @foreach (var claim in User.Claims)
-                {
-                    @claim.Type
-                    @claim.Value
-                }
-                        </td>
-                    <td>
-                        <a asp-page="Claims" asp-route-id="@user.ID">Manage Claims</a>
-                    </td>
+                    <th>Imię</th>
+                    <th>Nazwisko</th>
+                    <th>Pseudonim</th>
+                    <th>Adres email</th>
+                    <th>Role</th>
+                    <th />
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var user in Model.Users)
+                {
+                    <tr>
+                        <td>@user.firstName</td>
+                        <td>@user.lastName</td>
+                        <td>@user.nickname</td>
+                        <td>@user.email</td>
+                        <td>
+                            <a asp-page="Claims" asp-route-id ="@user.ID" asp-route-stringID="@user.stringID">Zarządzaj rolami</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
 
-</div>
+    </div>
+</section>
