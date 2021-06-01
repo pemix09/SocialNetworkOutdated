@@ -22,7 +22,7 @@ namespace SocialNetwork.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.HasDefaultSchema("Identity");
+            modelBuilder.HasDefaultSchema("SocialNetwork");
             modelBuilder.Entity<AppUser>(entity =>
             {
                 entity.ToTable(name: "IdentityUser");//Zmiana na "User" kiedys
