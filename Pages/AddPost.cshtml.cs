@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using SocialNetwork.Models;
+using SocialNetwork.Services;
 
 namespace SocialNetwork.Pages
 {
@@ -20,12 +21,15 @@ namespace SocialNetwork.Pages
         private readonly IHttpContextAccessor _httpContextAccessor;
         string userID;
         public string _returnURL;
+        public IdConverter IDConverter = new IdConverter();
+
 
         public AddPostModel(IBase64 Base64Converter, IHttpContextAccessor httpContextAccessor)
         {
             converter = Base64Converter;
             _httpContextAccessor = httpContextAccessor;
             userID = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);//Zwracany ci¹g znaków?
+            int result = IDConverter.GetIntID(userID);
         }
         public void OnGet()
         {
