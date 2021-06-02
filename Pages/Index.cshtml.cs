@@ -31,7 +31,14 @@ namespace SocialNetwork.Pages
 
         public void OnGet(string searchQuery)
         {
-            if(HttpContext != null)
+
+            // tutaj pójdzie metoda zwracająca posty pasujące do wyszukiwania
+            //i wtedy sobie posts null robimy i pokazujemy wyniki wyszukiwania
+            if(searchQuery!=null)
+            {
+                posts = null;
+            }
+            else if(searchQuery == null && HttpContext != null)
             {
                 //user.nickname = HttpContext.User.Identity.Name;
                 posts = db.GetPosts(1);
