@@ -10,6 +10,8 @@ using SocialNetwork.Models;
 using SocialNetwork.Data.DAL;
 using SocialNetwork.Services;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
+using SocialNetwork.Data;
 
 namespace SocialNetwork.Pages
 {
@@ -23,19 +25,31 @@ namespace SocialNetwork.Pages
         public AppUser user=new AppUser();
         public List<Post> posts;
         public List<AppUser> users;
-        public LocalDB db = new LocalDB();
-        public IndexModel(ILogger<IndexModel> logger)
+        public LocalDB db;
+        private readonly UserManager<AppUser> _userManager;
+        private readonly SignInManager<AppUser> _signInManager;
+        SocialNetworkContext _context;
+        string currentUserID;
+
+
+        public IndexModel(ILogger<IndexModel> logger, UserManager<AppUser> userManager,
+            SignInManager<AppUser> signInManager, SocialNetworkContext context)
         {
             _logger = logger;
             newMessages = false;
+            _userManager = userManager;
+            _signInManager = signInManager;
+            db = new LocalDB(_userManager,_signInManager);
+            _context = context;
         }
 
         public void OnGet(string searchQuery)
         {
+            currentUserID = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             // tutaj pójdzie metoda zwracająca posty pasujące do wyszukiwania
             //i wtedy sobie posts null robimy i pokazujemy wyniki wyszukiwania
-            if(searchQuery!=null)
+            if (searchQuery!=null)
             {
                 posts = null;
             }
@@ -43,7 +57,9 @@ namespace SocialNetwork.Pages
             {
                 //user.nickname = HttpContext.User.Identity.Name;
                 users = null;
-                posts = db.GetPosts(1);
+
+                //tutaj powinna być iteracja po znajomych, żeby brać ich posty!
+                posts = db.GetPosts(currentUserID,_context);
             }
 
         }

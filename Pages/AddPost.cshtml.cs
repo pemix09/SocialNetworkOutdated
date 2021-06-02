@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using SocialNetwork.Models;
 using SocialNetwork.Services;
 using SocialNetwork.Data.DAL;
+using Microsoft.AspNetCore.Identity;
 
 namespace SocialNetwork.Pages
 {
@@ -25,17 +26,23 @@ namespace SocialNetwork.Pages
         public string _returnURL;
         public IdConverter IDConverter = new IdConverter();
         private readonly SocialNetwork.Data.SocialNetworkContext _context;
-        private LocalDB db = new();
+        private readonly UserManager<AppUser> _userManager;
+        private readonly SignInManager<AppUser> _signInManager;
+        private LocalDB db;
 
 
         public AddPostModel(IBase64 Base64Converter, IHttpContextAccessor httpContextAccessor
-            , SocialNetwork.Data.SocialNetworkContext context)
+            , SocialNetwork.Data.SocialNetworkContext context, UserManager<AppUser> userManager,
+            SignInManager<AppUser> signInManager)
         {
             converter = Base64Converter;
             _httpContextAccessor = httpContextAccessor;
             userID = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);//Zwracany ci¹g znaków?
             int result = IDConverter.GetIntID(userID);
             _context = context;
+            _userManager = userManager;
+            _signInManager = signInManager;
+            db = new LocalDB(_userManager,_signInManager);
         }
         public void OnGet()
         {
