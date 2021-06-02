@@ -14,11 +14,11 @@ namespace SocialNetwork.Models
         List<AppUser> GetFriends(int userID);
         List<AppUser> GetFollowedUsers(int userID);
         void AddPostAsync(Post post, SocialNetwork.Data.SocialNetworkContext context);
-        Post GetPost(int postID);
-        void EditPost(int postID, Post editedPost);
-        void DeletePost(int postID);
+        Task<Post> GetPostAsync(int postID, SocialNetwork.Data.SocialNetworkContext context);
+        void EditPostAsync(Post editedPost, SocialNetwork.Data.SocialNetworkContext context);
+        void DeletePostAsync(int postID, SocialNetwork.Data.SocialNetworkContext context);
         void AddUser(AppUser user);
-        AppUser GetUser(int userID);
+        Task<AppUser> GetUser(string userID);
         void EditUser(int userID, AppUser editedUser);
         void DeleteUser(int userID);
         List<AppUser> GetSearchResults(string searchQuery);
