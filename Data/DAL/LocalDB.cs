@@ -24,7 +24,7 @@ namespace SocialNetwork.Data.DAL
         public async void AddPostAsync(Post post, SocialNetwork.Data.SocialNetworkContext context)
         {
             context.Posts.Add(post);
-            await context.SaveChangesAsync();
+            //await context.SaveChangesAsync();
         }
 
         public void AddUser(AppUser user)

@@ -59,6 +59,9 @@ namespace SocialNetwork.Pages
                 if (ModelState.IsValid == true)
                 {
                     //DodajPost(post)
+                    _context.Posts.Add(post);
+                    //db.AddPostAsync(post, _context);
+                    _context.SaveChangesAsync();
                     if (_returnURL != null)
                     {
                         return RedirectToPage(_returnURL);
@@ -103,7 +106,9 @@ namespace SocialNetwork.Pages
                 if (ModelState.IsValid == true)
                 {
                     //dodajemy post
-                    db.AddPostAsync(post, _context); 
+                    //db.AddPostAsync(post, _context);
+                    _context.Posts.Add(post);
+                    _context.SaveChangesAsync();
                     if (_returnURL != null)
                     {
                         return RedirectToPage(_returnURL);
