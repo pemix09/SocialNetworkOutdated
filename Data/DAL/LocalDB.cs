@@ -2,15 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using SocialNetwork.Models;
 
 namespace SocialNetwork.Data.DAL
 {
     public class LocalDB : IDBContext
     {
-        public void AddPost(Post post)
+        public async void AddPostAsync(Post post, SocialNetwork.Data.SocialNetworkContext context)
         {
-            throw new NotImplementedException();
+            context.Posts.Add(post);
+            await context.SaveChangesAsync();
         }
 
         public void AddUser(UserInfo user)

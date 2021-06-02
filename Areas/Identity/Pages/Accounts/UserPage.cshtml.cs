@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -16,7 +17,7 @@ using SocialNetwork.Models;
 
 namespace SocialNetwork.Pages
 {
-
+    [Authorize]
     public class UserPageModel : PageModel
     {
         public class InputModel

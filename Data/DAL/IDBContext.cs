@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,7 +13,7 @@ namespace SocialNetwork.Models
         List<Comment> GetPostComments(int postID);
         List<UserInfo> GetFriends(int userID);
         List<UserInfo> GetFollowedUsers(int userID);
-        void AddPost(Post post);
+        void AddPostAsync(Post post, SocialNetwork.Data.SocialNetworkContext context);
         Post GetPost(int postID);
         void EditPost(int postID, Post editedPost);
         void DeletePost(int postID);
