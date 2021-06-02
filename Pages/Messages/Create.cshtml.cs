@@ -21,7 +21,6 @@ namespace SocialNetwork.Pages.Messages
 
         public IActionResult OnGet()
         {
-        ViewData["userID"] = new SelectList(_context.Users, "ID", "email");
             return Page();
         }
 

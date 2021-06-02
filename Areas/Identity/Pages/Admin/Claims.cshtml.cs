@@ -20,7 +20,7 @@ namespace SocialNetwork.Areas.Identity.Pages.Admin
         public ApplicationClaimsTypes ApplicationClaimsTypes = new();
         public List<String> AppClaimTypes;
         IHttpContextAccessor httpAccessor;
-        public UserInfo User = new();
+        public AppUser User = new();
         public SocialNetwork.Data.SocialNetworkContext _context;
         public ClaimsModel(UserManager<AppUser> mgr, IHttpContextAccessor httpContextAccessor,
             SocialNetwork.Data.SocialNetworkContext context)
@@ -43,7 +43,7 @@ namespace SocialNetwork.Areas.Identity.Pages.Admin
         public IEnumerable<Claim> Claims { get; set; }
         public async Task<IActionResult> OnGetAsync(int id, string stringID)
         {
-            User = await _context.Users.FirstOrDefaultAsync(m => m.ID == id);
+            User = await _context.Users.FirstOrDefaultAsync(m => m.Id == stringID);
             if (string.IsNullOrEmpty(Id))
             {
                 //Redirect to NotFound
@@ -51,7 +51,7 @@ namespace SocialNetwork.Areas.Identity.Pages.Admin
             }
             if(id>0)
             {
-                Id = User.stringID;
+                Id = User.Id;
             }
             AppUser user = await UserManager.FindByIdAsync(Id);
             Claims = await UserManager.GetClaimsAsync(user);
@@ -90,8 +90,8 @@ namespace SocialNetwork.Areas.Identity.Pages.Admin
             AppUser user;
             if (id > 0)
             {
-                User = await _context.Users.FirstOrDefaultAsync(m => m.ID == id);
-                user = await UserManager.FindByIdAsync(User.stringID);
+                User = await _context.Users.FirstOrDefaultAsync(m => m.Id == stringID);
+                user = await UserManager.FindByIdAsync(User.Id);
             }
             else
             {
@@ -115,8 +115,8 @@ namespace SocialNetwork.Areas.Identity.Pages.Admin
             AppUser user;
             if (id>0)
             {
-                User = await _context.Users.FirstOrDefaultAsync(m => m.ID == id);
-                user = await UserManager.FindByIdAsync(User.stringID);
+                User = await _context.Users.FirstOrDefaultAsync(m => m.Id == stringID);
+                user = await UserManager.FindByIdAsync(User.Id);
             }
             else
             {

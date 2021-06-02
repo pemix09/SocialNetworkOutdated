@@ -10,8 +10,8 @@ namespace SocialNetwork.Models
     {
         [Key]
         public int LikeID { get; set; }
-        public int likedBy { get; set; }
-        public int likedUser { get; set; }
-        public UserInfo UserInfo { get; set; }
+        public string likedBy { get; set; }
+        public string likedUser { get; set; }
+        public AppUser AppUser { get; set; }
     }
 }

@@ -13,16 +13,16 @@ namespace SocialNetwork.Services
     {
         public void OnPageHandlerSelected(PageHandlerSelectedContext pageContext)
         {
-            int a = 0;
+            //int a = 0;
 
         }
         public void OnPageHandlerExecuting(PageHandlerExecutingContext pageContext)
         {
-            int a = 0;
+            //int a = 0;
         }
         public void OnPageHandlerExecuted(PageHandlerExecutedContext pageContext)
         {
-            int a = 0;
+            //int a = 0;
         }
     }
 }

@@ -15,10 +15,10 @@ namespace SocialNetwork.Areas.Identity.Pages.Admin
     {
         public SocialNetworkContext _DbCtx { get; set; }
 
-        public IEnumerable<UserInfo> Users { get; set; }
-                        = Enumerable.Empty<UserInfo>();
+        public IEnumerable<AppUser> Users { get; set; }
+                        = Enumerable.Empty<AppUser>();
         public SocialNetwork.Data.SocialNetworkContext _context;
-        public UserInfo User = new();
+        public AppUser AppUser = new();
 
 
         public UsersModel(SocialNetworkContext dbCtx, SocialNetwork.Data.SocialNetworkContext context)
@@ -26,11 +26,11 @@ namespace SocialNetwork.Areas.Identity.Pages.Admin
             _DbCtx = dbCtx;
             _context = context;
         }
-        public async Task<IActionResult> OnPostDeleteUserAsync(int id, string stringID)
+        public async Task<IActionResult> OnPostDeleteUserAsync(string stringID)
         {
             //Null exception!!!
-            User = await _context.Users.FirstOrDefaultAsync(m => m.ID == id);
-            _context.Users.Remove(User);
+            AppUser = await _context.Users.FirstOrDefaultAsync(m => m.Id == stringID);
+            _context.Users.Remove(AppUser);
             await _context.SaveChangesAsync();
             Users = _DbCtx.Users.ToList();
             return Page();

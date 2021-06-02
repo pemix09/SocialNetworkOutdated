@@ -32,7 +32,7 @@ namespace SocialNetwork.Pages
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
             [Display(Name = "Profile Picture")]
-            public byte[] ProfilePicture { get; set; }
+            public string ProfilePicture { get; set; }
         }
         [BindProperty]
         public InputModel Input { get; set; }
@@ -124,12 +124,12 @@ namespace SocialNetwork.Pages
                 using (var dataStream = new MemoryStream())
                 {
                     await file.CopyToAsync(dataStream);
-                    user.ProfilePicture = dataStream.ToArray();
+                    user.ProfilePicture = dataStream.ToString();
                 }
                 await _userManager.UpdateAsync(user);
             }
             await _signInManager.RefreshSignInAsync(user);
-            StatusMessage = "Your profile has been updated";
+            //StatusMessage = "Your profile has been updated";
             return RedirectToPage();
         }
     }

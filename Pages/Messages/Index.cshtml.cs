@@ -23,8 +23,7 @@ namespace SocialNetwork.Pages.Messages
 
         public async Task OnGetAsync()
         {
-            Message = await _context.Messages
-                .Include(m => m.User).ToListAsync();
+            Message = await _context.Messages.ToListAsync();
         }
     }
 }

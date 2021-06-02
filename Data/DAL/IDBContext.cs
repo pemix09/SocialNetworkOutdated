@@ -11,17 +11,17 @@ namespace SocialNetwork.Models
         //nie mam pojęcia co z tym zrobić, ale to chyba powinno być w innym folderze? DAL czy cos w tym stylu???
         List<Post> GetPosts(int userID);
         List<Comment> GetPostComments(int postID);
-        List<UserInfo> GetFriends(int userID);
-        List<UserInfo> GetFollowedUsers(int userID);
+        List<AppUser> GetFriends(int userID);
+        List<AppUser> GetFollowedUsers(int userID);
         void AddPostAsync(Post post, SocialNetwork.Data.SocialNetworkContext context);
         Post GetPost(int postID);
         void EditPost(int postID, Post editedPost);
         void DeletePost(int postID);
-        void AddUser(UserInfo user);
-        UserInfo GetUser(int userID);
-        void EditUser(int userID, UserInfo editedUser);
+        void AddUser(AppUser user);
+        AppUser GetUser(int userID);
+        void EditUser(int userID, AppUser editedUser);
         void DeleteUser(int userID);
-        List<UserInfo> GetSearchResults(string searchQuery);
+        List<AppUser> GetSearchResults(string searchQuery);
         List<Message> GetMessages(int userID);
     }
 }

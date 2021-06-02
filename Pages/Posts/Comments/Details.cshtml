@@ -12,6 +12,12 @@
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Comment.userID)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Comment.userID)
+        </dd>
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Comment.stringContent)
         </dt>
         <dd class="col-sm-10">
@@ -40,12 +46,6 @@
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Comment.Post.name)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Comment.UserInfo)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Comment.UserInfo.email)
         </dd>
     </dl>
 </div>

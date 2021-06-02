@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SocialNetwork.Data;
 
 namespace SocialNetwork.Migrations
 {
     [DbContext(typeof(SocialNetworkContext))]
-    partial class SocialNetworkContextModelSnapshot : ModelSnapshot
+    [Migration("20210602141218_appuserv4")]
+    partial class appuserv4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -410,7 +412,7 @@ namespace SocialNetwork.Migrations
             modelBuilder.Entity("SocialNetwork.Models.Message", b =>
                 {
                     b.HasOne("SocialNetwork.Models.AppUser", "AppUser")
-                        .WithMany()
+                        .WithMany("Messages")
                         .HasForeignKey("AppUserId");
 
                     b.Navigation("AppUser");
@@ -419,10 +421,17 @@ namespace SocialNetwork.Migrations
             modelBuilder.Entity("SocialNetwork.Models.Post", b =>
                 {
                     b.HasOne("SocialNetwork.Models.AppUser", "AppUser")
-                        .WithMany()
+                        .WithMany("Posts")
                         .HasForeignKey("AppUserId");
 
                     b.Navigation("AppUser");
+                });
+
+            modelBuilder.Entity("SocialNetwork.Models.AppUser", b =>
+                {
+                    b.Navigation("Messages");
+
+                    b.Navigation("Posts");
                 });
 
             modelBuilder.Entity("SocialNetwork.Models.Post", b =>

@@ -10,7 +10,7 @@ namespace SocialNetwork.Models
     public class Post
     {
         public Post() { }
-        public Post(int PostID, string Name, string StringContent, DateTime Date, string Base64Photo, int UserID)
+        public Post(int PostID, string Name, string StringContent, DateTime Date, string Base64Photo, string UserID)
         {
             postID = PostID;
             name = Name;
@@ -42,9 +42,9 @@ namespace SocialNetwork.Models
         public string? base64Photo { get; set; }
         public float? posX { get; set; }
         public float? posY { get; set; }
-        public int? userID { get; set; }
+        public string? userID { get; set; }
         #nullable disable
-        public UserInfo User { get; set; }//AUTOR
+        public AppUser AppUser { get; set; }//AUTOR
         public ICollection<Comment> Comments { get; set; }
     }
 }
