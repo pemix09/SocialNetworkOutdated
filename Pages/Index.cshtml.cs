@@ -9,9 +9,13 @@ using System.Threading.Tasks;
 using SocialNetwork.Models;
 using SocialNetwork.Data.DAL;
 using SocialNetwork.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SocialNetwork.Pages
 {
+    //Wywołaj metody filtra, tam będą metody dziennika zdarzeń
+    [CustomFilter]
+    [AllowAnonymous]
     public class IndexModel : PageModel
     {
         public bool newMessages { get; set; }

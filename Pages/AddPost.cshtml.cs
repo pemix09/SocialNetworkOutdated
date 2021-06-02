@@ -13,6 +13,7 @@ using SocialNetwork.Services;
 namespace SocialNetwork.Pages
 {
     [Authorize]
+    [CustomFilter]
     public class AddPostModel : PageModel
     {
         [BindProperty]
