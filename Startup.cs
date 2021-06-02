@@ -70,6 +70,8 @@ namespace SocialNetwork
                 "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
                 options.User.RequireUniqueEmail = true;
             });
+            services.Configure<PasswordHasherOptions>(options =>
+    options.CompatibilityMode = PasswordHasherCompatibilityMode.IdentityV2);
             services.AddIdentity<AppUser, IdentityRole>()
                     .AddEntityFrameworkStores<SocialNetworkContext>()
                     .AddDefaultUI()

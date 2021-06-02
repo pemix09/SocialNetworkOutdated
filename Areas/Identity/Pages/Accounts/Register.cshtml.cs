@@ -49,7 +49,6 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
         public async Task OnGetAsync()
         {
         }
-
         public async Task<IActionResult> OnPostAsync()
         {
             if (ModelState.IsValid)
