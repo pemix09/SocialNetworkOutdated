@@ -40,8 +40,7 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
         [BindProperty]
         public InputModel Input { get; set; }
 
-        [BindProperty]
-        public UserInfo user { get; set; }
+       
         public string ReturnUrl { get; set; }
 
         public IList<AuthenticationScheme> ExternalLogins { get; set; }
@@ -55,38 +54,57 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
         {
             if (ModelState.IsValid)
             {
+                var userCheck = await _userManager.FindByEmailAsync(Input.Email);
+                if(userCheck!=null)
+                {
+                    ModelState.AddModelError("Existing Account", "Podany email jest ju¿ przypisany do konta");
+                    return Page();
+                }
+                if (userCheck == null)
+                {
+
+                    //create new user
+                    var userD = new AppUser
+                    {
+                        UserName = Input.nickname,
+                        Email = Input.Email,
+                        FirstName = Input.firstName,
+                        LastName = Input.lastName,
+                        PhoneNumber = Input.phone,
+                    };
+                    var result = await _userManager.CreateAsync(userD, Input.Password);
+                    if (result.Succeeded)
+                    {
+                        UserInfo user = new();
+                        //powloi trzeba bêdzie od tego odchodziæ, bo chcemy mieæ tylko jedn¹
+                        //tabelê na dane u¿ytkownika
+                        user.stringID = userD.Id;
+                        user.firstName = Input.firstName;
+                        user.lastName = Input.lastName;
+                        user.nickname = Input.nickname;
+                        user.phone = Input.phone;
+                        user.email = Input.Email;
+
+                        //logowanie informacji o dodaniu u¿ytkownika
+                        _logger.LogInformation("U¿ytkownik poprawnie stworzy³ swoje konto");
+
+                        //zalogowanie u¿ytkownika
+                        await _signInManager.SignInAsync(userD, isPersistent: false);
+
+                        //dodanie u¿ytkownika do tabeli
+                        _context.Users.Add(user);
+                        await _context.SaveChangesAsync();
+
+
+                        return Redirect("~/");
+                    }
+                    foreach (var error in result.Errors)
+                    {
+                        //ModelState.AddModelError("EmailTaken", "Podany adres Email jest ju¿ u¿ywany");
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
+                }
                 
-                var userD = new AppUser { UserName =Input.nickname , Email = Input.Email };
-                var result = await _userManager.CreateAsync(userD, Input.Password);
-                if (result.Succeeded)
-                {
-                    //powloi trzeba bêdzie od tego odchodziæ, bo chcemy mieæ tylko jedn¹
-                    //tabelê na dane u¿ytkownika
-                    user.stringID = userD.Id;
-                    user.firstName = Input.firstName;
-                    user.lastName = Input.lastName;
-                    user.nickname = Input.nickname;
-                    user.phone = Input.phone;
-                    user.email = Input.Email;
-
-                    //logowanie informacji o dodaniu u¿ytkownika
-                    _logger.LogInformation("U¿ytkownik poprawnie stworzy³ swoje konto");
-
-                    //zalogowanie u¿ytkownika
-                    await _signInManager.SignInAsync(userD, isPersistent: false);
-
-                    //dodanie u¿ytkownika do tabeli
-                    _context.Users.Add(user);
-                    await _context.SaveChangesAsync();
-
-
-                    return Redirect("~/");
-                }
-                foreach (var error in result.Errors)
-                {
-                    //ModelState.AddModelError("EmailTaken", "Podany adres Email jest ju¿ u¿ywany");
-                    ModelState.AddModelError(string.Empty, error.Description);
-                }
             }
 
             // If we got this far, something failed, redisplay form

@@ -18,6 +18,8 @@
     
     <div class="col-md-7">
         <hi>@Html.ValidationSummary(false, "", new { @class = "text-danger" })</hi>
+        <p>
+            @Html.ValidationSummary(false, "", new { @class = "text-danger" })            </p>
         <form asp-route-returnUrl="@Model.ReturnUrl" method="post" id="RegisterPost" class="flex-column" style="justify-content:flex-start">
             <hr />
             <div class="RowFlex" >
@@ -34,9 +36,9 @@
             </div>
             <div class="RowFlex">
                 <div class="form-group" style="width:400px">
-                    <label asp-for="@Model.user.phone"></label>
-                    <input asp-for="@Model.user.phone" class="form-control" />
-                    <span asp-validation-for="@Model.user.phone" class="text-danger"></span>
+                    <label asp-for="@Model.Input.phone"></label>
+                    <input asp-for="@Model.Input.phone" class="form-control" />
+                    <span asp-validation-for="@Model.Input.phone" class="text-danger"></span>
                 </div>
                 <div class="form-group" style="width:400px">
                     <label asp-for="@Model.Input.nickname"></label>
