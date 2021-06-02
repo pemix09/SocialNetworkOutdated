@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -36,10 +37,8 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
         public string Username { get; private set; }
         [TempData]
         public string StatusMessage { get; set; }
-        private readonly SocialNetworkContext _context;
-        public UserPageViewModel(SocialNetworkContext context, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
+        public UserPageViewModel(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
         {
-            _context = context;
             _userManager = userManager;
             _signInManager = signInManager;
         }

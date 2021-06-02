@@ -44,7 +44,7 @@ namespace SocialNetwork
             services.AddMvc(options => options.EnableEndpointRouting = false);
             services.AddControllers();
             services.AddRazorPages();
-            services.Add(new ServiceDescriptor(typeof(IBase64), new Base64Converter(Configuration)));
+            services.Add(new ServiceDescriptor(typeof(IBase64), new Base64Converter()));
 
             services.AddDbContext<SocialNetworkContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("SocialNetworkContext")));

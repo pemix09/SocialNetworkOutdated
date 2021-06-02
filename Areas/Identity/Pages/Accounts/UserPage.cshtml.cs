@@ -118,18 +118,21 @@ namespace SocialNetwork.Pages
                 await _userManager.UpdateAsync(user);
             }
 
-            if (Request.Form.Files.Count > 0)
+            if (Request.Form.Files.Count > 0) // czy coœ zosta³o dodane w za³¹czniku
             {
                 IFormFile file = Request.Form.Files.FirstOrDefault();
-                using (var dataStream = new MemoryStream())
+                var filepath = Path.GetTempFileName();
+                using (var stream = System.IO.File.Create(filepath))
                 {
-                    await file.CopyToAsync(dataStream);
-                    user.ProfilePicture = dataStream.ToString();
+                    await file.CopyToAsync(stream);
                 }
+                Base64Converter conv = new Base64Converter();
+                var data = conv.GetBase64FromPicture(filepath);
+                user.ProfilePicture = data;
                 await _userManager.UpdateAsync(user);
             }
             await _signInManager.RefreshSignInAsync(user);
-            //StatusMessage = "Your profile has been updated";
+            StatusMessage = "Your profile has been updated";
             return RedirectToPage();
         }
     }
