@@ -22,6 +22,7 @@ namespace SocialNetwork.Pages
         private readonly ILogger<IndexModel> _logger;
         public AppUser user=new AppUser();
         public List<Post> posts;
+        public List<AppUser> users;
         public LocalDB db = new LocalDB();
         public IndexModel(ILogger<IndexModel> logger)
         {
@@ -41,6 +42,7 @@ namespace SocialNetwork.Pages
             else if(searchQuery == null && HttpContext != null)
             {
                 //user.nickname = HttpContext.User.Identity.Name;
+                users = null;
                 posts = db.GetPosts(1);
             }
 
