@@ -40,18 +40,19 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
         [BindProperty]
         public InputModel Input { get; set; }
 
+
         
-        public AppUser user { get; set; }
         public string ReturnUrl { get; set; }
 
         public IList<AuthenticationScheme> ExternalLogins { get; set; }
 
 
-        public async Task OnGetAsync()
+        /*public async Task OnGetAsync()
         {
-        }
+        }*/
         public async Task<IActionResult> OnPostAsync()
         {
+            AppUser user = new AppUser();
             if (ModelState.IsValid)
             {
                 var userCheck = await _userManager.FindByEmailAsync(Input.Email);
@@ -77,7 +78,7 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
                     {
                         //powloi trzeba bêdzie od tego odchodziæ, bo chcemy mieæ tylko jedn¹
                         //tabelê na dane u¿ytkownika
-                        user.Id = userD.Id;
+                       // user.Id = userD.Id;
                         user.FirstName = Input.firstName;
                         user.LastName = Input.lastName;
                         user.UserName = Input.nickname;
@@ -87,13 +88,14 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
                         //logowanie informacji o dodaniu u¿ytkownika
                         _logger.LogInformation("U¿ytkownik poprawnie stworzy³ swoje konto");
 
-                        //zalogowanie u¿ytkownika
-                        await _signInManager.SignInAsync(userD, isPersistent: false);
+                        
 
                         //dodanie u¿ytkownika do tabeli
                         _context.Users.Add(user);
                         await _context.SaveChangesAsync();
 
+                        //zalogowanie u¿ytkownika
+                        await _signInManager.SignInAsync(userD, isPersistent: false);
 
                         return Redirect("~/");
                     }
