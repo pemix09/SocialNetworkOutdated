@@ -30,14 +30,12 @@ namespace SocialNetwork.Pages.Messages
                 return NotFound();
             }
 
-            Message = await _context.Messages
-                .Include(m => m.User).FirstOrDefaultAsync(m => m.messageID == id);
+            Message = await _context.Messages.FirstOrDefaultAsync(m => m.messageID == id);
 
             if (Message == null)
             {
                 return NotFound();
             }
-           ViewData["userID"] = new SelectList(_context.Users, "ID", "email");
             return Page();
         }
 

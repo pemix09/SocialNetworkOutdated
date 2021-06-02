@@ -18,12 +18,14 @@ namespace SocialNetwork.Models
         public DateTime date { get; set; }
         [Required]
         [DataType(DataType.Text)]
-        public int? userID { get; set; }
+        #nullable enable
+        public string? userID { get; set; }
         [Required]
         [DataType(DataType.Text)]
         public int? recevingUserID { get; set; }
+        #nullable disable
         [Required]
         public Boolean isRead { get; set; }
-        public UserInfo User { get; set; }//nie mam pewności, ale chyba warto przypisac wiadomość do wysyłającego
+        public AppUser AppUser { get; set; }//nie mam pewności, ale chyba warto przypisac wiadomość do wysyłającego
     }
 }

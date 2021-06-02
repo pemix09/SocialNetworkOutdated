@@ -34,26 +34,26 @@ namespace SocialNetwork.Models
         [Required(ErrorMessage = "Pole 'Nazwa użytkownika' jest wymagane")]
         [DataType(DataType.Text)]
         [StringLength(30)]
-        public string nickname { get; set; }
+        public string? nickname { get; set; }
         [Required(ErrorMessage = "Adres email jest wymagany")]
         [DataType(DataType.EmailAddress)]
         [Display(Name = "E-mail")]
-        public string Email { get; set; }
+        public string? Email { get; set; }
         [Required(ErrorMessage = "Należy powtórzyć adres email")]
         [DataType(DataType.EmailAddress)]
         [Display(Name = "Powtórz E-mail")]
         [Compare("Email", ErrorMessage = "Adresy E-mail są różne")]
-        public string confirmEmail { get; set; }
+        public string? confirmEmail { get; set; }
 
         [Required(ErrorMessage = "Hasło jest wymagane")]
         [StringLength(100, ErrorMessage = "Hasło musi składać się z od 6 do 100 znaków", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Hasło")]
-        public string Password { get; set; }
+        public string? Password { get; set; }
 
         [DataType(DataType.Password)]
         [Display(Name = "Powtórz hasło")]
         [Compare("Password", ErrorMessage = "Hasła są różne")]
-        public string ConfirmPassword { get; set; }
+        public string? ConfirmPassword { get; set; }
     }
 }

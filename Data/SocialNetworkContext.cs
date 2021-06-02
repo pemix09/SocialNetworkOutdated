@@ -15,7 +15,7 @@ namespace SocialNetwork.Data
             : base(options)
         {
         }
-        public DbSet<UserInfo> Users { get; set; }
+        public DbSet<AppUser> AppUsers { get; set; }
         public DbSet<Post> Posts { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Message> Messages { get; set; }
@@ -23,11 +23,11 @@ namespace SocialNetwork.Data
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.HasDefaultSchema("SocialNetwork");
-            modelBuilder.Entity<AppUser>(entity =>
+            /*modelBuilder.Entity<AppUser>(entity =>
             {
-                entity.ToTable(name: "IdentityUser");//Zmiana na "User" kiedys
-            });
-            modelBuilder.Entity<UserInfo>().ToTable("User");
+                entity.ToTable(name: "IdentityUser");
+            });*/
+            modelBuilder.Entity<AppUser>().ToTable("IdentityUser");
             modelBuilder.Entity<Post>().ToTable("Post");
             modelBuilder.Entity<Comment>().ToTable("Comment");
             modelBuilder.Entity<Message>().ToTable("Message");

@@ -31,15 +31,13 @@ namespace SocialNetwork.Pages.Posts.Comments
             }
 
             Comment = await _context.Comments
-                .Include(c => c.Post)
-                .Include(c => c.UserInfo).FirstOrDefaultAsync(m => m.commentID == id);
+                .Include(c => c.Post).FirstOrDefaultAsync(m => m.commentID == id);
 
             if (Comment == null)
             {
                 return NotFound();
             }
            ViewData["postID"] = new SelectList(_context.Posts, "postID", "name");
-           ViewData["userID"] = new SelectList(_context.Users, "ID", "email");
             return Page();
         }
 

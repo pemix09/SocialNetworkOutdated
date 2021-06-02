@@ -11,7 +11,9 @@ namespace SocialNetwork.Models
         [Key]
         public int commentID { get; set; }
         public int postID { get; set; }
-        public int? userID { get; set; }
+        #nullable enable
+        public string? userID { get; set; }
+        #nullable disable
         [Required]
         [DataType(DataType.Text)]
         public string stringContent { get; set; }
@@ -25,6 +27,6 @@ namespace SocialNetwork.Models
         public DateTime date { get; set; }
         //jeden komentarz należy do jednego postu i autora
         public Post Post { get; set; }
-        public UserInfo UserInfo { get; set; }
+        public AppUser AppUser { get; set; }
     }
 }

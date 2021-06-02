@@ -40,8 +40,8 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
         [BindProperty]
         public InputModel Input { get; set; }
 
-        [BindProperty]
-        public UserInfo user { get; set; }
+        
+        public AppUser user { get; set; }
         public string ReturnUrl { get; set; }
 
         public IList<AuthenticationScheme> ExternalLogins { get; set; }
@@ -62,12 +62,12 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
                 {
                     //powloi trzeba bêdzie od tego odchodziæ, bo chcemy mieæ tylko jedn¹
                     //tabelê na dane u¿ytkownika
-                    user.stringID = userD.Id;
-                    user.firstName = Input.firstName;
-                    user.lastName = Input.lastName;
-                    user.nickname = Input.nickname;
-                    user.phone = Input.phone;
-                    user.email = Input.Email;
+                    user.Id = userD.Id;
+                    user.FirstName = Input.firstName;
+                    user.LastName = Input.lastName;
+                    user.UserName = Input.nickname;
+                    user.PhoneNumber = Input.phone;
+                    user.Email = Input.Email;
 
                     //logowanie informacji o dodaniu u¿ytkownika
                     _logger.LogInformation("U¿ytkownik poprawnie stworzy³ swoje konto");

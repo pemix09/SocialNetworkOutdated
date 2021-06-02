@@ -20,13 +20,13 @@
                 @Html.DisplayNameFor(model => model.Message[0].date)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Message[0].userID)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Message[0].recevingUserID)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Message[0].isRead)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Message[0].User)
             </th>
             <th></th>
         </tr>
@@ -41,13 +41,13 @@
                 @Html.DisplayFor(modelItem => item.date)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.userID)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.recevingUserID)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.isRead)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.User.email)
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.messageID">Edit</a> |

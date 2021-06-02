@@ -20,7 +20,7 @@ namespace SocialNetwork.Pages
     {
         public bool newMessages { get; set; }
         private readonly ILogger<IndexModel> _logger;
-        public UserInfo user=new UserInfo();
+        public AppUser user=new AppUser();
         public List<Post> posts;
         public LocalDB db = new LocalDB();
         public IndexModel(ILogger<IndexModel> logger)

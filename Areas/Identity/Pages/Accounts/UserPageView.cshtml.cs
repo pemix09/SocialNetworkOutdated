@@ -27,7 +27,7 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
             [Display(Name = "Profile Picture")]
-            public byte[] ProfilePicture { get; set; }
+            public string ProfilePicture { get; set; }
         }
         [BindProperty]
         public InputModel Input { get; set; }

@@ -22,7 +22,6 @@ namespace SocialNetwork.Pages.Posts.Comments
         public IActionResult OnGet()
         {
         ViewData["postID"] = new SelectList(_context.Posts, "postID", "name");
-        ViewData["userID"] = new SelectList(_context.Users, "ID", "email");
             return Page();
         }
 
