@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 using SocialNetwork.Data;
 using SocialNetwork.Models;
 
@@ -16,10 +17,23 @@ namespace SocialNetwork.Areas.Identity.Pages.Admin
 
         public IEnumerable<UserInfo> Users { get; set; }
                         = Enumerable.Empty<UserInfo>();
+        public SocialNetwork.Data.SocialNetworkContext _context;
+        public UserInfo User = new();
 
-        public UsersModel(SocialNetworkContext dbCtx)
+
+        public UsersModel(SocialNetworkContext dbCtx, SocialNetwork.Data.SocialNetworkContext context)
         {
             _DbCtx = dbCtx;
+            _context = context;
+        }
+        public async Task<IActionResult> OnPostDeleteUserAsync(int id, string stringID)
+        {
+            //Null exception!!!
+            User = await _context.Users.FirstOrDefaultAsync(m => m.ID == id);
+            _context.Users.Remove(User);
+            await _context.SaveChangesAsync();
+            Users = _DbCtx.Users.ToList();
+            return Page();
         }
 
         public void OnGet()

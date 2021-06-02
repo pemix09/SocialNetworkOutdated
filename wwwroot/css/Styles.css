@@ -185,6 +185,18 @@
     fill:red;
     color:red;
 }
+.headerButtonsWhite {
+    border: none;
+    background-color: rgb(0,0,0,0);
+    fill: white;
+    color: white;
+    outline: none;
+}
+
+.headerButtonsWhite:hover {       
+    fill: red;
+    color: red;
+ }
 
 .RowFlex {
     display: flex;
