@@ -18,12 +18,19 @@
     
     <div class="col-md-7">
         <hi>@Html.ValidationSummary(false, "", new { @class = "text-danger" })</hi>
-        <form asp-route-returnUrl="@Model.ReturnUrl" method="post" id="RegisterPost">
+        <form asp-route-returnUrl="@Model.ReturnUrl" method="post" id="RegisterPost" class="flex-column" style="justify-content:flex-start">
             <hr />
-            <div class="form-group">
-                <label asp-for="@Model.user.email"></label>
-                <input asp-for="@Model.user.email" class="form-control" />
-                <span asp-validation-for="@Model.user.email" class="text-danger"></span>
+            <div class="RowFlex" >
+                <div class="form-group" style="width:400px" >
+                    <label asp-for="@Model.Input.Email"></label>
+                    <input asp-for="@Model.Input.Email" class="form-control" />
+                    <span asp-validation-for="@Model.Input.Email" class="text-danger"></span>
+                </div>
+                <div class="form-group" style="width:400px;">
+                    <label asp-for="@Model.Input.confirmEmail"></label>
+                    <input asp-for="@Model.Input.confirmEmail" class="form-control" />
+                    <span asp-validation-for="@Model.Input.confirmEmail" class="text-danger"></span>
+                </div>
             </div>
             <div class="RowFlex">
                 <div class="form-group" style="width:400px">
@@ -32,21 +39,21 @@
                     <span asp-validation-for="@Model.user.phone" class="text-danger"></span>
                 </div>
                 <div class="form-group" style="width:400px">
-                    <label asp-for="@Model.user.nickname"></label>
-                    <input asp-for="@Model.user.nickname" class="form-control" />
-                    <span asp-validation-for="@Model.user.nickname" class="text-danger"></span>
+                    <label asp-for="@Model.Input.nickname"></label>
+                    <input asp-for="@Model.Input.nickname" class="form-control" />
+                    <span asp-validation-for="@Model.Input.nickname" class="text-danger"></span>
                 </div>
             </div>
             <div class="RowFlex">
                 <div class="form-group" style="width:400px">
-                    <label asp-for="@Model.user.firstName"></label>
-                    <input asp-for="@Model.user.firstName" class="form-control" />
-                    <span asp-validation-for="@Model.user.firstName" class="text-danger"></span>
+                    <label asp-for="@Model.Input.firstName"></label>
+                    <input asp-for="@Model.Input.firstName" class="form-control" />
+                    <span asp-validation-for="@Model.Input.firstName" class="text-danger"></span>
                 </div>
                 <div class="form-group" style="width:400px">
-                    <label asp-for="@Model.user.lastName"></label>
-                    <input asp-for="@Model.user.lastName" class="form-control" />
-                    <span asp-validation-for="@Model.user.lastName" class="text-danger"></span>
+                    <label asp-for="@Model.Input.lastName"></label>
+                    <input asp-for="@Model.Input.lastName" class="form-control" />
+                    <span asp-validation-for="@Model.Input.lastName" class="text-danger"></span>
                 </div>
             </div>
             <div class="RowFlex">

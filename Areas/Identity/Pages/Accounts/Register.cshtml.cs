@@ -56,11 +56,18 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
             if (ModelState.IsValid)
             {
                 
-                var userD = new AppUser { UserName = user.nickname, Email = user.email };
+                var userD = new AppUser { UserName =Input.nickname , Email = Input.Email };
                 var result = await _userManager.CreateAsync(userD, Input.Password);
                 if (result.Succeeded)
                 {
+                    //powloi trzeba bêdzie od tego odchodziæ, bo chcemy mieæ tylko jedn¹
+                    //tabelê na dane u¿ytkownika
                     user.stringID = userD.Id;
+                    user.firstName = Input.firstName;
+                    user.lastName = Input.lastName;
+                    user.nickname = Input.nickname;
+                    user.phone = Input.phone;
+                    user.email = Input.Email;
 
                     //logowanie informacji o dodaniu u¿ytkownika
                     _logger.LogInformation("U¿ytkownik poprawnie stworzy³ swoje konto");
