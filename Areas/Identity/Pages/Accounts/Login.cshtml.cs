@@ -81,7 +81,7 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
 
                 if(user == null)
                 {
-                    ModelState.AddModelError("EmailNotFound", "Nie znaleziono podanego adresu email");
+                    ModelState.AddModelError("WrongEmailAdress", "Z³y adres email");
                     return Page();
                 }
                 if (await _userManager.CheckPasswordAsync(user, Input.Password) == false)
