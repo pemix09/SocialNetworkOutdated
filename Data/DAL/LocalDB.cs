@@ -92,12 +92,12 @@ namespace SocialNetwork.Data.DAL
         public List<Comment> GetPostComments(int postID, SocialNetworkContext context)
         {
             List<Comment> comments = context.Comments.ToList();
-            List<Comment> result = new();
+            List<Comment> result = new List<Comment>();
             foreach(Comment comment in comments)
             {
                 if(comment.postID == postID)
                 {
-                    result.Append(comment);
+                    result.Add(comment);
                 }
             }
             return result;
@@ -106,13 +106,13 @@ namespace SocialNetwork.Data.DAL
         public List<Post> GetPosts(string userID, SocialNetworkContext context)
         {
             List<Post> posts = context.Posts.ToList();
-            List<Post> result = new();
+            List<Post> result = new List<Post>();
 
             foreach(Post post in posts)
             {
                 if(post.userID.CompareTo(userID) == 0)
                 {
-                    result.Append<Post>(post);
+                    result.Add(post);
                 }
             }
             return result;
@@ -126,7 +126,8 @@ namespace SocialNetwork.Data.DAL
             foreach(AppUser user in users)
             {
                 string fullName = user.FirstName + " " + user.LastName;
-                if(fullName.Contains(searchQuery))
+                fullName = fullName.ToLower();
+                if(fullName.Contains(searchQuery.ToLower()))
                 {
                     //jeśli pełna nazwa czyli imię+nazwisko
                     //zawiera szukaną frazę, to dodaj użytkownika do

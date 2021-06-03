@@ -18,16 +18,16 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
     {
         public class InputModel
         {
-            [Display(Name = "First Name")]
+            [Display(Name = "Imiê")]
             public string FirstName { get; set; }
-            [Display(Name = "Last Name")]
+            [Display(Name = "Nazwisko")]
             public string LastName { get; set; }
-            [Display(Name = "Username")]
+            [Display(Name = "Nazwa u¿ytkownika")]
             public string Username { get; set; }
             [Phone]
-            [Display(Name = "Phone number")]
+            [Display(Name = "Numer telefonu")]
             public string PhoneNumber { get; set; }
-            [Display(Name = "Profile Picture")]
+            [Display(Name = "Zdjêcie profilowe")]
             public string ProfilePicture { get; set; }
         }
         [BindProperty]
