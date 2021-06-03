@@ -58,9 +58,7 @@ namespace SocialNetwork.Pages
                 post.userID = this.userID;//userID to userID, a nie identyfikator typu string, potrzebna nowa kolumna?
                 if (ModelState.IsValid == true)
                 {
-                    //DodajPost(post)
                     _context.Posts.Add(post);
-                    //db.AddPostAsync(post, _context);
                     _context.SaveChangesAsync();
                     if (_returnURL != null)
                     {
