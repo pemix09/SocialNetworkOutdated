@@ -13,7 +13,6 @@ namespace SocialNetwork.Models
         List<Comment> GetPostComments(int postID, SocialNetworkContext context);
         List<AppUser> GetFriends(int userID);
         List<AppUser> GetFollowedUsers(int userID);
-        void AddPostAsync(Post post, SocialNetwork.Data.SocialNetworkContext context);
         Task<Post> GetPostAsync(int postID, SocialNetwork.Data.SocialNetworkContext context);
         void EditPostAsync(Post editedPost, SocialNetwork.Data.SocialNetworkContext context);
         void DeletePostAsync(int postID, SocialNetwork.Data.SocialNetworkContext context);

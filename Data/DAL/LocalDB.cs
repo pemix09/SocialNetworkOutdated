@@ -21,11 +21,7 @@ namespace SocialNetwork.Data.DAL
             _userManager = userManager;
             _signInManager = signInManager;
         }
-        public async void AddPostAsync(Post post, SocialNetworkContext context)
-        {
-            context.Posts.Add(post);
-            //await context.SaveChangesAsync();
-        }
+        
 
         public void AddUser(AppUser user)
         {
