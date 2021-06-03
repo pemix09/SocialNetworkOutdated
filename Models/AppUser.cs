@@ -23,7 +23,7 @@ namespace SocialNetwork.Models
         [DataType(DataType.Text)]
         public string? ProfilePicture { get; set; }
         #nullable disable
-        //public ICollection<Message> Messages { get; set; }
-        //public ICollection<Post> Posts { get; set; }
+        public ICollection<Message> Messages { get; set; }
+        public ICollection<Post> Posts { get; set; }
     }
 }

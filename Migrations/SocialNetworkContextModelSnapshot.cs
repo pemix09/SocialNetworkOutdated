@@ -265,6 +265,29 @@ namespace SocialNetwork.Migrations
                     b.ToTable("Comment");
                 });
 
+            modelBuilder.Entity("SocialNetwork.Models.Like", b =>
+                {
+                    b.Property<int>("LikeID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AppUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("likedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("likedUser")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("LikeID");
+
+                    b.HasIndex("AppUserId");
+
+                    b.ToTable("Likes");
+                });
+
             modelBuilder.Entity("SocialNetwork.Models.Message", b =>
                 {
                     b.Property<int>("messageID")
@@ -407,7 +430,7 @@ namespace SocialNetwork.Migrations
                     b.Navigation("Post");
                 });
 
-            modelBuilder.Entity("SocialNetwork.Models.Message", b =>
+            modelBuilder.Entity("SocialNetwork.Models.Like", b =>
                 {
                     b.HasOne("SocialNetwork.Models.AppUser", "AppUser")
                         .WithMany()
@@ -416,13 +439,29 @@ namespace SocialNetwork.Migrations
                     b.Navigation("AppUser");
                 });
 
-            modelBuilder.Entity("SocialNetwork.Models.Post", b =>
+            modelBuilder.Entity("SocialNetwork.Models.Message", b =>
                 {
                     b.HasOne("SocialNetwork.Models.AppUser", "AppUser")
-                        .WithMany()
+                        .WithMany("Messages")
                         .HasForeignKey("AppUserId");
 
                     b.Navigation("AppUser");
+                });
+
+            modelBuilder.Entity("SocialNetwork.Models.Post", b =>
+                {
+                    b.HasOne("SocialNetwork.Models.AppUser", "AppUser")
+                        .WithMany("Posts")
+                        .HasForeignKey("AppUserId");
+
+                    b.Navigation("AppUser");
+                });
+
+            modelBuilder.Entity("SocialNetwork.Models.AppUser", b =>
+                {
+                    b.Navigation("Messages");
+
+                    b.Navigation("Posts");
                 });
 
             modelBuilder.Entity("SocialNetwork.Models.Post", b =>

@@ -31,6 +31,7 @@ namespace SocialNetwork.Data
             modelBuilder.Entity<Post>().ToTable("Post");
             modelBuilder.Entity<Comment>().ToTable("Comment");
             modelBuilder.Entity<Message>().ToTable("Message");
+            modelBuilder.Entity<Like>().ToTable("Likes");
 
         }
     }
