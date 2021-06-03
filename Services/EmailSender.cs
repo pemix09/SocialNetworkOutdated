@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace SocialNetwork.Services
 {
-    public class EmailSender 
+    public class EmailSender :IEmailSender
     {
-        public void SendEmailAsync(string email, string subject, string htmlMessage)
+        public async Task SendEmailAsync(string email, string subject, string htmlMessage)
         {
             string fromMail = "socialnetworkpolibuda@gmail.com";
             string fromPassword = "SocialNetwork123%";
@@ -28,7 +28,7 @@ namespace SocialNetwork.Services
                 Credentials = new NetworkCredential(fromMail, fromPassword),
                 EnableSsl = true,
             };
-            //smtpClient.Send(message);
+            smtpClient.Send(message);
         }
     }
 }
