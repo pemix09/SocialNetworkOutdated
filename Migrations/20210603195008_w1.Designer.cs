@@ -10,8 +10,8 @@ using SocialNetwork.Data;
 namespace SocialNetwork.Migrations
 {
     [DbContext(typeof(SocialNetworkContext))]
-    [Migration("20210603112937_PostIDAuto")]
-    partial class PostIDAuto
+    [Migration("20210603195008_w1")]
+    partial class w1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -328,9 +328,7 @@ namespace SocialNetwork.Migrations
             modelBuilder.Entity("SocialNetwork.Models.Post", b =>
                 {
                     b.Property<int>("postID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
                     b.Property<string>("AppUserId")
                         .HasColumnType("nvarchar(450)");

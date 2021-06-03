@@ -21,7 +21,7 @@ namespace SocialNetwork.Models
         }
         
         [Key]
-        //[DatabaseGenerated(DatabaseGeneratedOption.None)] //zakomentuj, jesli id ma byc generowane automatycznie
+        [DatabaseGenerated(DatabaseGeneratedOption.None)] //zakomentuj, jesli id ma byc generowane automatycznie
         public int postID { get; set; }
         
         [Display(Name = "Nazwa Posta")]

@@ -326,9 +326,7 @@ namespace SocialNetwork.Migrations
             modelBuilder.Entity("SocialNetwork.Models.Post", b =>
                 {
                     b.Property<int>("postID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
                     b.Property<string>("AppUserId")
                         .HasColumnType("nvarchar(450)");

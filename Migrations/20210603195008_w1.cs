@@ -2,7 +2,7 @@
 
 namespace SocialNetwork.Migrations
 {
-    public partial class UsersAddProfilrPictureMigrationFix : Migration
+    public partial class w1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
