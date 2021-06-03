@@ -43,7 +43,11 @@ namespace SocialNetwork
 
             services.AddMvc(options => options.EnableEndpointRouting = false);
             services.AddControllers();
-            services.AddRazorPages();
+            services.AddRazorPages()
+             .AddMvcOptions(options =>
+             {
+                 options.Filters.Add(new CustomPageFilter(Configuration));
+             });
             services.Add(new ServiceDescriptor(typeof(IBase64), new Base64Converter()));
 
             services.AddDbContext<SocialNetworkContext>(options =>

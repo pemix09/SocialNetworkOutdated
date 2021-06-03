@@ -28,6 +28,7 @@ namespace SocialNetwork.Services
                 Credentials = new NetworkCredential(fromMail, fromPassword),
                 EnableSsl = true,
             };
+            //await Task.Run(smtpClient.Send(message));
             smtpClient.Send(message);
         }
     }

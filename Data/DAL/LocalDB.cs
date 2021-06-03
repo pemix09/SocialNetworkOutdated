@@ -121,17 +121,17 @@ namespace SocialNetwork.Data.DAL
         public List<AppUser> GetSearchResults(string searchQuery, SocialNetworkContext context)
         {
             List<AppUser> users = context.Users.ToList();
-            List<AppUser> result = new();
+            List<AppUser> result = new List<AppUser>();
 
             foreach(AppUser user in users)
             {
                 string fullName = user.FirstName + " " + user.LastName;
-                if(fullName.Contains("searchQuery"))
+                if(fullName.Contains(searchQuery))
                 {
                     //jeśli pełna nazwa czyli imię+nazwisko
                     //zawiera szukaną frazę, to dodaj użytkownika do
                     //listy wynikowej
-                    result.Append<AppUser>(user);
+                    result.Add(user);
                 }
             }
 

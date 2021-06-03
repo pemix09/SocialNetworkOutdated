@@ -52,6 +52,7 @@ namespace SocialNetwork.Pages
             if (searchQuery!=null)
             {
                 posts = null;
+                users = db.GetSearchResults(searchQuery, _context);
             }
             else if(searchQuery == null && HttpContext != null)
             {
