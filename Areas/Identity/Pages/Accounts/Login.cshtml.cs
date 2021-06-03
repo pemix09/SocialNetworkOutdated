@@ -89,6 +89,11 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
                     ModelState.AddModelError("WrongPassword", "Podane has³o jest nieprawid³owe");
                     return Page();
                 }
+                if(user.isEnabled != true)
+                {
+                    ModelState.AddModelError("Banned", "Konto jest zablokowane");
+                    return Page();
+                }
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
                 var result = await _signInManager.PasswordSignInAsync(user, Input.Password, Input.RememberMe, lockoutOnFailure: false);
@@ -99,7 +104,7 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
                 }
                 else if(result.IsLockedOut)
                 {
-                    ModelState.AddModelError("AccountBlocked", "Podany u¿ytkownik zosta³ zablokowany");
+                    ModelState.AddModelError("AccountBlocked", "Podany u¿ytkownik zosta³ zablokowany");//na co nam to?
                     return Page();
                 }
                 else

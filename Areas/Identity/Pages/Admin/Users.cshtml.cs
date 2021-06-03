@@ -13,32 +13,62 @@ namespace SocialNetwork.Areas.Identity.Pages.Admin
 {
     public class UsersModel : PageModel
     {
-        public SocialNetworkContext _DbCtx { get; set; }
 
         public IEnumerable<AppUser> Users { get; set; }
                         = Enumerable.Empty<AppUser>();
-        public SocialNetwork.Data.SocialNetworkContext _context;
-        public AppUser AppUser = new();
+        public SocialNetworkContext _context;
 
 
-        public UsersModel(SocialNetworkContext dbCtx, SocialNetwork.Data.SocialNetworkContext context)
+
+        public UsersModel(SocialNetworkContext context)
         {
-            _DbCtx = dbCtx;
             _context = context;
         }
-        public async Task<IActionResult> OnPostDeleteUserAsync(string stringID)
+        public async Task<IActionResult> OnGetDeleteUserAsync(string stringID)
         {
-            //Null exception!!!
+
+            AppUser AppUser = new AppUser();
             AppUser = await _context.Users.FirstOrDefaultAsync(m => m.Id == stringID);
-            _context.Users.Remove(AppUser);
-            await _context.SaveChangesAsync();
-            Users = _DbCtx.Users.ToList();
+            if (AppUser != null)
+            {
+                _context.Users.Remove(AppUser);
+                await _context.SaveChangesAsync();
+            }
+            Users = _context.Users.ToList();
+            return Page();
+        }
+        public async Task<IActionResult> OnGetBanUserAsync(string stringID)
+        {
+
+            AppUser AppUser = new AppUser();
+            AppUser = await _context.Users.FirstOrDefaultAsync(m => m.Id == stringID);
+            if (AppUser != null)
+            {
+                AppUser.isEnabled = false;
+                await _context.SaveChangesAsync();
+            }
+            Users = _context.Users.ToList();
+            return Page();
+        }
+        public async Task<IActionResult> OnGetUnBanUserAsync(string stringID)
+        {
+
+            AppUser AppUser = new AppUser();
+            AppUser = await _context.Users.FirstOrDefaultAsync(m => m.Id == stringID);
+            if (AppUser != null)
+            {
+                AppUser.isEnabled = true;
+                await _context.SaveChangesAsync();
+            }
+            Users = _context.Users.ToList();
             return Page();
         }
 
+
         public void OnGet()
         {
-            Users = _DbCtx.Users.ToList();
+            Users = _context.Users.ToList();
         }
     }
 }
+

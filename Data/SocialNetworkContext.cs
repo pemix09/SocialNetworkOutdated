@@ -19,6 +19,7 @@ namespace SocialNetwork.Data
         public DbSet<Post> Posts { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Message> Messages { get; set; }
+        public DbSet<Friend> Friends { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -31,7 +32,7 @@ namespace SocialNetwork.Data
             modelBuilder.Entity<Post>().ToTable("Post");
             modelBuilder.Entity<Comment>().ToTable("Comment");
             modelBuilder.Entity<Message>().ToTable("Message");
-            modelBuilder.Entity<Like>().ToTable("Likes");
+            modelBuilder.Entity<Friend>().ToTable("Friends");
 
         }
     }

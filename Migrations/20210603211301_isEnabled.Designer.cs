@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SocialNetwork.Data;
 
 namespace SocialNetwork.Migrations
 {
     [DbContext(typeof(SocialNetworkContext))]
-    partial class SocialNetworkContextModelSnapshot : ModelSnapshot
+    [Migration("20210603211301_isEnabled")]
+    partial class isEnabled
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -275,6 +277,9 @@ namespace SocialNetwork.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("AppUserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("friendUserID")
                         .HasColumnType("nvarchar(max)");
 
@@ -282,6 +287,8 @@ namespace SocialNetwork.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("AppUserId");
 
                     b.ToTable("Friends");
                 });
@@ -428,10 +435,17 @@ namespace SocialNetwork.Migrations
                     b.Navigation("Post");
                 });
 
+            modelBuilder.Entity("SocialNetwork.Models.Friend", b =>
+                {
+                    b.HasOne("SocialNetwork.Models.AppUser", null)
+                        .WithMany("Friends")
+                        .HasForeignKey("AppUserId");
+                });
+
             modelBuilder.Entity("SocialNetwork.Models.Message", b =>
                 {
                     b.HasOne("SocialNetwork.Models.AppUser", "AppUser")
-                        .WithMany()
+                        .WithMany("Messages")
                         .HasForeignKey("AppUserId");
 
                     b.Navigation("AppUser");
@@ -440,10 +454,19 @@ namespace SocialNetwork.Migrations
             modelBuilder.Entity("SocialNetwork.Models.Post", b =>
                 {
                     b.HasOne("SocialNetwork.Models.AppUser", "AppUser")
-                        .WithMany()
+                        .WithMany("Posts")
                         .HasForeignKey("AppUserId");
 
                     b.Navigation("AppUser");
+                });
+
+            modelBuilder.Entity("SocialNetwork.Models.AppUser", b =>
+                {
+                    b.Navigation("Friends");
+
+                    b.Navigation("Messages");
+
+                    b.Navigation("Posts");
                 });
 
             modelBuilder.Entity("SocialNetwork.Models.Post", b =>
