@@ -49,12 +49,16 @@ namespace SocialNetwork.Pages
         }
         public IActionResult OnPost(IFormFile file, string returnUrl = null)
         {
+            List<Post> posts = _context.Posts.ToList();
+            int postID = posts.Count;
+
             _returnURL = returnUrl;
             // Extract file name from whatever was posted by browser
             if(file == null)
             {
                 DateTime now = DateTime.Now;
                 post.date = now;
+                post.postID = postID;
                 post.userID = this.userID;//userID to userID, a nie identyfikator typu string, potrzebna nowa kolumna?
                 if (ModelState.IsValid == true)
                 {
@@ -75,6 +79,8 @@ namespace SocialNetwork.Pages
             }
             else
             {
+                posts = _context.Posts.ToList();
+                postID = posts.Count;
                 string base64Photo;
                 var fileName = System.IO.Path.GetFileName(file.FileName);
                 // If file with same name exists delete it
@@ -97,6 +103,7 @@ namespace SocialNetwork.Pages
 
                 DateTime now = DateTime.Now;
                 post.date = now;
+                post.postID = postID;
                 post.userID = this.userID;
                 System.IO.File.Delete(fileName);
                 //Dobra mamy userID, zdjêcie w formacie Base64 itd. teraz wywo³aæ metodê dodawania tego postu
