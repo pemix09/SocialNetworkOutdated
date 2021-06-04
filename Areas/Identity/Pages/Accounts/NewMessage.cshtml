@@ -1,4 +1,41 @@
 ﻿@page
 @model SocialNetwork.Areas.Identity.Pages.Accounts.NewMessageModel
 @{
+    ViewData["Title"] = "Wyślij wiadomość";
+
 }
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, AuthoringTagHelpers
+
+<head>
+    <title>Dodaj post</title>
+    <script src="/lib/jquery/dist/jquery.min.js"></script>
+    <script src="/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/js/jQuery.js"></script>
+    <script src="~/js/UploadImage.js"></script>
+</head>
+<body>
+    <div class="welcomePage">
+        <div style="margin:150px; display: flex; flex-direction: column; align-items: center; justify-content: space-between; gap: 10px;">
+            <button class="PictureButton" type="submit" form="PostForm">
+                <svg xmlns="http://www.w3.org/2000/svg" width="170" viewBox="0 0 24 24"><path d="M22 5v14h-20v-14h20zm2-2h-24v18h24v-18zm-2 16l-6.526-6.618-3.445 3.483-3.418-3.525-6.611 6.66 5.051-8-5.051-6 10.029 7.446 9.971-7.446-4.998 6.01 4.998 7.99z" /></svg>                
+                <h1 style="white-space:nowrap">@ViewData["Title"]</h1>
+            </button>
+        </div>
+
+        <div class="col-md-7">
+            <form class="form-horizontal" id="PostForm" method="post" enctype="multipart/form-data">   
+                <div class="form-group">
+                    <label asp-for="message.messageContent" class="control-label col-sm2"></label>
+                    <div class="col-sm-6">
+                        <textarea asp-for="message.messageContent" class="form-control"
+                                  placeholder="Tutaj wpisz zawartość swojej wiadomości" cols="30" rows="5"></textarea>
+                        <span asp-validation-for="message.messageContent" class="text-danger"></span>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</body>
