@@ -73,10 +73,74 @@ namespace SocialNetwork.Data.DAL
         {
             throw new NotImplementedException();
         }
-
-        public List<Message> GetMessages(int userID)
+        public List<Message> GetMessages(string userID)
         {
-            throw new NotImplementedException();
+            Message message = new Message();
+            message.messageID = 12;
+            message.messageContent = "coś tutaj wpisałem";
+            message.date = DateTime.Now;
+            message.recevingUserID = "12b7fec3-4d08-4958-bcc6-84f3f8b4baad";
+            message.userID = "12b7fec3-4d08-4958-bcc6-84f3f8b4baad";
+
+            Message message2 = new Message();
+            message2.messageID = 14;
+            message2.messageContent = "Kurde robi się grubo";
+            message2.date = DateTime.Now;
+            message2.recevingUserID = "12b7fec3-4d08-4958-bcc6-84f3f8b4baad";
+            message2.userID = "12b7fec3-4d08-4958-bcc6-84f3f8b4baad";
+
+            Message message3 = new Message();
+            message3.messageID = 15;
+            message3.messageContent = "dsadas";
+            message3.date = DateTime.Now;
+            message3.recevingUserID = "12b7fec3-4d08-4958-bcc6-84f3f8b4baad";
+            message3.userID = "12b7fec3-4d08-4958-bcc6-84f3f8b4baad";
+
+            Message message4 = new Message();
+            message4.messageID = 12;
+            message4.messageContent = "Rogelio Chávez (ur. 28 października 1984 w Tula de Allende) – meksykański piłkarz występujący głównie na pozycji prawego obrońcy, reprezentant kraju. Jest wychowankiem klubu Cruz Azul, w którym spędził większość swojej kariery. Zdobył z nim cztery wicemistrzostwa Meksyku. Na arenie międzynarodowej wygrał Ligę Mistrzów CONCACAF oraz dwukrotnie dotarł do finału tych rozgrywek. Wziął również udział w klubowych mistrzostwach świata. W barwach Cruz Azul przez 11 lat wystąpił w 304 spotkaniach. W lidze meksykańskiej przez krótki czas występował także w klubach CF Pachuca oraz Atlas FC. Następnie grał w FBC Melgar, z którym wywalczył wicemistrzostwo Peru. Pod koniec kariery został piłkarzem Arki Gdynia, na mocy umowy partnerskiej tego klubu z jednym z meksykańskich miast. Dla gdyńskiego zespołu nie zagrał jednak w żadnym oficjalnym meczu. Rozegrał jedno towarzyskie spotkanie w reprezentacji Meksyku, w kwietniu 2014 roku przeciwko Stanom Zjednoczonym (2:2). Czytaj więcej…";
+            message4.date = DateTime.Now;
+            message4.recevingUserID = "12b7fec3-4d08-4958-bcc6-84f3f8b4baad";
+            message4.userID = "12b7fec3-4d08-4958-bcc6-84f3f8b4baad";
+
+            List<Message> messages = new List<Message>();
+            messages.Add(message);
+            messages.Add(message2);
+            messages.Add(message3);
+            messages.Add(message4);
+
+            return messages;
+        }
+
+        public async Task<List<Message>> GetMessagesAsync(string userID, SocialNetworkContext context)
+        {
+            Message message = new Message();
+            message.messageID = 12;
+            message.messageContent = "coś tutaj wpisałem";
+            message.date = DateTime.Now;
+            message.recevingUserID = "12b7fec3-4d08-4958-bcc6-84f3f8b4baad";
+            message.userID = "12b7fec3-4d08-4958-bcc6-84f3f8b4baad";
+
+            Message message2 = new Message();
+            message2.messageID = 14;
+            message2.messageContent = "Kurde robi się grubo";
+            message2.date = DateTime.Now;
+            message2.recevingUserID = "12b7fec3-4d08-4958-bcc6-84f3f8b4baad";
+            message2.userID = "12b7fec3-4d08-4958-bcc6-84f3f8b4baad";
+
+            Message message3 = new Message();
+            message3.messageID = 15;
+            message3.messageContent = "dsadas";
+            message3.date = DateTime.Now;
+            message3.recevingUserID = "12b7fec3-4d08-4958-bcc6-84f3f8b4baad";
+            message3.userID = "12b7fec3-4d08-4958-bcc6-84f3f8b4baad";
+
+            List<Message> messages = new List<Message>();
+            messages.Add(message);
+            messages.Add(message2);
+            messages.Add(message3);
+
+            return messages;
         }
 
         public async Task<Post> GetPostAsync(int id, SocialNetworkContext context)
