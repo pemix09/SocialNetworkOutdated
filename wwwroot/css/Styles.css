@@ -1,21 +1,33 @@
-﻿body {
-    height: 100%;
+﻿:root 
+{
+    --bg_color: rgb(26, 26, 37);
+}
+
+
+body {
+    background-color: var(--bg_color);
     margin: 0;
 }
 .p {
     font-size: 15px !important;
 }
 
-.welcome {
-    background-color: rgb(26, 26, 37);
+.welcome 
+{
+    background-color: var(--bg_color);
+    background-size: auto 100%;
+    /*background-attachment: fixed;*/
     color: white;
     font-size: 40px;
-    margin-bottom:60px;
+    margin-bottom: 60px;
+}
+#MoreSpace {
+    height: 85vh;
 }
 
-.welcomePage {
+.welcomePage 
+{
     display: flex;
-    height: 100%;
     justify-content: center;
     align-items: center;
     margin: 20px;

@@ -15,37 +15,39 @@
     <script src="~/js/jQuery.js"></script>
     <script src="~/js/UploadImage.js"></script>
 </head>
-<div class="welcomePage">
-    <div style="margin:150px; display: flex; flex-direction: column; align-items: center; justify-content: space-between; gap: 10px;">
-        <button class="PictureButton" type="submit" form="PostForm">
-            <svg xmlns="http://www.w3.org/2000/svg" width="170" viewBox="0 0 24 24"><path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm6 13h-5v5h-2v-5h-5v-2h5v-5h2v5h5v2z" /></svg>
-            <h1 style="white-space:nowrap">@ViewData["Title"]</h1>
-        </button>
-    </div>
+<body>
+    <div class="welcomePage">
+        <div style="margin:150px; display: flex; flex-direction: column; align-items: center; justify-content: space-between; gap: 10px;">
+            <button class="PictureButton" type="submit" form="PostForm">
+                <svg xmlns="http://www.w3.org/2000/svg" width="170" viewBox="0 0 24 24"><path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm6 13h-5v5h-2v-5h-5v-2h5v-5h2v5h5v2z" /></svg>
+                <h1 style="white-space:nowrap">@ViewData["Title"]</h1>
+            </button>
+        </div>
 
-    <div class="col-md-7">
-        <form class="form-horizontal" id="PostForm" method="post" enctype="multipart/form-data">
-            <div class="form-group">
-                <label asp-for="post.name" class="control-label col-sm2"></label>
-                <div class="col-sm-6">
-                    <input asp-for="post.name" class="form-control">
-                    <span asp-validation-for="post.name" class="text-danger"></span>
+        <div class="col-md-7">
+            <form class="form-horizontal" id="PostForm" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label asp-for="post.name" class="control-label col-sm2"></label>
+                    <div class="col-sm-6">
+                        <input asp-for="post.name" class="form-control">
+                        <span asp-validation-for="post.name" class="text-danger"></span>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <label asp-for="post.stringContent" class="control-label col-sm2"></label>
-                <div class="col-sm-6">
-                    <textarea asp-for="post.stringContent" class="form-control"
-                              placeholder="Tutaj wpisz zawartość swojego postu" cols="30" rows="5"></textarea>
-                    <span asp-validation-for="post.stringContent" class="text-danger"></span>
+                <div class="form-group">
+                    <label asp-for="post.stringContent" class="control-label col-sm2"></label>
+                    <div class="col-sm-6">
+                        <textarea asp-for="post.stringContent" class="form-control"
+                                  placeholder="Tutaj wpisz zawartość swojego postu" cols="30" rows="5"></textarea>
+                        <span asp-validation-for="post.stringContent" class="text-danger"></span>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                    <input type="file" name="file" />
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <input type="file" name="file" />
+                    </div>
                 </div>
-            </div>
-        </form>
-    </div>
+            </form>
+        </div>
 
-</div>
+    </div>
+</body>
