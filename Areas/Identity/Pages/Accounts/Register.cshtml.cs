@@ -52,7 +52,6 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
         }*/
         public async Task<IActionResult> OnPostAsync()
         {
-            AppUser user = new AppUser();
             if (ModelState.IsValid)
             {
                 var userCheck = await _userManager.FindByEmailAsync(Input.Email);
@@ -65,7 +64,7 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
                 {
 
                     //create new user
-                    var userD = new AppUser
+                    AppUser userD = new AppUser
                     {
                         UserName = Input.nickname,
                         Email = Input.Email,
@@ -79,20 +78,22 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
                         //powloi trzeba bêdzie od tego odchodziæ, bo chcemy mieæ tylko jedn¹
                         //tabelê na dane u¿ytkownika
                        // user.Id = userD.Id;
-                        user.FirstName = Input.firstName;
+                        /*user.FirstName = Input.firstName;
                         user.LastName = Input.lastName;
                         user.UserName = Input.nickname;
                         user.PhoneNumber = Input.phone;
-                        user.Email = Input.Email;
+                        user.Email = Input.Email;*/
 
                         //logowanie informacji o dodaniu u¿ytkownika
                         _logger.LogInformation("U¿ytkownik poprawnie stworzy³ swoje konto");
 
                         
 
-                        //dodanie u¿ytkownika do tabeli
+                        /*To nie jest potrzebne, odeszliœmy
+                         * od tego
+                         * //dodanie u¿ytkownika do tabeli
                         _context.Users.Add(user);
-                        await _context.SaveChangesAsync();
+                        await _context.SaveChangesAsync();*/
 
                         //zalogowanie u¿ytkownika
                         await _signInManager.SignInAsync(userD, isPersistent: false);
