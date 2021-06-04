@@ -21,6 +21,7 @@ namespace SocialNetwork.Models
         void EditUser(string userID, AppUser editedUser);
         void DeleteUser(int userID);
         List<AppUser> GetSearchResults(string searchQuery, SocialNetworkContext context);
-        List<Message> GetMessages(int userID);
+        List<Message> GetMessages(string userID);
+        Task<List<Message>> GetMessagesAsync(string userID, SocialNetworkContext context);
     }
 }

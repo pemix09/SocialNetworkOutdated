@@ -8,6 +8,7 @@ namespace SocialNetwork.Models
 {
     public class Message
     {
+        
         [Key]
         public int messageID { get; set; }
         [Required]
