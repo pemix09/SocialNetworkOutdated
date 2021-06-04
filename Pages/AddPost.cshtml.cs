@@ -47,7 +47,7 @@ namespace SocialNetwork.Pages
         public void OnGet()
         {
         }
-        public IActionResult OnPost(IFormFile file, string returnUrl = null)
+        public async Task<IActionResult> OnPost(IFormFile file, string returnUrl = null)
         {
             List<Post> posts = _context.Posts.ToList();
             int postID = posts.Count;
@@ -63,7 +63,7 @@ namespace SocialNetwork.Pages
                 if (ModelState.IsValid == true)
                 {
                     _context.Posts.Add(post);
-                    _context.SaveChangesAsync();
+                    await _context.SaveChangesAsync();
                     if (_returnURL != null)
                     {
                         return RedirectToPage(_returnURL);
@@ -79,8 +79,7 @@ namespace SocialNetwork.Pages
             }
             else
             {
-                posts = _context.Posts.ToList();
-                postID = posts.Count;
+                
                 string base64Photo;
                 var fileName = System.IO.Path.GetFileName(file.FileName);
                 // If file with same name exists delete it
@@ -113,7 +112,7 @@ namespace SocialNetwork.Pages
                     //dodajemy post
                     //db.AddPostAsync(post, _context);
                     _context.Posts.Add(post);
-                    _context.SaveChangesAsync();
+                    await _context.SaveChangesAsync();
                     if (_returnURL != null)
                     {
                         return RedirectToPage(_returnURL);

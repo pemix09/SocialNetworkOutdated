@@ -25,12 +25,12 @@ namespace SocialNetwork.Models
         public int postID { get; set; }
         
         [Display(Name = "Nazwa Posta")]
-        [MinLength(2)]
-        [StringLength(100)]//varchar(100)
+        [MinLength(2,ErrorMessage ="Minimalna długość posta to 2")]
+        [StringLength(100, ErrorMessage ="Maksymalna długość nazwy postu to 100")]//varchar(100)
         [Required(ErrorMessage ="Nazwa posta jest wymagana")]
         public string name { get; set; }
         [Display(Name = "Opis Posta")]//opis posta? czy zawartość posta?
-        [MinLength(10)]
+        [MinLength(10,ErrorMessage ="Długość opisu posta musi wynosić conajmniej 10")]
         [Required(ErrorMessage ="Opis posta jest wymagany")]//chyba post jednak powinien cos zawierac
         public string stringContent { get; set; }
         //Data posta, która jest ważna z powodu tego, kiedy został on zrobiony
