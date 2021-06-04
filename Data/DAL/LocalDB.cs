@@ -15,12 +15,15 @@ namespace SocialNetwork.Data.DAL
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
+        private readonly SocialNetworkContext _context;
 
-        public LocalDB(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
+        public LocalDB(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, SocialNetworkContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _context = context;
         }
+
         
 
         public void AddUser(AppUser user)
@@ -209,6 +212,50 @@ namespace SocialNetwork.Data.DAL
         {
             AppUser user = await _userManager.FindByIdAsync(userID);
             return user;
+        }
+
+        public bool isTargetFriendOfSource(string userSourceID, string userTargetID)
+        {
+            //AppUser user1 = GetUser(userSourceID).Result;
+            //AppUser user2 = GetUser(userTargetID).Result;
+            IQueryable<string> sourceFriendList = _context.Friends.Where(x => x.userID == userSourceID).Select(x => x.friendUserID);
+            //możesz powyższe wykorzystać przy metodzie GetFriends
+            //wybiera pola friendUserID, gdzie userID == userSourceID
+            foreach(var friend in sourceFriendList)
+            {
+                if(friend.CompareTo(userTargetID) == 0)
+                {
+                    return true;//dana osoba wystepuje na liscie znajomych
+                }
+            }
+            return false;//pudło
+        }
+
+        public async void AddFriend(string userSourceID, string userTargetID)
+        {
+            Friend x = await _context.Friends.SingleAsync(x => x.userID == userSourceID && x.friendUserID == userTargetID);
+            if(x != null)
+            {
+                return;//jeśli taki znajomy istnieje to nie dodajemy go ponownie, bo inaczej poniższe metody się wywalą
+            }
+            Friend f = new Friend();
+            f.userID = userSourceID;
+            f.friendUserID = userTargetID;
+            _context.Friends.Add(f);
+            await _context.SaveChangesAsync();
+        }
+        public async void RemoveFriend(string userSourceID, string userTargetID)
+        {
+            Friend f = await _context.Friends.SingleAsync(x => x.userID == userSourceID && x.friendUserID == userTargetID);
+            //zwraca pojedyńczy element
+            if(f == null)
+            {
+                //Console.WriteLine("error");
+                return;//nie powinno tutaj nigdy wejść, ale to znaczy, że nic nie znalazło, chociaż powinno
+            }
+            
+            _context.Friends.Remove(f);
+            await _context.SaveChangesAsync();
         }
     }
 }

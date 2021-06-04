@@ -39,7 +39,7 @@ namespace SocialNetwork.Pages
             newMessages = false;
             _userManager = userManager;
             _signInManager = signInManager;
-            db = new LocalDB(_userManager,_signInManager);
+            db = new LocalDB(_userManager,_signInManager, _context);
             _context = context;
         }
 

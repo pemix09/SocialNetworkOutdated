@@ -17,7 +17,8 @@ using SocialNetwork.Models;
 
 namespace SocialNetwork.Pages
 {
-    [Authorize(Roles = "User")]
+    //[Authorize(Roles = "User")]
+    //[Authorize(Policy = "RequireAdministratorRole")]
     public class UserPageModel : PageModel
     {
         public class InputModel

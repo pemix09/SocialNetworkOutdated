@@ -29,7 +29,7 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
 
         public MessagesModel(UserManager<AppUser> userManager,SignInManager<AppUser> signInManager, SocialNetworkContext context)
         {
-            db = new LocalDB(userManager, signInManager);
+            db = new LocalDB(userManager, signInManager, _context);
             _userManager = userManager;
             _signInManager = signInManager;
             _context = context;

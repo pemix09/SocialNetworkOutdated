@@ -79,8 +79,8 @@
                                     <h1>@AppUser.FirstName @AppUser.LastName</h1>
                                 </a>
                             </div>
-                            <p>
-                                Nazwa profilu: @AppUser.UserName<br />
+                            <p><!-- do sprawdzenia, ale chyba o to chodziło? -->
+                                <a asp-area="Identity" asp-route-stringID="@AppUser.Id" asp-page="/Accounts/UserPageView">Nazwa profilu: @AppUser.UserName<br /></a>
                                 Adres email: @AppUser.Email<br />
                                 Telefon: @AppUser.PhoneNumber
                             </p>

@@ -22,6 +22,10 @@ namespace SocialNetwork.Data.DAL
         public async Task<bool> HasSpecificRoleAsync(string userID, string role)
         {
             AppUser AppUser = _context.Users.FirstOrDefault(m => m.Id == userID);
+            if(AppUser == null)
+            {
+                return false;
+            }
             return await _userManager.IsInRoleAsync(AppUser, role);
             
             /*

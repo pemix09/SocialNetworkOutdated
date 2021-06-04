@@ -42,7 +42,7 @@ namespace SocialNetwork.Pages
             _context = context;
             _userManager = userManager;
             _signInManager = signInManager;
-            db = new LocalDB(_userManager,_signInManager);
+            db = new LocalDB(_userManager,_signInManager, _context);
         }
         public void OnGet()
         {

@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace SocialNetwork.Areas.Identity.Pages.Admin
 {
-    [Authorize(Policy = "RequireAdministratorRole")]
+    //[Authorize(Policy = "RequireAdministratorRole")]
     public class AdminPanelModel : PageModel
     {
         public void OnGet()

@@ -13,7 +13,7 @@ using SocialNetwork.Models;
 
 namespace SocialNetwork.Areas.Identity.Pages.Admin
 {
-    [Authorize(Policy = "RequireAdministratorRole")]
+    //[Authorize(Policy = "RequireAdministratorRole")]
     public class UsersModel : PageModel
     {
 
@@ -30,7 +30,7 @@ namespace SocialNetwork.Areas.Identity.Pages.Admin
         }
         public bool isAdmin()
         {
-            var activeUser = Environment.UserName;//pobierz aktualnie zalogowanego u¿ytkownika
+            var activeUser = _userManager.GetUserId(HttpContext.User);//pobierz aktualnie zalogowanego u¿ytkownika
             Role r = new Role(_context, _userManager);
             return r.HasSpecificRoleAsync(activeUser, "Admin").Result;
 
