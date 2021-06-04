@@ -26,7 +26,7 @@ namespace SocialNetwork.Models
         
         [Display(Name = "Nazwa Posta")]
         [MinLength(2,ErrorMessage ="Minimalna długość posta to 2")]
-        [StringLength(100, ErrorMessage ="Maksymalna długość nazwy postu to 100")]//varchar(100)
+        [StringLength(45, ErrorMessage ="Maksymalna długość nazwy postu to 45 znaków")]//varchar(100)
         [Required(ErrorMessage ="Nazwa posta jest wymagana")]
         public string name { get; set; }
         [Display(Name = "Opis Posta")]//opis posta? czy zawartość posta?

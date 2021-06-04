@@ -70,7 +70,7 @@ namespace SocialNetwork.Pages
                     }
                     else
                     {
-                        return RedirectToPage("Index");
+                        return RedirectToPage("/Index");
 
                     }
                 }
@@ -119,7 +119,7 @@ namespace SocialNetwork.Pages
                     }
                     else
                     {
-                        return RedirectToPage("Index");
+                        return RedirectToPage("/Index");
 
                     }
                 }
