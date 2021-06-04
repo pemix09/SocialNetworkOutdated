@@ -7,6 +7,6 @@ namespace SocialNetwork.Services
 {
     interface IIsAllowedToSeeThings
     {
-        bool IsAllowed(string thing, string userID);
+        bool IsAllowedAsync(string thing, string userID);
     }
 }
