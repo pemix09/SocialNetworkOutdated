@@ -22,7 +22,7 @@ namespace SocialNetwork.Models
         public string? userID { get; set; }
         [Required]
         [DataType(DataType.Text)]
-        public int? recevingUserID { get; set; }
+        public string? recevingUserID { get; set; }
         #nullable disable
         [Required]
         public Boolean isRead { get; set; }

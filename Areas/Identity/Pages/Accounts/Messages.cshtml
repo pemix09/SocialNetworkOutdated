@@ -1,0 +1,60 @@
+﻿@page
+@model SocialNetwork.Areas.Identity.Pages.Accounts.MessagesModel
+@using SocialNetwork.Models;
+@{
+}
+
+<head>
+
+</head>
+<section class="welcomePage">
+    @if (Model.messages != null)
+    {
+        foreach (Message message in Model.messages)
+        {
+            <div class="Post" style="justify-content:space-between">
+                <div class="RowFlex" style="align-items:normal;">
+                    <div class="PictureButton" style="margin:20px ">
+                        @if (Model.db.GetUser(message.userID).Result.ProfilePicture != null)
+                        {
+                            <img id="profilePicture" style="width: 150px; height: 150px; object-fit: cover; border-radius: 50%" src="data:image/*;base64,@Model.db.GetUser(message.userID).Result.ProfilePicture">
+                            <h1>@Model.db.GetUser(message.userID).Result.FirstName @Model.db.GetUser(message.userID).Result.LastName</h1>
+                        }
+                        else
+                        {
+                            <svg xmlns="http://www.w3.org/2000/svg" width="150" viewBox="0 0 24 24"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm0 22c-3.123 0-5.914-1.441-7.749-3.69.259-.588.783-.995 1.867-1.246 2.244-.518 4.459-.981 3.393-2.945-3.155-5.82-.899-9.119 2.489-9.119 3.322 0 5.634 3.177 2.489 9.119-1.035 1.952 1.1 2.416 3.393 2.945 1.082.25 1.61.655 1.871 1.241-1.836 2.253-4.628 3.695-7.753 3.695z" /></svg>
+                            <h1>@Model.db.GetUser(message.userID).Result.FirstName @Model.db.GetUser(message.userID).Result.LastName</h1>
+                        }
+                    </div>                        
+                        
+                        <p class="PostContent">@message.messageContent</p>
+                    </div>
+                </div>
+                <div class="RowFlex" style="align-items:normal;">
+                    <a asp-route-id="@Model.db.GetUser(message.userID).Result.Id">
+                        <div class="PictureButton">
+                            <h1>
+                                @Model.db.GetUser(message.recevingUserID).Result.FirstName
+                                @Model.db.GetUser(message.recevingUserID).Result.LastName
+                            </h1>
+                        </div>
+                    </a>
+
+                    <a asp-route-id="@Model.db.GetUser(message.recevingUserID).Result.Id">
+                        <div class="PictureButton" style="margin:20px ">
+                            @if (Model.db.GetUser(message.recevingUserID).Result.ProfilePicture != null)
+                            {
+                                <img id="profilePicture" style="width: 150px; height: 150px; object-fit: cover; border-radius: 50%" src="data:image/*;base64,@Model.db.GetUser(message.userID).Result.ProfilePicture">
+                            }
+                            else
+                            {
+                                <svg xmlns="http://www.w3.org/2000/svg" width="150" viewBox="0 0 24 24"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm0 22c-3.123 0-5.914-1.441-7.749-3.69.259-.588.783-.995 1.867-1.246 2.244-.518 4.459-.981 3.393-2.945-3.155-5.82-.899-9.119 2.489-9.119 3.322 0 5.634 3.177 2.489 9.119-1.035 1.952 1.1 2.416 3.393 2.945 1.082.25 1.61.655 1.871 1.241-1.836 2.253-4.628 3.695-7.753 3.695z" /></svg>
+                            }
+                        </div>
+                    </a>
+
+                </div>
+
+        }
+    }
+</section>
