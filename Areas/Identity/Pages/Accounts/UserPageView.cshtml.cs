@@ -13,7 +13,7 @@ using SocialNetwork.Models;
 
 namespace SocialNetwork.Areas.Identity.Pages.Accounts
 {
-    [Authorize]
+    [Authorize(Roles = "User")]
     public class UserPageViewModel : PageModel
     {
         public class InputModel

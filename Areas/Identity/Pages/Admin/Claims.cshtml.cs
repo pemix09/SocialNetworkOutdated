@@ -15,6 +15,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace SocialNetwork.Areas.Identity.Pages.Admin
 {
+    [Authorize(Policy = "RequireAdministratorRole")]
     public class ClaimsModel : PageModel
     {
         public ApplicationClaimsTypes ApplicationClaimsTypes = new();

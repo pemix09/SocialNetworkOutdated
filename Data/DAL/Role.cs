@@ -19,9 +19,12 @@ namespace SocialNetwork.Data.DAL
             _userManager = userManager;
             _context = context;
         }
-        public async Task<bool> IsAllowedAsync(string thing, string userID)
+        public async Task<bool> HasSpecificRoleAsync(string userID, string role)
         {
             AppUser AppUser = _context.Users.FirstOrDefault(m => m.Id == userID);
+            return await _userManager.IsInRoleAsync(AppUser, role);
+            
+            /*
             IList<string> roles = await _userManager.GetRolesAsync(AppUser);
             foreach (var role in roles)
             {
@@ -30,9 +33,10 @@ namespace SocialNetwork.Data.DAL
                     return true;//user ma daną rolę
                 }
             }
-            return false;
-                
+            return false;*/
+               
         }
+
 
     }
 }

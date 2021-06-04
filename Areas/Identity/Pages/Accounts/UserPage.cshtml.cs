@@ -17,7 +17,7 @@ using SocialNetwork.Models;
 
 namespace SocialNetwork.Pages
 {
-    [Authorize]
+    [Authorize(Roles = "User")]
     public class UserPageModel : PageModel
     {
         public class InputModel

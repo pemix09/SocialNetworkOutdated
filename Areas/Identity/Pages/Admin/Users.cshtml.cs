@@ -2,33 +2,67 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using SocialNetwork.Data;
+using SocialNetwork.Data.DAL;
 using SocialNetwork.Models;
 
 namespace SocialNetwork.Areas.Identity.Pages.Admin
 {
+    [Authorize(Policy = "RequireAdministratorRole")]
     public class UsersModel : PageModel
     {
 
         public IEnumerable<AppUser> Users { get; set; }
                         = Enumerable.Empty<AppUser>();
         public SocialNetworkContext _context;
+        private readonly UserManager<AppUser> _userManager;
 
 
-
-        public UsersModel(SocialNetworkContext context)
+        public UsersModel(SocialNetworkContext context, UserManager<AppUser> userManager)
         {
+            _userManager = userManager;
             _context = context;
         }
+        public bool isAdmin()
+        {
+            var activeUser = Environment.UserName;//pobierz aktualnie zalogowanego u¿ytkownika
+            Role r = new Role(_context, _userManager);
+            return r.HasSpecificRoleAsync(activeUser, "Admin").Result;
+
+
+        }
+        public bool isAdmin(string user)
+        {
+            //var activeUser = Environment.UserName;
+            Role r = new Role(_context, _userManager);
+            return r.HasSpecificRoleAsync(user, "Admin").Result;
+
+        }
+        public bool isSuperAdmin(string user)
+        {
+            //var activeUser = Environment.UserName;
+            Role r = new Role(_context, _userManager);
+            return r.HasSpecificRoleAsync(user, "SuperAdmin").Result;
+
+        }
+
         public async Task<IActionResult> OnGetDeleteUserAsync(string stringID)
         {
-
+            
             AppUser AppUser = new AppUser();
             AppUser = await _context.Users.FirstOrDefaultAsync(m => m.Id == stringID);
+            if (isAdmin())//jak nie jest adminem, to pomiñ, tylko admini/superadmini maj¹ dostêp i tak
+            {
+                if (isAdmin(AppUser.UserName) || isSuperAdmin(AppUser.UserName)){
+                    //admin próbuje pozbyæ siê admina/superadmina
+                    return Page();
+                }
+            }
             if (AppUser != null)
             {
                 _context.Users.Remove(AppUser);
@@ -42,6 +76,14 @@ namespace SocialNetwork.Areas.Identity.Pages.Admin
 
             AppUser AppUser = new AppUser();
             AppUser = await _context.Users.FirstOrDefaultAsync(m => m.Id == stringID);
+            if (isAdmin())
+            {
+                if (isAdmin(AppUser.UserName) || isSuperAdmin(AppUser.UserName))
+                {
+                    //admin próbuje pozbyæ siê admina/superadmina
+                    return Page();
+                }
+            }
             if (AppUser != null)
             {
                 AppUser.isEnabled = false;
