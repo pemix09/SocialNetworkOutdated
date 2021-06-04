@@ -18,7 +18,7 @@ namespace SocialNetwork.Areas.Identity.Pages.Admin
                         = Enumerable.Empty<AppUser>();
         public SocialNetworkContext _context;
 
-
+        
 
         public UsersModel(SocialNetworkContext context)
         {

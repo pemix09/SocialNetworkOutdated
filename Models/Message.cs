@@ -13,6 +13,7 @@ namespace SocialNetwork.Models
         public int messageID { get; set; }
         [Required]
         [DataType(DataType.MultilineText)]//zbędne czy nie? pusta wiadomość jest bez sensu
+        [Display(Name ="Treść wiadomości")]
         public string messageContent { get; set; }
         [Required]
         [DataType(DataType.DateTime)]
