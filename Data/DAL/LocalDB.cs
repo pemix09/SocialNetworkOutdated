@@ -123,11 +123,17 @@ namespace SocialNetwork.Data.DAL
             {
                 string fullName = user.FirstName + " " + user.LastName;
                 fullName = fullName.ToLower();
+                string userName = user.UserName;
+                userName = userName.ToLower();
                 if(fullName.Contains(searchQuery.ToLower()))
                 {
                     //jeśli pełna nazwa czyli imię+nazwisko
                     //zawiera szukaną frazę, to dodaj użytkownika do
                     //listy wynikowej
+                    result.Add(user);
+                }
+                else if(userName.Contains(searchQuery.ToLower()))
+                {
                     result.Add(user);
                 }
             }
