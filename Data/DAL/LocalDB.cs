@@ -172,12 +172,26 @@ namespace SocialNetwork.Data.DAL
 
         public List<Post> GetPosts(string userID, SocialNetworkContext context)
         {
+            List<AppUser> friends = this.GetFriends(userID, context);
+            List<Post> friendsPosts = new List<Post>();
+            foreach(AppUser user in friends)
+            {
+                List<Post> friendPosts = this.GetOwnPosts(user.Id, context);
+                foreach(Post post in friendPosts)
+                {
+                    friendsPosts.Add(post);
+                }
+            }
+            return friendsPosts;
+        }
+
+        public List<Post> GetOwnPosts(string userID, SocialNetworkContext context)
+        {
             List<Post> posts = context.Posts.ToList();
             List<Post> result = new List<Post>();
-
             foreach(Post post in posts)
             {
-                if(post.userID.CompareTo(userID) == 0)
+                if(post.userID == userID)
                 {
                     result.Add(post);
                 }

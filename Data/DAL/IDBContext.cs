@@ -9,6 +9,7 @@ namespace SocialNetwork.Models
 {
     interface IDBContext
     {
+        List<Post> GetOwnPosts(string userID, SocialNetworkContext context);
         Task<bool> AddMessageAsync(Message message);
         List<Post> GetPosts(string userID, SocialNetworkContext context);
         List<Comment> GetPostComments(int postID, SocialNetworkContext context);
