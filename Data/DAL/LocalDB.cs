@@ -24,6 +24,11 @@ namespace SocialNetwork.Data.DAL
             _context = context;
         }
 
+        public async Task<bool> AddMessageAsync(Message message)
+        {
+            
+            return true;
+        }
         
 
         public void AddUser(AppUser user)
@@ -257,5 +262,6 @@ namespace SocialNetwork.Data.DAL
             _context.Friends.Remove(f);
             await _context.SaveChangesAsync();
         }
+        
     }
 }

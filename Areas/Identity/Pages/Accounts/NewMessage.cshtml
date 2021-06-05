@@ -25,8 +25,9 @@
         </div>
 
         <div class="col-md-7">
-            <form class="form-horizontal" id="PostForm" method="post" enctype="multipart/form-data">   
+            <form class="form-horizontal" id="PostForm" method="post" enctype="multipart/form-data" >   
                 <div class="form-group">
+                    <hi>@Html.ValidationSummary(false, "", new { @class = "text-danger" })</hi>
                     <label asp-for="message.messageContent" class="control-label col-sm2"></label>
                     <div class="col-sm-6">
                         <textarea asp-for="message.messageContent" class="form-control"

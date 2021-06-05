@@ -59,18 +59,7 @@ body {
     display: flex;
     flex-direction: row;
 }
-    .Message::after {
-        position: absolute;
-        top: 278px;
-        left: 150px;
-        font-size: 20px;
-        text-align: center;
-        content: 'Odpowiedz!';
-        color: #fff;
-        background-color: #0a66d6;
-        border-radius: 19px;
-        width: 120px;
-    }
+
 .UserSearch {
     width: 80vw;
     height: 300px;
@@ -268,4 +257,10 @@ body {
 
 .UserName{
     white-space:nowrap;
+}
+
+#upload-photo {
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
 }
