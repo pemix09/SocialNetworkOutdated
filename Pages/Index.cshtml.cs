@@ -61,8 +61,20 @@ namespace SocialNetwork.Pages
 
                 //tutaj powinna być iteracja po znajomych, żeby brać ich posty!
                 posts = db.GetPosts(currentUserID,_context);
+
+                posts.Sort(delegate (Post x, Post y)
+                 {
+                     return CompareDates(x.date, y.date);
+                 });
             }
 
+        }
+        //komparator do dat
+        public int CompareDates(DateTime x, DateTime y)
+        {
+            if (x > y) return -1;
+            else if (x == y) return 0;
+            else return 1;
         }
     }
 }
