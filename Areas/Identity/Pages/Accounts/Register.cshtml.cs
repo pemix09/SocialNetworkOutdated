@@ -86,8 +86,8 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
 
                         //logowanie informacji o dodaniu u¿ytkownika
                         _logger.LogInformation("U¿ytkownik poprawnie stworzy³ swoje konto");
+                        await _userManager.AddToRoleAsync(userD, "User");
 
-                        
 
                         /*To nie jest potrzebne, odeszliœmy
                          * od tego

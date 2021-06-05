@@ -43,11 +43,11 @@ namespace SocialNetwork.Areas.Identity.Pages.Admin
             return r.HasSpecificRoleAsync(user, "Admin").Result;
 
         }
-        public bool isSuperAdmin(string user)
+        public bool isMasterAdmin(string user)
         {
             //var activeUser = Environment.UserName;
             Role r = new Role(_context, _userManager);
-            return r.HasSpecificRoleAsync(user, "SuperAdmin").Result;
+            return r.HasSpecificRoleAsync(user, "MasterAdmin").Result;
 
         }
 
@@ -56,10 +56,10 @@ namespace SocialNetwork.Areas.Identity.Pages.Admin
             
             AppUser AppUser = new AppUser();
             AppUser = await _context.Users.FirstOrDefaultAsync(m => m.Id == stringID);
-            if (isAdmin())//jak nie jest adminem, to pomiñ, tylko admini/superadmini maj¹ dostêp i tak
+            if (isAdmin())//jak nie jest adminem, to pomiñ, tylko admini/masteradmini maj¹ dostêp i tak
             {
-                if (isAdmin(AppUser.UserName) || isSuperAdmin(AppUser.UserName)){
-                    //admin próbuje pozbyæ siê admina/superadmina
+                if (isAdmin(AppUser.UserName) || isMasterAdmin(AppUser.UserName)){
+                    //admin próbuje pozbyæ siê admina/masteradmina
                     return Page();
                 }
             }
@@ -78,7 +78,7 @@ namespace SocialNetwork.Areas.Identity.Pages.Admin
             AppUser = await _context.Users.FirstOrDefaultAsync(m => m.Id == stringID);
             if (isAdmin())
             {
-                if (isAdmin(AppUser.UserName) || isSuperAdmin(AppUser.UserName))
+                if (isAdmin(AppUser.UserName) || isMasterAdmin(AppUser.UserName))
                 {
                     //admin próbuje pozbyæ siê admina/superadmina
                     return Page();
