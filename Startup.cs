@@ -36,7 +36,7 @@ namespace SocialNetwork
             services.AddSingleton<IFileProvider>(
            new PhysicalFileProvider(
                Path.Combine(Directory.GetCurrentDirectory(), "wwwroot")));
-
+            
             services.AddMvc(options => options.EnableEndpointRouting = false);
             services.AddControllers();
             services.AddRazorPages()
@@ -72,14 +72,15 @@ namespace SocialNetwork
             });
             services.Configure<PasswordHasherOptions>(options =>
     options.CompatibilityMode = PasswordHasherCompatibilityMode.IdentityV2);
-            services.AddIdentity<AppUser, IdentityRole>()//.AddRoles<IdentityRole> role chyba ju¿ s¹?
+            services.AddIdentity<AppUser, IdentityRole>()
                     .AddEntityFrameworkStores<SocialNetworkContext>()
                     .AddDefaultUI()
-                    .AddDefaultTokenProviders();
+                    .AddDefaultTokenProviders()
+                    ;
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("RequireAdministratorRole",
-                     policy => policy.RequireRole("Admin, SuperAdmin"));
+                     policy => policy.RequireRole("Admin", "MasterAdmin"));
             });
 
         }
@@ -123,6 +124,8 @@ namespace SocialNetwork
             //u¿ywanie Wait() boli mnie wewnêtrznie, bo to takie wymuszenie synchronicznego dzia³ania
             //asynchronicznych metod, no ale nie mam pojêcia jak dzia³aæ inaczej
             //by wymusiæ dzia³anie tego trzeba usun¹æ dan¹ rolê z aspnetroles, inaczej po prostu przeskoczy
+            //trzeba te¿ usun¹æ u¿ytkownikow których tworzy, 3 sztuki ³¹cznie
+            //userroles mo¿na pomin¹æ, s¹ kasowane wraz z rolami
             var _roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
             var _userManager = serviceProvider.GetRequiredService<UserManager<AppUser>>();
             var _config = Configuration;
@@ -139,9 +142,9 @@ namespace SocialNetwork
                                  
 
                 var user = new AppUser();
-                user.UserName = _config.GetValue<string>("MasterAdminInformation:Name");
-                user.Email = _config.GetValue<string>("MasterAdminInformation:Email");
-                string userPWD = _config.GetValue<string>("MasterAdminInformation:Password");
+                user.UserName = _config.GetValue<string>("MasterAdminInformation:Name1");
+                user.Email = _config.GetValue<string>("MasterAdminInformation:Email1");
+                string userPWD = _config.GetValue<string>("MasterAdminInformation:Password1");
                 Task<AppUser> u1 = _userManager.FindByEmailAsync(user.Email);
                 u1.Wait();
                 if (u1.Result == null)
@@ -152,6 +155,22 @@ namespace SocialNetwork
                     if (chkUser.Result.Succeeded)
                     {
                         var v = _userManager.AddToRoleAsync(user, "MasterAdmin");
+                        v.Wait();
+                    }
+                }
+                var user2 = new AppUser();
+                user2.UserName = _config.GetValue<string>("MasterAdminInformation:Name2");
+                user2.Email = _config.GetValue<string>("MasterAdminInformation:Email2");
+                string userPWD2 = _config.GetValue<string>("MasterAdminInformation:Password2");
+                Task<AppUser> u2 = _userManager.FindByEmailAsync(user2.Email);
+                u2.Wait();
+                if (u2.Result == null)
+                {
+                    Task<IdentityResult> chkUser = _userManager.CreateAsync(user2, userPWD);
+                    chkUser.Wait();
+                    if (chkUser.Result.Succeeded)
+                    {
+                        var v = _userManager.AddToRoleAsync(user2, "MasterAdmin");
                         v.Wait();
                     }
                 }
@@ -185,6 +204,7 @@ namespace SocialNetwork
                         v.Wait();
                     }
                 }
+                /*//to dotyczy kolejnego admina
                 var user2 = new AppUser();
                 user2.UserName = _config.GetValue<string>("AdminInformation:Name2");
                 user2.Email = _config.GetValue<string>("AdminInformation:Email2");
@@ -200,7 +220,7 @@ namespace SocialNetwork
                         var v = _userManager.AddToRoleAsync(user2, "Admin");
                         v.Wait();
                     }
-                }
+                }*/
             }
     
             x = _roleManager.RoleExistsAsync("User");

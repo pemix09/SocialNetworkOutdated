@@ -1,0 +1,16 @@
+﻿@page
+@model SocialNetwork.Areas.Identity.Pages.Admin.Roles.AddModel
+@{
+}
+<div class="form-group" style="width:400px;">
+    <form method="post">
+        <label asp-for="@Model.roleName"></label>
+        <input asp-for="@Model.roleName" class="form-control" />
+
+
+        <div class="col-sm-offset-2 col-sm-10">
+            <button class="btn btn btn-primary">Zatwierdź</button>
+            <a asp-page="./Index" class="btn btn btn-primary">Cofnij</a>
+        </div>
+        </form>
+</div>

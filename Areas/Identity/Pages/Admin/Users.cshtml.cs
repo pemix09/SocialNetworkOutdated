@@ -13,7 +13,7 @@ using SocialNetwork.Models;
 
 namespace SocialNetwork.Areas.Identity.Pages.Admin
 {
-    //[Authorize(Policy = "RequireAdministratorRole")]
+    [Authorize(Policy = "RequireAdministratorRole")]
     public class UsersModel : PageModel
     {
 
