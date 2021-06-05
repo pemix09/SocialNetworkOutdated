@@ -85,9 +85,9 @@ namespace SocialNetwork.Data.DAL
             friends = context.Friends.ToList(); 
             foreach(Friend friend in friends)
             {
-                if(friend.userID == userID)
+                if(friend.friendUserID == userID)
                 {
-                    result.Add(GetUser(friend.friendUserID).Result);
+                    result.Add(GetUser(friend.userID).Result);
                 }
             }
             return result;
@@ -172,12 +172,26 @@ namespace SocialNetwork.Data.DAL
 
         public List<Post> GetPosts(string userID, SocialNetworkContext context)
         {
+            List<AppUser> friends = this.GetFriends(userID, context);
+            List<Post> friendsPosts = new List<Post>();
+            foreach(AppUser user in friends)
+            {
+                List<Post> friendPosts = this.GetOwnPosts(user.Id, context);
+                foreach(Post post in friendPosts)
+                {
+                    friendsPosts.Add(post);
+                }
+            }
+            return friendsPosts;
+        }
+
+        public List<Post> GetOwnPosts(string userID, SocialNetworkContext context)
+        {
             List<Post> posts = context.Posts.ToList();
             List<Post> result = new List<Post>();
-
             foreach(Post post in posts)
             {
-                if(post.userID.CompareTo(userID) == 0)
+                if(post.userID == userID)
                 {
                     result.Add(post);
                 }
@@ -254,7 +268,12 @@ namespace SocialNetwork.Data.DAL
         }
         public async Task RemoveFriend(string userSourceID, string userTargetID, SocialNetworkContext context)
         {
-            Friend f = await _context.Friends.SingleAsync(x => x.userID == userSourceID && x.friendUserID == userTargetID);
+            List<Friend> friends = context.Friends.ToList();
+            Friend f = new Friend();
+            foreach (Friend friend in friends)
+            {
+                if (friend.userID == userSourceID) f = friend;
+            }
             //zwraca pojedyńczy element
             if(f == null)
             {

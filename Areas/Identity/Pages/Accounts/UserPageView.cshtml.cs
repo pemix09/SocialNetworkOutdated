@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using SocialNetwork.Data;
+using SocialNetwork.Data.DAL;
 using SocialNetwork.Models;
 
 namespace SocialNetwork.Areas.Identity.Pages.Accounts
@@ -33,15 +34,21 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
         }
         [BindProperty]
         public InputModel Input { get; set; }
+        public AppUser userD;
         private UserManager<AppUser> _userManager { get; set; }
         private SignInManager<AppUser> _signInManager { get; set; }
+        private SocialNetworkContext _context;
         public string Username { get; private set; }
         [TempData]
         public string StatusMessage { get; set; }
-        public UserPageViewModel(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
+        public LocalDB db;
+        public UserPageViewModel(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, SocialNetworkContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _context = context;
+            db = new LocalDB(userManager, signInManager, context);
+
         }
 
         private async Task LoadAsync(AppUser user)
@@ -64,15 +71,43 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
         }
 
 
-        public async Task<IActionResult> OnGetAsync()
+        public async Task<IActionResult> OnGetAsync( string id)
         {
-            var user = await _userManager.GetUserAsync(User);
-            if (user == null)
+            //wczytaj obecnego u¿ytkownika
+            if(id == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                userD = await _userManager.GetUserAsync(User);
+                var user = await _userManager.GetUserAsync(User);
+                if (user == null)
+                {
+                    return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                }
+                await LoadAsync(user);
+                return Page();
             }
-            await LoadAsync(user);
-            return Page();
+            //wczytaj u¿ytkownika, na którego kliknêliœmy
+            else
+            {
+                var user = db.GetUser(id);
+                userD = user.Result;
+                var userName = await _userManager.GetUserNameAsync(userD);
+                var phoneNumber = await _userManager.GetPhoneNumberAsync(userD);
+                var firstName = userD.FirstName;
+                var lastName = userD.LastName;
+                var profilePicture = userD.ProfilePicture;
+                Username = userName;
+
+                Input = new InputModel
+                {
+                    PhoneNumber = phoneNumber,
+                    Username = userName,
+                    FirstName = firstName,
+                    LastName = lastName,
+                    ProfilePicture = profilePicture
+                };
+                return Page();
+            }
+            
         }
     }
 }

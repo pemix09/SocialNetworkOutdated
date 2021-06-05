@@ -33,7 +33,7 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
         {
             string userID = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             await db.AddFriend(id,userID,_context);
-            return RedirectToPage("Friends");
+            return RedirectToPage("/Index");
         }
     }
 }

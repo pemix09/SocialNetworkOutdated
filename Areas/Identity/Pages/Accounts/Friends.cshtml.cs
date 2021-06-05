@@ -16,6 +16,7 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
     public class FriendsModel : PageModel
     {
         public List<AppUser> friends;
+        public string id;
         string userId;
         public LocalDB db;
         UserManager<AppUser> _userManager;
