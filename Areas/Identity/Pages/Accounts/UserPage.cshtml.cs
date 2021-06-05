@@ -107,6 +107,7 @@ namespace SocialNetwork.Pages
             }
             var firstName = user.FirstName;
             var lastName = user.LastName;
+            var userName = user.UserName;
             if (Input.FirstName != firstName)
             {
 
@@ -116,6 +117,11 @@ namespace SocialNetwork.Pages
             if (Input.LastName != lastName)
             {
                 user.LastName = Input.LastName;
+                await _userManager.UpdateAsync(user);
+            }
+            if(Input.Username != userName)
+            {
+                user.UserName = Input.Username;
                 await _userManager.UpdateAsync(user);
             }
 
