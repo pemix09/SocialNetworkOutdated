@@ -17,7 +17,7 @@ using SocialNetwork.Models;
 
 namespace SocialNetwork.Pages
 {
-    //[Authorize(Roles = "User")]
+    [Authorize(Roles = "User")]
     //[Authorize(Policy = "RequireAdministratorRole")]
     public class UserPageEditModel : PageModel
     {
@@ -42,9 +42,12 @@ namespace SocialNetwork.Pages
         public string Username { get; private set; }
         [TempData]
         public string StatusMessage { get; set; }
+
+        private IBase64 _converter;
         private readonly SocialNetworkContext _context;
-        public UserPageEditModel(SocialNetworkContext context, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
+        public UserPageEditModel(SocialNetworkContext context, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, IBase64 converter)
         {
+            _converter = converter;
             _context = context;
             _userManager = userManager;
             _signInManager = signInManager;
@@ -133,8 +136,8 @@ namespace SocialNetwork.Pages
                 {
                     await file.CopyToAsync(stream);
                 }
-                Base64Converter conv = new Base64Converter();
-                var data = conv.GetBase64FromPicture(filepath);
+                
+                var data = _converter.GetBase64FromPicture(filepath);
                 user.ProfilePicture = data;
                 await _userManager.UpdateAsync(user);
             }

@@ -14,7 +14,7 @@ using SocialNetwork.Models;
 
 namespace SocialNetwork.Areas.Identity.Pages.Accounts
 {
-    //[Authorize(Roles = "User")]
+    [Authorize(Roles = "User")]
     //[Authorize(Policy = "RequireAdministratorRole")]
     public class UserPageViewModel : PageModel
     {
