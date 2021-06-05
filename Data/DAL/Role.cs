@@ -26,19 +26,7 @@ namespace SocialNetwork.Data.DAL
             {
                 return false;
             }
-            return await _userManager.IsInRoleAsync(AppUser, role);
-            
-            /*
-            IList<string> roles = await _userManager.GetRolesAsync(AppUser);
-            foreach (var role in roles)
-            {
-                if(role.CompareTo(thing) == 0)
-                {
-                    return true;//user ma daną rolę
-                }
-            }
-            return false;*/
-               
+            return await _userManager.IsInRoleAsync(AppUser, role);   
         }
 
 
