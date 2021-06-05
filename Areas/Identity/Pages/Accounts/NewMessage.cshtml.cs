@@ -54,7 +54,7 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
             message.AppUser = user;
             _context.Messages.Add(message);
             await _context.SaveChangesAsync();
-            return RedirectToPage("/Index");
+            return RedirectToPage("Messages");
             
         }
     }
