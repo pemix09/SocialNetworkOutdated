@@ -36,7 +36,7 @@ namespace SocialNetwork.Pages
             SignInManager<AppUser> signInManager, SocialNetworkContext context)
         {
             _logger = logger;
-            newMessages = false;
+            newMessages = false ;
             _userManager = userManager;
             _signInManager = signInManager;
             _context = context;
@@ -46,6 +46,16 @@ namespace SocialNetwork.Pages
         public void OnGet(string searchQuery)
         {
             currentUserID = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            List<Message> messages = db.GetMessages(currentUserID, _context);
+
+            foreach(Message message in messages)
+            {
+                if(message.isRead == false)
+                {
+                    newMessages = true;
+                }
+            }
+          
 
             // tutaj pójdzie metoda zwracająca posty pasujące do wyszukiwania
             //i wtedy sobie posts null robimy i pokazujemy wyniki wyszukiwania
