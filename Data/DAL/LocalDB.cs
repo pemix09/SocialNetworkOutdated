@@ -77,9 +77,20 @@ namespace SocialNetwork.Data.DAL
             throw new NotImplementedException();
         }
 
-        public List<AppUser> GetFriends(int userID)
+        public List<AppUser> GetFriends(string userID, SocialNetworkContext context)
         {
-            throw new NotImplementedException();
+            
+            List<Friend> friends = new List<Friend>();
+            List<AppUser> result = new List<AppUser>();
+            friends = context.Friends.ToList(); 
+            foreach(Friend friend in friends)
+            {
+                if(friend.userID == userID)
+                {
+                    result.Add(GetUser(friend.friendUserID).Result);
+                }
+            }
+            return result;
         }
         public List<Message> GetMessages(string userID, SocialNetworkContext context)
         {
