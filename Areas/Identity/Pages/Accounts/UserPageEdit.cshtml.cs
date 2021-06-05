@@ -19,7 +19,7 @@ namespace SocialNetwork.Pages
 {
     //[Authorize(Roles = "User")]
     //[Authorize(Policy = "RequireAdministratorRole")]
-    public class UserPageModel : PageModel
+    public class UserPageEditModel : PageModel
     {
         public class InputModel
         {
@@ -43,7 +43,7 @@ namespace SocialNetwork.Pages
         [TempData]
         public string StatusMessage { get; set; }
         private readonly SocialNetworkContext _context;
-        public UserPageModel(SocialNetworkContext context, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
+        public UserPageEditModel(SocialNetworkContext context, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
         {
             _context = context;
             _userManager = userManager;
