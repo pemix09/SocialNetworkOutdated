@@ -268,7 +268,12 @@ namespace SocialNetwork.Data.DAL
         }
         public async Task RemoveFriend(string userSourceID, string userTargetID, SocialNetworkContext context)
         {
-            Friend f = await _context.Friends.SingleAsync(x => x.userID == userSourceID && x.friendUserID == userTargetID);
+            List<Friend> friends = context.Friends.ToList();
+            Friend f = new Friend();
+            foreach (Friend friend in friends)
+            {
+                if (friend.userID == userSourceID) f = friend;
+            }
             //zwraca pojedyńczy element
             if(f == null)
             {
