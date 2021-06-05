@@ -28,7 +28,7 @@ namespace SocialNetwork.Pages
         public LocalDB db;
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
-        SocialNetworkContext _context;
+        public SocialNetworkContext _context;
         string currentUserID;
 
 
