@@ -85,9 +85,9 @@ namespace SocialNetwork.Data.DAL
             friends = context.Friends.ToList(); 
             foreach(Friend friend in friends)
             {
-                if(friend.userID == userID)
+                if(friend.friendUserID == userID)
                 {
-                    result.Add(GetUser(friend.friendUserID).Result);
+                    result.Add(GetUser(friend.userID).Result);
                 }
             }
             return result;
