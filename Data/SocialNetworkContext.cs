@@ -11,8 +11,7 @@ namespace SocialNetwork.Data
 {
     public class SocialNetworkContext : IdentityDbContext<AppUser>
     {
-        public SocialNetworkContext (DbContextOptions<SocialNetworkContext> options)
-            : base(options)
+        public SocialNetworkContext (DbContextOptions<SocialNetworkContext> options) : base(options)
         {
         }
         public DbSet<AppUser> AppUsers { get; set; }

@@ -76,6 +76,7 @@ namespace SocialNetwork
                     .AddEntityFrameworkStores<SocialNetworkContext>()
                     .AddDefaultUI()
                     .AddDefaultTokenProviders()
+                    
                     ;
             services.AddAuthorization(options =>
             {

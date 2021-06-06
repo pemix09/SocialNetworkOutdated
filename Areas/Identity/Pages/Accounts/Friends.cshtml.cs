@@ -39,15 +39,16 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
             UserID = id;
             friends = db.GetFriends(id,_context);
         }
+       
         public async Task<IActionResult> OnGetRemoveFriendAsync(string RemovedStringID, string userID)
         {
             await db.RemoveFriend(RemovedStringID, userID, _context);
             friends = db.GetFriends(userID, _context);
             return Page();
         }
-        public async Task<IActionResult> OnGetAddFriendPostsAsync(string RemovedStringID, string userID)
+        public async Task<IActionResult> OnGetAddFriendPostsAsync(string AddedStringID, string userID)
         {
-            await db.AddFriend(RemovedStringID, userID, _context);
+            await db.AddFriend(AddedStringID, userID, _context);
             friends = db.GetFriends(userID, _context);
             return Page();
         }

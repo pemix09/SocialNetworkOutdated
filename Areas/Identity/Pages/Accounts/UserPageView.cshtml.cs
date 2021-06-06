@@ -14,7 +14,7 @@ using SocialNetwork.Models;
 
 namespace SocialNetwork.Areas.Identity.Pages.Accounts
 {
-    [Authorize(Roles = "User")]
+    //[Authorize(Roles = "User")]
     //[Authorize(Policy = "RequireAdministratorRole")]
     public class UserPageViewModel : PageModel
     {
@@ -43,6 +43,7 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
         [TempData]
         public string StatusMessage { get; set; }
         public LocalDB db;
+        public List<Post> posts { get; set; }
         public UserPageViewModel(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, SocialNetworkContext context)
         {
             _userManager = userManager;
@@ -78,7 +79,9 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
             //wczytaj obecnego u¿ytkownika
             if(id == null)
             {
+                
                 userD = await _userManager.GetUserAsync(User);
+                posts = db.GetOwnPosts(userD.Id, _context);
                 var user = await _userManager.GetUserAsync(User);
                 if (user == null)
                 {
@@ -90,13 +93,16 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
             //wczytaj u¿ytkownika, na którego kliknêliœmy
             else
             {
+                posts = db.GetOwnPosts(id, _context);
+                userD = await _userManager.GetUserAsync(User);
                 var user = db.GetUser(id);
                 lookedUser = user.Result;
-                var userName = await _userManager.GetUserNameAsync(userD);
-                var phoneNumber = await _userManager.GetPhoneNumberAsync(userD);
-                var firstName = userD.FirstName;
-                var lastName = userD.LastName;
-                var profilePicture = userD.ProfilePicture;
+
+                var userName = lookedUser.UserName;//await _userManager.GetUserNameAsync(userD);
+                var phoneNumber = lookedUser.PhoneNumber; //await _userManager.GetPhoneNumberAsync(userD);
+                var firstName = lookedUser.FirstName; 
+                var lastName = lookedUser.LastName;
+                var profilePicture = lookedUser.ProfilePicture;
                 Username = userName;
 
                 Input = new InputModel
