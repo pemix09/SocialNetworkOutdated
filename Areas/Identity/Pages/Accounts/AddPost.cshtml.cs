@@ -49,8 +49,7 @@ namespace SocialNetwork.Pages
         }
         public async Task<IActionResult> OnPost(IFormFile file, string returnUrl = null)
         {
-            List<Post> posts = _context.Posts.ToList();
-            int postID = posts.Count;
+            int postID = _context.Posts.Count();
 
             _returnURL = returnUrl;
             // Extract file name from whatever was posted by browser

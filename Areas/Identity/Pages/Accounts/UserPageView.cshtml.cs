@@ -73,6 +73,42 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
             };
         }
 
+        public async Task<IActionResult> OnGetRemovePostAsync(int postID)
+        {
+            List<Post> posts = _context.Posts.ToList();
+            foreach(Post post in posts)
+            {
+                if(post.postID == postID)
+                {
+                    _context.Posts.Remove(post);
+                    await _context.SaveChangesAsync();
+                    var user = db.GetUser(post.userID);
+                    var userDD = user.Result;
+                    Input = new InputModel
+                    {
+                        PhoneNumber = userDD.PhoneNumber,
+                        Username = userDD.UserName,
+                        FirstName = userDD.FirstName,
+                        LastName = userDD.LastName,
+                        ProfilePicture = userDD.ProfilePicture
+                    };
+                    userD = userDD;
+                    posts = db.GetOwnPosts(userD.Id, _context);
+                    return Page();
+                }
+            }
+            posts = db.GetOwnPosts(userD.Id, _context);
+            Input = new InputModel
+            {
+                PhoneNumber = userD.PhoneNumber,
+                Username = userD.UserName,
+                FirstName = userD.FirstName,
+                LastName = userD.LastName,
+                ProfilePicture = userD.ProfilePicture
+            };
+            return Page();
+        }
+
 
         public async Task<IActionResult> OnGetAsync( string id)
         {
