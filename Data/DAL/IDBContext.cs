@@ -21,8 +21,8 @@ namespace SocialNetwork.Models
         Task AddFriend(string userSourceID, string userTargetID, SocialNetworkContext context);
         Task RemoveFriend(string userSourceID, string userTargetID, SocialNetworkContext context);
         Task<Post> GetPostAsync(int postID, SocialNetwork.Data.SocialNetworkContext context);
-        void EditPostAsync(Post editedPost, SocialNetwork.Data.SocialNetworkContext context);
-        void DeletePostAsync(int postID, SocialNetwork.Data.SocialNetworkContext context);
+        Task EditPostAsync(Post editedPost, SocialNetwork.Data.SocialNetworkContext context);
+        Task DeletePostAsync(int postID, SocialNetwork.Data.SocialNetworkContext context);
         void AddUser(AppUser user);
         Task<AppUser> GetUser(string userID);
         void EditUser(string userID, AppUser editedUser);

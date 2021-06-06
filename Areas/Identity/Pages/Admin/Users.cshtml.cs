@@ -80,9 +80,10 @@ namespace SocialNetwork.Areas.Identity.Pages.Admin
             AppUser AppUser = await _context.Users.FirstOrDefaultAsync(m => m.Id == stringID);
             if (isAdmin())
             {
-                if (isAdmin(AppUser.UserName) || isMasterAdmin(AppUser.UserName))
+                if (isAdmin(AppUser.Id) || isMasterAdmin(AppUser.Id))
                 {
                     //admin próbuje pozbyæ siê admina/superadmina
+                    Users = _context.Users.ToList();
                     return Page();
                 }
             }
