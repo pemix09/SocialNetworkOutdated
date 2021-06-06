@@ -24,7 +24,7 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
             public string FirstName { get; set; }
             [Display(Name = "Nazwisko")]
             public string LastName { get; set; }
-            [Display(Name = "Nazwa u¿ytkownika")]
+            [Display(Name = "Nazwa profilu")]
             public string Username { get; set; }
             [Phone]
             [Display(Name = "Numer telefonu")]
