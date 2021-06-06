@@ -58,6 +58,9 @@ body {
     flex-direction:row;
     
 }
+textarea {
+    resize: none;
+}
 .Comment {
     width: 60vw;
     height: 200px;
