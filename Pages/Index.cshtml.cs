@@ -12,6 +12,7 @@ using SocialNetwork.Services;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using SocialNetwork.Data;
+using Microsoft.AspNetCore.Http;
 
 namespace SocialNetwork.Pages
 {
@@ -29,22 +30,27 @@ namespace SocialNetwork.Pages
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
         public SocialNetworkContext _context;
+        IHttpContextAccessor _httpContextAccessor;
         string currentUserID;
+        public string SearchQuery;
 
 
         public IndexModel(ILogger<IndexModel> logger, UserManager<AppUser> userManager,
-            SignInManager<AppUser> signInManager, SocialNetworkContext context)
+            SignInManager<AppUser> signInManager, SocialNetworkContext context,
+            IHttpContextAccessor httpContextAccessor)
         {
             _logger = logger;
             newMessages = false ;
             _userManager = userManager;
             _signInManager = signInManager;
             _context = context;
+            _httpContextAccessor = httpContextAccessor;
             db = new LocalDB(_userManager,_signInManager, _context);
         }
 
         public void OnGet(string searchQuery)
         {
+            SearchQuery = searchQuery;
             currentUserID = User.FindFirstValue(ClaimTypes.NameIdentifier);
             List<Message> messages = db.GetMessages(currentUserID, _context);
 
@@ -85,6 +91,47 @@ namespace SocialNetwork.Pages
             if (x > y) return -1;
             else if (x == y) return 0;
             else return 1;
+        }
+        public async Task<IActionResult> OnGetAddFriendSearchAsync(string stringID, string searchQuery)
+        {
+            SearchQuery = searchQuery;
+            string userID = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            await db.AddFriend(stringID, userID, _context);
+            users = db.GetSearchResults(searchQuery, _context);
+            return Page();
+        }
+        public async Task<IActionResult> OnGetRemoveFriendSearchAsync(string stringID, string searchQuery)
+        {
+            SearchQuery = searchQuery;
+            string userID = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            await db.RemoveFriend(stringID, userID, _context);
+            users = db.GetSearchResults(searchQuery, _context);
+            return Page();
+        }
+        public async Task<IActionResult> OnGetAddFriendPostsAsync(string stringID)
+        {
+            string userID = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            await db.AddFriend(stringID, userID, _context);
+            posts = db.GetPosts(userID, _context);
+
+            posts.Sort(delegate (Post x, Post y)
+            {
+                return CompareDates(x.date, y.date);
+            });
+            return Page();
+        }
+        public async Task<IActionResult> OnGetRemoveFriendPostsAsync(string stringID)
+        {
+
+            string userID = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            await db.RemoveFriend(stringID, userID, _context);
+            posts = db.GetPosts(userID, _context);
+
+            posts.Sort(delegate (Post x, Post y)
+            {
+                return CompareDates(x.date, y.date);
+            });
+            return Page();
         }
     }
 }

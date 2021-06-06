@@ -23,6 +23,7 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
         SignInManager<AppUser> _signInManager;
         public SocialNetworkContext _context;
         public IHttpContextAccessor _httpContextAccessor;
+        public string UserID;
         public FriendsModel(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, SocialNetworkContext context,
             IHttpContextAccessor httpContextAccessor)
         {
@@ -35,7 +36,20 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
         }
         public void OnGet(string id)
         {
+            UserID = id;
             friends = db.GetFriends(id,_context);
+        }
+        public async Task<IActionResult> OnGetRemoveFriendAsync(string RemovedStringID, string userID)
+        {
+            await db.RemoveFriend(RemovedStringID, userID, _context);
+            friends = db.GetFriends(userID, _context);
+            return Page();
+        }
+        public async Task<IActionResult> OnGetAddFriendPostsAsync(string RemovedStringID, string userID)
+        {
+            await db.AddFriend(RemovedStringID, userID, _context);
+            friends = db.GetFriends(userID, _context);
+            return Page();
         }
     }
 }
