@@ -14,8 +14,9 @@ namespace SocialNetwork.Models
         #nullable enable
         public string? userID { get; set; }
         #nullable disable
-        [Required]
+        [Required(ErrorMessage ="Komentarz nie może być pusty")]
         [DataType(DataType.Text)]
+        [Display(Name ="Dodaj komentarz")]
         public string stringContent { get; set; }
         [DataType(DataType.Text)]
         #nullable enable

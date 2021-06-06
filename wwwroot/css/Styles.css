@@ -63,8 +63,13 @@ body {
     height: 200px;
     border: solid;
     border-color: #0a66d6;
-    padding: 20px;
+    padding: 0px 20px 0px 20px;
     margin: 0px 20px 0px 20px;
+}
+#CommentTextBox {
+    height: 100px;
+    width: 55vw;
+    font-size:20px;
 }
 .Message {
     width: 80vw;
@@ -259,6 +264,13 @@ body {
     flex-direction:row;
     justify-content: space-around;
     align-items: center;
+}
+.RowFlexBottom {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: flex-end;
+    gap:10px;
 }
 .ColumnFlex{
     display:flex;

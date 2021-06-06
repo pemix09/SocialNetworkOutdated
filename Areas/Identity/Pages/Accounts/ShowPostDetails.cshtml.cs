@@ -20,7 +20,9 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
         public SocialNetworkContext _context;
         public LocalDB db { get; set; }
         public Post post { get; set; }
-        public List<Comment> comments { get; set; }
+        public List<Comment> comments = new List<Comment>();
+        [BindProperty]
+        public Comment commentModel { get; set; }
         public AppUser user = new AppUser();
         public ShowPostDetailsModel(UserManager<AppUser> userManager,
             SignInManager<AppUser> signInManager, SocialNetworkContext context)
