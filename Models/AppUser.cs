@@ -27,5 +27,6 @@ namespace SocialNetwork.Models
         //public ICollection<Message> Messages { get; set; }
         //public ICollection<Post> Posts { get; set; }
         //public ICollection<Friend> Friends { get; set; }
+
     }
 }

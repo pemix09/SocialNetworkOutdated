@@ -31,7 +31,7 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
             _userManager = userManager;
             _context = context;
         }
-        public async void OnGet(string id)
+        public  void OnGet(string id)
         {
             if (Request.Cookies["RecID"] == null)
             {

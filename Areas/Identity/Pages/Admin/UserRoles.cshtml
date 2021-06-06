@@ -1,0 +1,22 @@
+﻿@page
+@model SocialNetwork.Areas.Identity.Pages.Admin.UserRolesModel
+@using Microsoft.AspNetCore.Identity
+@using SocialNetwork.Models;
+
+@{
+    
+}
+<b>Obecna rola użytkownika: @Model.currentRoleName</b>
+<form method="post">
+    <select required asp-for="@Model.selectedRole">
+        @foreach (var role in Model.roles)
+        {
+            <option asp-for-roleID="@role.Id">@role.Name</option>
+        }
+    </select>
+        <input type="submit" value="Zatwierdź" />
+    </form>
+<hr />
+<div class="col-sm-offset-2 col-sm-6">
+    <a asp-page="./Users" class="btn btn btn-primary">Cofnij</a>
+</div>

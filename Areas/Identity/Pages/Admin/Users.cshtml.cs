@@ -21,11 +21,12 @@ namespace SocialNetwork.Areas.Identity.Pages.Admin
                         = Enumerable.Empty<AppUser>();
         public SocialNetworkContext _context;
         private readonly UserManager<AppUser> _userManager;
+        private RoleManager<IdentityRole> _roleManager;
 
-
-        public UsersModel(SocialNetworkContext context, UserManager<AppUser> userManager)
+        public UsersModel(SocialNetworkContext context, UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
+            _roleManager = roleManager;
             _context = context;
         }
         public bool isAdmin()
@@ -54,8 +55,8 @@ namespace SocialNetwork.Areas.Identity.Pages.Admin
         public async Task<IActionResult> OnGetDeleteUserAsync(string stringID)
         {
             
-            AppUser AppUser = new AppUser();
-            AppUser = await _context.Users.FirstOrDefaultAsync(m => m.Id == stringID);
+            
+            AppUser AppUser = await _context.Users.FirstOrDefaultAsync(m => m.Id == stringID);
             if (isAdmin())//jak nie jest adminem, to pomiñ, tylko admini/masteradmini maj¹ dostêp i tak
             {
                 if (isAdmin(AppUser.UserName) || isMasterAdmin(AppUser.UserName)){
@@ -69,13 +70,14 @@ namespace SocialNetwork.Areas.Identity.Pages.Admin
                 await _context.SaveChangesAsync();
             }
             Users = _context.Users.ToList();
+            
             return Page();
         }
         public async Task<IActionResult> OnGetBanUserAsync(string stringID)
         {
 
-            AppUser AppUser = new AppUser();
-            AppUser = await _context.Users.FirstOrDefaultAsync(m => m.Id == stringID);
+            
+            AppUser AppUser = await _context.Users.FirstOrDefaultAsync(m => m.Id == stringID);
             if (isAdmin())
             {
                 if (isAdmin(AppUser.UserName) || isMasterAdmin(AppUser.UserName))
@@ -95,8 +97,8 @@ namespace SocialNetwork.Areas.Identity.Pages.Admin
         public async Task<IActionResult> OnGetUnBanUserAsync(string stringID)
         {
 
-            AppUser AppUser = new AppUser();
-            AppUser = await _context.Users.FirstOrDefaultAsync(m => m.Id == stringID);
+            
+            AppUser AppUser = await _context.Users.FirstOrDefaultAsync(m => m.Id == stringID);
             if (AppUser != null)
             {
                 AppUser.isEnabled = true;
@@ -105,7 +107,6 @@ namespace SocialNetwork.Areas.Identity.Pages.Admin
             Users = _context.Users.ToList();
             return Page();
         }
-
 
         public void OnGet()
         {

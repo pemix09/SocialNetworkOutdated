@@ -25,8 +25,9 @@ namespace SocialNetwork.Areas.Identity.Pages.Admin.Roles
             currRole = await _roleManager.FindByIdAsync(stringID);
             
         }
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(string stringID)
         {
+            currRole = await _roleManager.FindByIdAsync(stringID);
             currRole.Name = roleName;
             await _roleManager.UpdateAsync(currRole);
             return RedirectToPage("./Index");

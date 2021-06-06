@@ -32,10 +32,10 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
             _context = context;
             db = new LocalDB(_userManager, _signInManager, _context);
         }
-        public async void OnGet(int id)
+        public async Task OnGet(int id)
         {
             //mamy nasz post
-            post = db.GetPostAsync(id, _context).Result;
+            post = await db.GetPostAsync(id, _context);
             comments = db.GetPostComments(id, _context);
             if (Request.Cookies["PostID"] == null)
             {

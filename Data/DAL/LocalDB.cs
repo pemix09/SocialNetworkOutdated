@@ -36,7 +36,7 @@ namespace SocialNetwork.Data.DAL
             throw new NotImplementedException();
         }
 
-        public async void DeletePostAsync(int postID, SocialNetwork.Data.SocialNetworkContext context)
+        public async Task DeletePostAsync(int postID, SocialNetwork.Data.SocialNetworkContext context)
         {
             Post Post = await context.Posts.FindAsync(postID);
 
@@ -53,7 +53,7 @@ namespace SocialNetwork.Data.DAL
             throw new NotImplementedException();
         }
 
-        public async void EditPostAsync(Post editedPost, SocialNetwork.Data.SocialNetworkContext context)
+        public async Task EditPostAsync(Post editedPost, SocialNetwork.Data.SocialNetworkContext context)
         {
             context.Attach(editedPost).State = EntityState.Modified;
             try
