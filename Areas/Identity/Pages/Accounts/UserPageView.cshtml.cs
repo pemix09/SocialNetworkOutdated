@@ -35,9 +35,10 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
         [BindProperty]
         public InputModel Input { get; set; }
         public AppUser userD;
+        public AppUser lookedUser;
         private UserManager<AppUser> _userManager { get; set; }
         private SignInManager<AppUser> _signInManager { get; set; }
-        private SocialNetworkContext _context;
+        public SocialNetworkContext _context;
         public string Username { get; private set; }
         [TempData]
         public string StatusMessage { get; set; }
@@ -53,6 +54,7 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
 
         private async Task LoadAsync(AppUser user)
         {
+            userD = user;
             var userName = await _userManager.GetUserNameAsync(user);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
             var firstName = user.FirstName;
@@ -89,7 +91,7 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
             else
             {
                 var user = db.GetUser(id);
-                userD = user.Result;
+                lookedUser = user.Result;
                 var userName = await _userManager.GetUserNameAsync(userD);
                 var phoneNumber = await _userManager.GetPhoneNumberAsync(userD);
                 var firstName = userD.FirstName;

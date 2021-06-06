@@ -31,7 +31,7 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
         }
         public async void OnGet(int id)
         {
-            user = await _userManager.GetUserAsync(User);
+            //user = await _userManager.GetUserAsync(User);
             //mamy nasz post
             post = db.GetPostAsync(id, _context).Result;
         }

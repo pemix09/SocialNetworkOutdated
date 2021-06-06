@@ -16,6 +16,7 @@ namespace SocialNetwork.Models
         List<AppUser> GetFriends(string userID, SocialNetworkContext context);
         List<AppUser> GetFollowedUsers(int userID);
         public bool isTargetFriendOfSource(string userSourceID, string userTargetID, SocialNetworkContext context);
+        int GetFriendsStatus(string userSourceID, string userTargetID, SocialNetworkContext context);
         Task AddFriend(string userSourceID, string userTargetID, SocialNetworkContext context);
         Task RemoveFriend(string userSourceID, string userTargetID, SocialNetworkContext context);
         Task<Post> GetPostAsync(int postID, SocialNetwork.Data.SocialNetworkContext context);

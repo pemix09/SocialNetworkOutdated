@@ -252,6 +252,19 @@ namespace SocialNetwork.Data.DAL
             return false;//pudło
         }
 
+        //1 -> znajomy który sprawdza wysłał zapro
+        //2 -> obustronne dodanie do znajomych
+        //3 -> spradzany znjaomy wysłał zapro
+        public int GetFriendsStatus(string userSourceID, string userTargetID, SocialNetworkContext context)
+        {
+            bool oneWay = isTargetFriendOfSource(userSourceID, userTargetID, context);
+            bool secondWay = isTargetFriendOfSource(userTargetID, userSourceID, context);
+            if(oneWay && secondWay) return 2;  
+            if (oneWay) return 1;
+            if (secondWay) return 3;
+            return 0;
+        }
+
         public async Task AddFriend(string userSourceID, string userTargetID, SocialNetworkContext context)
         {
             //poniższa walidacja nie jest potrzebna, bo ja już to wcześniej sprawdzam
