@@ -125,7 +125,7 @@
                         <div class="PictureButton" style="margin:20px ">
                             @if (Model.db.GetUser(comment.userID).Result.ProfilePicture != null)
                             {
-                                <img id="profilePicture" style="width: 150px; height: 150px; object-fit: cover; border-radius: 50%" src="data:image/*;base64,@Model.db.GetUser(Model.post.userID).Result.ProfilePicture">
+                                <img id="profilePicture" style="width: 150px; height: 150px; object-fit: cover; border-radius: 50%" src="data:image/*;base64,@Model.db.GetUser(comment.userID).Result.ProfilePicture">
                             }
                             else
                             {

@@ -61,8 +61,7 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
                 await db.AddComment(commentModel,_context);
                 post = db.GetPostAsync(commentModel.postID, _context).Result;
                 comments = db.GetPostComments(commentModel.postID, _context);
-                Response.Cookies.Append("PostID", commentModel.postID.ToString());
-                commentModel = new Comment();
+                //Response.Cookies.Append("PostID", commentModel.postID.ToString());
                 return Page();
             }
             else
