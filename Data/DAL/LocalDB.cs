@@ -169,6 +169,11 @@ namespace SocialNetwork.Data.DAL
             }
             return result;
         }
+        public async Task AddComment(Comment comment, SocialNetworkContext context)
+        {
+            context.Comments.Add(comment);
+            await context.SaveChangesAsync();
+        }
 
         public List<Post> GetPosts(string userID, SocialNetworkContext context)
         {

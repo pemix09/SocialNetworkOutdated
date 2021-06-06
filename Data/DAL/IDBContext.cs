@@ -13,6 +13,7 @@ namespace SocialNetwork.Models
         Task<bool> AddMessageAsync(Message message);
         List<Post> GetPosts(string userID, SocialNetworkContext context);
         List<Comment> GetPostComments(int postID, SocialNetworkContext context);
+        Task AddComment(Comment comment, SocialNetworkContext context);
         List<AppUser> GetFriends(string userID, SocialNetworkContext context);
         List<AppUser> GetFollowedUsers(int userID);
         public bool isTargetFriendOfSource(string userSourceID, string userTargetID, SocialNetworkContext context);

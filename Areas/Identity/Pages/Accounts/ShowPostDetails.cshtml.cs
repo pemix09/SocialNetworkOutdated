@@ -37,6 +37,39 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
             //mamy nasz post
             post = db.GetPostAsync(id, _context).Result;
             comments = db.GetPostComments(id, _context);
+            if (Request.Cookies["CommentID"] == null)
+            {
+                Response.Cookies.Append("CommentID", id.ToString());
+            }
+        }
+        public async Task<IActionResult> OnPost()
+        {
+            commentModel.date = DateTime.Now;
+            string postID = Request.Cookies["CommentID"];
+            int postIntID = Int16.Parse(postID);
+            Response.Cookies.Delete("CommentID");
+            Post postD = await db.GetPostAsync(postIntID, _context);
+            commentModel.postID = postD.postID;
+
+            var user = await _userManager.GetUserAsync(User);
+
+            commentModel.userID = user.Id;
+
+            if (ModelState.IsValid)
+            {
+                await db.AddComment(commentModel,_context);
+                post = db.GetPostAsync(commentModel.postID, _context).Result;
+                comments = db.GetPostComments(commentModel.postID, _context);
+                return Page();
+            }
+            else
+            {
+                post = db.GetPostAsync(postIntID, _context).Result;
+                comments = db.GetPostComments(postIntID, _context);
+                return Page();
+            }
+            //jeœli model nie jest dobry, nie pozwól przejœæ dalej
+            
         }
     }
 }
