@@ -37,17 +37,18 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
             //mamy nasz post
             post = db.GetPostAsync(id, _context).Result;
             comments = db.GetPostComments(id, _context);
-            if (Request.Cookies["CommentID"] == null)
+            if (Request.Cookies["PostID"] == null)
             {
-                Response.Cookies.Append("CommentID", id.ToString());
+                Response.Cookies.Append("PostID", id.ToString());
             }
         }
         public async Task<IActionResult> OnPost()
         {
             commentModel.date = DateTime.Now;
-            string postID = Request.Cookies["CommentID"];
+            string postID = Request.Cookies["PostID"];
+            //za drugim razem dodawania komentarza siê wypierdala wszystko
             int postIntID = Int16.Parse(postID);
-            Response.Cookies.Delete("CommentID");
+            Response.Cookies.Delete("PostID");
             Post postD = await db.GetPostAsync(postIntID, _context);
             commentModel.postID = postD.postID;
 
@@ -60,6 +61,8 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
                 await db.AddComment(commentModel,_context);
                 post = db.GetPostAsync(commentModel.postID, _context).Result;
                 comments = db.GetPostComments(commentModel.postID, _context);
+                Response.Cookies.Append("PostID", commentModel.postID.ToString());
+                commentModel = new Comment();
                 return Page();
             }
             else
