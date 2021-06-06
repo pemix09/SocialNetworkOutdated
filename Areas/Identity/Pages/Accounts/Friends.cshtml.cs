@@ -10,13 +10,14 @@ using Microsoft.AspNetCore.Identity;
 using SocialNetwork.Data;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SocialNetwork.Areas.Identity.Pages.Accounts
 {
+    [Authorize(Policy = "AllDefaultRoles")]
     public class FriendsModel : PageModel
     {
         public List<AppUser> friends;
-        public string id;
         string userId;
         public LocalDB db;
         UserManager<AppUser> _userManager;
@@ -34,10 +35,10 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
             db = new LocalDB(userManager, signInManager, _context);
             userId = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
         }
-        public void OnGet(string id)
+        public void OnGet(string userID)
         {
-            UserID = id;
-            friends = db.GetFriends(id,_context);
+            UserID = userID;
+            friends = db.GetFriends(userID,_context);
         }
        
         public async Task<IActionResult> OnGetRemoveFriendAsync(string RemovedStringID, string userID)

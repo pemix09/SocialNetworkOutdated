@@ -59,7 +59,7 @@ namespace SocialNetwork.Areas.Identity.Pages.Admin
             AppUser AppUser = await _context.Users.FirstOrDefaultAsync(m => m.Id == stringID);
             if (isAdmin())//jak nie jest adminem, to pomiñ, tylko admini/masteradmini maj¹ dostêp i tak
             {
-                if (isAdmin(AppUser.UserName) || isMasterAdmin(AppUser.UserName)){
+                if (isAdmin(AppUser.Id) || isMasterAdmin(AppUser.Id)){
                     //admin próbuje pozbyæ siê admina/masteradmina
                     return Page();
                 }

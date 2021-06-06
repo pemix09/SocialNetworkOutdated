@@ -17,7 +17,7 @@ using SocialNetwork.Models;
 
 namespace SocialNetwork.Pages
 {
-    [Authorize(Roles = "User")]
+    [Authorize(Policy = "AllDefaultRoles")]
     //[Authorize(Policy = "RequireAdministratorRole")]
     public class UserPageEditModel : PageModel
     {

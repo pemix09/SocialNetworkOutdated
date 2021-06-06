@@ -82,6 +82,8 @@ namespace SocialNetwork
             {
                 options.AddPolicy("RequireAdministratorRole",
                      policy => policy.RequireRole("Admin", "MasterAdmin"));
+                options.AddPolicy("AllDefaultRoles", 
+                    policy => policy.RequireRole("Admin", "MasterAdmin", "User"));
             });
 
         }
