@@ -34,7 +34,7 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
         }
         [BindProperty]
         public InputModel Input { get; set; }
-        public AppUser userD;
+        public AppUser userD = new AppUser();
         public AppUser lookedUser;
         private UserManager<AppUser> _userManager { get; set; }
         private SignInManager<AppUser> _signInManager { get; set; }
@@ -75,7 +75,8 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
 
         public async Task<IActionResult> OnGetRemovePostAsync(int postID)
         {
-            List<Post> posts = _context.Posts.ToList();
+            posts = _context.Posts.ToList();
+             
             foreach(Post post in posts)
             {
                 if(post.postID == postID)
@@ -84,6 +85,7 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
                     await _context.SaveChangesAsync();
                     var user = db.GetUser(post.userID);
                     var userDD = user.Result;
+                    userD.Id = userDD.Id;
                     Input = new InputModel
                     {
                         PhoneNumber = userDD.PhoneNumber,
@@ -117,12 +119,12 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
             {
                 
                 userD = await _userManager.GetUserAsync(User);
-                posts = db.GetOwnPosts(userD.Id, _context);
                 var user = await _userManager.GetUserAsync(User);
                 if (user == null)
                 {
                     return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
                 }
+                posts = db.GetOwnPosts(user.Id, _context);
                 await LoadAsync(user);
                 return Page();
             }
