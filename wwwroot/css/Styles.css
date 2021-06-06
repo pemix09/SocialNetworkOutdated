@@ -30,7 +30,16 @@ body {
     justify-content: center;
     align-items: center;
     margin: 20px;
-    padding: 50px;
+    padding: 10px;
+    flex: 1 1 auto;
+}
+.CommentSection {
+    display: flex;
+    flex-direction:column;
+    justify-content: center;
+    align-items: center;
+    margin: 0px 20px 0px 20px;
+    padding: 10px;
     flex: 1 1 auto;
 }
 .welcomePageAdmin {
@@ -48,6 +57,14 @@ body {
     display:flex;
     flex-direction:row;
     
+}
+.Comment {
+    width: 60vw;
+    height: 200px;
+    border: solid;
+    border-color: #0a66d6;
+    padding: 20px;
+    margin: 0px 20px 0px 20px;
 }
 .Message {
     width: 80vw;

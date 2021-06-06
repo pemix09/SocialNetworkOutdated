@@ -20,6 +20,7 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
         public SocialNetworkContext _context;
         public LocalDB db { get; set; }
         public Post post { get; set; }
+        public List<Comment> comments { get; set; }
         public AppUser user = new AppUser();
         public ShowPostDetailsModel(UserManager<AppUser> userManager,
             SignInManager<AppUser> signInManager, SocialNetworkContext context)
@@ -31,9 +32,9 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
         }
         public async void OnGet(int id)
         {
-            //user = await _userManager.GetUserAsync(User);
             //mamy nasz post
             post = db.GetPostAsync(id, _context).Result;
+            comments = db.GetPostComments(id, _context);
         }
     }
 }
