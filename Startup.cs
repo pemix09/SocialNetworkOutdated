@@ -19,6 +19,8 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using SocialNetwork.Services;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace SocialNetwork
 {
@@ -41,15 +43,13 @@ namespace SocialNetwork
             services.AddSingleton<IFileProvider>(
            new PhysicalFileProvider(
                Path.Combine(Directory.GetCurrentDirectory(), "wwwroot")));
-            
+
+
             services.AddMvc(options => options.EnableEndpointRouting = false).AddSessionStateTempDataProvider();
             services.AddSession();
             services.AddControllers();
-            services.AddRazorPages()
-             .AddMvcOptions(options =>
-             {
-                 options.Filters.Add(new CustomPageFilter(Configuration));
-             });
+            services.AddRazorPages();
+
             services.Add(new ServiceDescriptor(typeof(IBase64), new Base64Converter()));
 
             services.AddDbContext<SocialNetworkContext>(options =>
@@ -97,6 +97,7 @@ namespace SocialNetwork
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
         {
+            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -113,7 +114,7 @@ namespace SocialNetwork
             app.UseStaticFiles();
             app.UseSession();
             app.UseRouting();
-
+            app.UseMiddleware<MyMiddleware>();
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseMvc(routes =>
@@ -130,8 +131,8 @@ namespace SocialNetwork
         }
         private void CreateRoles(IServiceProvider serviceProvider, IConfiguration configuration)
         {
-            //u¿ywanie Wait() boli mnie wewnêtrznie, bo to takie wymuszenie synchronicznego dzia³ania
-            //asynchronicznych metod, no ale nie mam pojêcia jak dzia³aæ inaczej
+            //takie wymuszenie synchronicznego dzia³ania
+            //asynchronicznych metod
             //by wymusiæ dzia³anie tego trzeba usun¹æ dan¹ rolê z aspnetroles, inaczej po prostu przeskoczy
             //trzeba te¿ usun¹æ u¿ytkownikow których tworzy, 3 sztuki ³¹cznie
             //userroles mo¿na pomin¹æ, s¹ kasowane wraz z rolami

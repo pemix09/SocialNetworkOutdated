@@ -15,7 +15,7 @@ using Microsoft.AspNetCore.Identity;
 namespace SocialNetwork.Pages
 {
     [Authorize]
-    [CustomFilter]
+    
     public class AddPostModel : PageModel
     {
         [BindProperty]

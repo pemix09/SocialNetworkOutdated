@@ -78,7 +78,7 @@ namespace SocialNetwork.Pages
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return NotFound($"Nie znaleziono u¿ytkownika o danym ID '{_userManager.GetUserId(User)}'.");
             }
             await LoadAsync(user);
             return Page();
@@ -89,7 +89,7 @@ namespace SocialNetwork.Pages
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return NotFound($"Nie znaleziono u¿ytkownika o danym ID '{_userManager.GetUserId(User)}'.");
             }
 
             if (!ModelState.IsValid)
@@ -104,7 +104,7 @@ namespace SocialNetwork.Pages
                 var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, Input.PhoneNumber);
                 if (!setPhoneResult.Succeeded)
                 {
-                    StatusMessage = "Unexpected error when trying to set phone number.";
+                    StatusMessage = "Wyst¹pi³ problem podczas zmiany numeru telefonu.";
                     return RedirectToPage();
                 }
             }
@@ -142,7 +142,7 @@ namespace SocialNetwork.Pages
                 await _userManager.UpdateAsync(user);
             }
             await _signInManager.RefreshSignInAsync(user);
-            StatusMessage = "Your profile has been updated";
+            StatusMessage = "Zaktualizowano profil";
             return RedirectToPage();
         }
     }

@@ -16,8 +16,8 @@ using Microsoft.AspNetCore.Http;
 
 namespace SocialNetwork.Pages
 {
-    //Wywołaj metody filtra, tam będą metody dziennika zdarzeń
-    [CustomFilter]
+    
+    
     [AllowAnonymous]
     public class IndexModel : PageModel
     {
