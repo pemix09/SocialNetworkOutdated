@@ -112,9 +112,10 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
         }
 
 
-        public async Task<IActionResult> OnGetAsync( string id)
+        public async Task<IActionResult> OnGetAsync( string stringID)
         {
             //wczytaj obecnego u¿ytkownika
+            string id = stringID;
             if(id == null)
             {
                 

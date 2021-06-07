@@ -4,11 +4,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using SocialNetwork.Models;
+using SocialNetwork.Data.DAL;
+using Microsoft.AspNetCore.Http;
 
 namespace SocialNetwork.Models
 {
     interface IDBContext
     {
+        void SaveDB(Wrapper wrapped, IHttpContextAccessor httpContextAccessor);
+        Wrapper LoadDB(IHttpContextAccessor httpContextAccessor);
         List<Post> GetOwnPosts(string userID, SocialNetworkContext context);
         Task<bool> AddMessageAsync(Message message);
         List<Post> GetPosts(string userID, SocialNetworkContext context);
@@ -29,6 +34,5 @@ namespace SocialNetwork.Models
         void DeleteUser(int userID);
         List<AppUser> GetSearchResults(string searchQuery, SocialNetworkContext context);
         List<Message> GetMessages(string userID, SocialNetworkContext context);
-        Task<List<Message>> GetMessagesAsync(string userID, SocialNetworkContext context);
     }
 }

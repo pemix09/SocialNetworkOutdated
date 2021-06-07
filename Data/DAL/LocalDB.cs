@@ -6,8 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SocialNetwork.Models;
 using Microsoft.AspNetCore.Identity;
-
-
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.Http;
 
 namespace SocialNetwork.Data.DAL
 {
@@ -29,7 +30,18 @@ namespace SocialNetwork.Data.DAL
             
             return true;
         }
-        
+        public Wrapper LoadDB(IHttpContextAccessor httpContextAccessor)
+        {
+            string jsonPostsAndMessages = httpContextAccessor.HttpContext.Session.GetString("jsonPostsAndMessages");
+            Wrapper wrapped = JsonSerializer.Deserialize<Wrapper>(jsonPostsAndMessages);
+            return wrapped;
+        }
+        public void SaveDB(Wrapper wrapped, IHttpContextAccessor httpContextAccessor)
+        {
+            string jsonPostsAndMessages = JsonSerializer.Serialize(wrapped);
+            httpContextAccessor.HttpContext.Session.SetString("jsonPostsAndMessages",jsonPostsAndMessages);
+        }
+
 
         public void AddUser(AppUser user)
         {
@@ -108,47 +120,7 @@ namespace SocialNetwork.Data.DAL
             return result;
         }
 
-        public async Task<List<Message>> GetMessagesAsync(string userID, SocialNetworkContext context)
-        {
-            /*Message message = new Message();
-            message.messageID = 12;
-            message.messageContent = "coś tutaj wpisałem";
-            message.date = DateTime.Now;
-            message.recevingUserID = "12b7fec3-4d08-4958-bcc6-84f3f8b4baad";
-            message.userID = "12b7fec3-4d08-4958-bcc6-84f3f8b4baad";
-
-            Message message2 = new Message();
-            message2.messageID = 14;
-            message2.messageContent = "Kurde robi się grubo";
-            message2.date = DateTime.Now;
-            message2.recevingUserID = "12b7fec3-4d08-4958-bcc6-84f3f8b4baad";
-            message2.userID = "12b7fec3-4d08-4958-bcc6-84f3f8b4baad";
-
-            Message message3 = new Message();
-            message3.messageID = 15;
-            message3.messageContent = "dsadas";
-            message3.date = DateTime.Now;
-            message3.recevingUserID = "12b7fec3-4d08-4958-bcc6-84f3f8b4baad";
-            message3.userID = "12b7fec3-4d08-4958-bcc6-84f3f8b4baad";
-
-            messages.Add(message);
-            messages.Add(message2);
-            messages.Add(message3);
-
-*/
-            List<Message> messages = new List<Message>();
-            List<Message> result = new List<Message>();
-            messages = context.Messages.ToList();
-
-            foreach(Message message in messages)
-            {
-                if(message.recevingUserID == userID)
-                {
-                    result.Add(message);
-                }
-            }
-            return result;
-        }
+      
 
         public async Task<Post> GetPostAsync(int id, SocialNetworkContext context)
         {

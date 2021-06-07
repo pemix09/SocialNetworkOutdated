@@ -75,8 +75,14 @@ namespace SocialNetwork.Pages
                 //user.nickname = HttpContext.User.Identity.Name;
                 users = null;
 
-                //tutaj powinna być iteracja po znajomych, żeby brać ich posty!
-                posts = db.GetPosts(currentUserID,_context);
+                //dodajemy posty z sesji, jeśli jakieś są oczywiście
+                /*Wrapper wrapper = db.LoadDB(_httpContextAccessor);
+                posts.AddRange(wrapper._posts);
+                posts = posts.Distinct().ToList();
+                wrapper._posts = posts;
+                db.SaveDB(wrapper, _httpContextAccessor);*/
+
+                posts = db.GetPosts(currentUserID, _context);
 
                 posts.Sort(delegate (Post x, Post y)
                  {

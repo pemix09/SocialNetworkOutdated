@@ -17,6 +17,8 @@ using System.Threading.Tasks;
 using SocialNetwork.Models;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using SocialNetwork.Services;
+using Microsoft.Extensions.Logging;
+
 
 namespace SocialNetwork
 {
@@ -37,7 +39,8 @@ namespace SocialNetwork
            new PhysicalFileProvider(
                Path.Combine(Directory.GetCurrentDirectory(), "wwwroot")));
             
-            services.AddMvc(options => options.EnableEndpointRouting = false);
+            services.AddMvc(options => options.EnableEndpointRouting = false).AddSessionStateTempDataProvider();
+            services.AddSession();
             services.AddControllers();
             services.AddRazorPages()
              .AddMvcOptions(options =>
@@ -105,7 +108,7 @@ namespace SocialNetwork
             
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.UseSession();
             app.UseRouting();
 
             app.UseAuthentication();
