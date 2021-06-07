@@ -60,6 +60,10 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
                 {
                     return CompareDates(x.date, y.date);
                 });
+
+            Wrapper wrapper = new Wrapper();
+            wrapper._messages = messages;
+            db.SaveDB(wrapper, _httpContextAccessor);
         }
         public void OnPost()
         {
