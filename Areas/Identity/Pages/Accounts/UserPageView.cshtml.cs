@@ -31,6 +31,8 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
             public string PhoneNumber { get; set; }
             [Display(Name = "Zdjêcie profilowe")]
             public string ProfilePicture { get; set; }
+            [Display(Name="email")]
+            public string email { get; set; }
         }
         [BindProperty]
         public InputModel Input { get; set; }
@@ -69,7 +71,8 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
                 Username = userName,
                 FirstName = firstName,
                 LastName = lastName,
-                ProfilePicture = profilePicture
+                ProfilePicture = profilePicture,
+                email = user.Email
             };
         }
 
@@ -92,7 +95,8 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
                         Username = userDD.UserName,
                         FirstName = userDD.FirstName,
                         LastName = userDD.LastName,
-                        ProfilePicture = userDD.ProfilePicture
+                        ProfilePicture = userDD.ProfilePicture,
+                        email = userDD.Email
                     };
                     userD = userDD;
                     posts = db.GetOwnPosts(userD.Id, _context);
@@ -106,7 +110,8 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
                 Username = userD.UserName,
                 FirstName = userD.FirstName,
                 LastName = userD.LastName,
-                ProfilePicture = userD.ProfilePicture
+                ProfilePicture = userD.ProfilePicture,
+                email = userD.Email
             };
             return Page();
         }
@@ -150,7 +155,8 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
                     Username = userName,
                     FirstName = firstName,
                     LastName = lastName,
-                    ProfilePicture = profilePicture
+                    ProfilePicture = profilePicture,
+                    email = lookedUser.Email
                 };
                 return Page();
             }

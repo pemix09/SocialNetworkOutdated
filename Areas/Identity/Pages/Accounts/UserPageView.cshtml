@@ -41,7 +41,7 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="userD.Email"></label>:
-                    <b> @Model.userD.Email</b>
+                    <b> @Model.Input.email</b>
                 </div>
             }
             else if (Model.db.GetFriendsStatus(Model.userD.Id, Model.lookedUser.Id, Model._context) == 2)
@@ -52,7 +52,7 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="userD.Email"></label>:
-                    <b> @Model.userD.Email</b>
+                    <b> @Model.Input.email</b>
                 </div>
             }
 
