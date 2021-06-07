@@ -77,7 +77,7 @@
                                 </div>
                             </a>
                         </div>
-                        <a asp-route-id="@Model.db.GetUser(Model.post.userID).Result.Id" asp-area="Identity" asp-page="/Accounts/UserPageView">
+                        <a asp-route-stringID="@Model.post.userID" asp-area="Identity" asp-page="/Accounts/UserPageView">
                             <div class="PictureButton" style="margin:20px ">
                                 @if (Model.db.GetUser(Model.post.userID).Result.ProfilePicture != null)
                                 {
@@ -91,7 +91,7 @@
                         </a>
 
                     </div>
-                    <a asp-route-id="@Model.db.GetUser(Model.post.userID).Result.Id" asp-area="Identity" asp-page="/Accounts/UserPageView">
+                    <a asp-route-stringID="@Model.post.userID" asp-area="Identity" asp-page="/Accounts/UserPageView">
                         <div class="PictureButton">
                             <h1>
                                 @Model.db.GetUser(Model.post.userID).Result.FirstName

@@ -18,7 +18,7 @@ using SocialNetwork.Models;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using SocialNetwork.Services;
 using Microsoft.Extensions.Logging;
-
+using Microsoft.AspNetCore.Http;
 
 namespace SocialNetwork
 {
@@ -30,6 +30,9 @@ namespace SocialNetwork
         }
 
         public IConfiguration Configuration { get; }
+
+
+        //public IHttpContextAccessor _httpacces { get; set; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)

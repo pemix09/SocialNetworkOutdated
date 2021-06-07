@@ -47,7 +47,9 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
         }
         public void OnGet()
         {
-            messages = db.GetMessages(userId,_context);
+
+            messages = db.GetMessages(userId,_context,_httpContextAccessor);
+            
             //czytamy wszystkie wiadomoœci
             foreach(Message message in messages)
             {

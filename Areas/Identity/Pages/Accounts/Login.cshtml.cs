@@ -42,7 +42,7 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
         public class InputModel
         {
             [Required(ErrorMessage ="Adres email jest wymagany")]
-            [EmailAddress]
+            [EmailAddress(ErrorMessage ="To pole musi mieæ format adresu email")]
             [Display(Name = "Adres Email")]
             public string Email { get; set; }
 

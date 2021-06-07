@@ -14,6 +14,10 @@ namespace SocialNetwork.Data.DAL
             _messages = messages;
             _posts = posts;
         }
+        public Wrapper()
+        {
+
+        }
         public List<Message> _messages;
         public List<Post> _posts;
     }

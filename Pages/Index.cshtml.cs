@@ -52,7 +52,7 @@ namespace SocialNetwork.Pages
         {
             SearchQuery = searchQuery;
             currentUserID = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            List<Message> messages = db.GetMessages(currentUserID, _context);
+            List<Message> messages = db.GetMessages(currentUserID, _context,_httpContextAccessor);
 
             foreach(Message message in messages)
             {

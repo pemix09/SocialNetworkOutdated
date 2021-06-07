@@ -33,7 +33,16 @@ namespace SocialNetwork.Data.DAL
         public Wrapper LoadDB(IHttpContextAccessor httpContextAccessor)
         {
             string jsonPostsAndMessages = httpContextAccessor.HttpContext.Session.GetString("jsonPostsAndMessages");
-            Wrapper wrapped = JsonSerializer.Deserialize<Wrapper>(jsonPostsAndMessages);
+            Wrapper wrapped;
+            if (jsonPostsAndMessages != null )
+            {
+                wrapped = JsonSerializer.Deserialize<Wrapper>(jsonPostsAndMessages);
+
+            }
+            else
+            {
+                wrapped = new Wrapper();
+            }
             return wrapped;
         }
         public void SaveDB(Wrapper wrapped, IHttpContextAccessor httpContextAccessor)
@@ -104,9 +113,16 @@ namespace SocialNetwork.Data.DAL
             }
             return result;
         }
-        public List<Message> GetMessages(string userID, SocialNetworkContext context)
+        public List<Message> GetMessages(string userID, SocialNetworkContext context, IHttpContextAccessor httpContextAccessor)
         {
+            Wrapper wrapper = this.LoadDB(httpContextAccessor);
             List<Message> messages = new List<Message>();
+            if(wrapper._messages != null)
+            {
+                messages.AddRange(wrapper._messages);
+                messages = messages.Distinct().ToList();
+            }
+            
             List<Message> result = new List<Message>();
             messages = context.Messages.ToList();
 

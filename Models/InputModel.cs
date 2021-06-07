@@ -26,7 +26,7 @@ namespace SocialNetwork.Models
         [Display(Name = "Nr telefonu")]
         [StringLength(15, ErrorMessage ="Maksymalna długość numeru telefonu to 15 cyfr")]
         [MinLength(7, ErrorMessage ="Minimalna długość numeru telefonu to 7 cyfr")]
-        [DataType(DataType.PhoneNumber)]
+        [DataType(DataType.PhoneNumber, ErrorMessage ="To pole musi mieć format numeru telefonu")]
         [DisplayFormat(ConvertEmptyStringToNull = false)]
         [Required(AllowEmptyStrings = true,ErrorMessage ="Numer telefonu jest wymagany")]
         public string? phone { get; set; }
@@ -36,11 +36,11 @@ namespace SocialNetwork.Models
         [StringLength(30, ErrorMessage ="Maksymalna długość nazwy użytkownika to 30 znaków")]
         public string? nickname { get; set; }
         [Required(ErrorMessage = "Adres email jest wymagany")]
-        [DataType(DataType.EmailAddress)]
+        [DataType(DataType.EmailAddress,ErrorMessage ="To pole musi mieć format adresu email")]
         [Display(Name = "E-mail")]
         public string? Email { get; set; }
         [Required(ErrorMessage = "Należy powtórzyć adres email")]
-        [DataType(DataType.EmailAddress)]
+        [DataType(DataType.EmailAddress, ErrorMessage ="To pole musi mieć typ adresu email")]
         [Display(Name = "Powtórz E-mail")]
         [Compare("Email", ErrorMessage = "Adresy E-mail są różne")]
         public string? confirmEmail { get; set; }

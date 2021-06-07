@@ -33,6 +33,6 @@ namespace SocialNetwork.Models
         void EditUser(string userID, AppUser editedUser);
         void DeleteUser(int userID);
         List<AppUser> GetSearchResults(string searchQuery, SocialNetworkContext context);
-        List<Message> GetMessages(string userID, SocialNetworkContext context);
+        List<Message> GetMessages(string userID, SocialNetworkContext context, IHttpContextAccessor httpContextAccessor);
     }
 }
