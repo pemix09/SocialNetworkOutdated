@@ -153,6 +153,7 @@ namespace SocialNetwork.Data.DAL
             List<Post> friendsPosts = new List<Post>();
             foreach(AppUser user in friends)
             {
+                if (user == null) continue;
                 List<Post> friendPosts = this.GetOwnPosts(user.Id, context);
                 foreach(Post post in friendPosts)
                 {

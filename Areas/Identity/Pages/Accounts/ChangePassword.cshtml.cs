@@ -20,8 +20,8 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
         [DataType(DataType.Password)]
         //[MinLength(3)]
         //[MaxLength(16)]
-        [RegularExpression("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{3,16}$",ErrorMessage = 
-            "Conajmniej 1 ma³a litera, 1 du¿a litera, 1 znak specjalny oraz 1 cyfra, od 3 do 16 znaków")]
+        /*[RegularExpression("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{3,16}$",ErrorMessage = 
+            "Conajmniej 1 ma³a litera, 1 du¿a litera, 1 znak specjalny oraz 1 cyfra, od 3 do 16 znaków")]*/
         [Required]
         [BindProperty]
         public string newPassword { get; set; }
