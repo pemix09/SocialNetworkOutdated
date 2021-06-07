@@ -104,6 +104,10 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
                 }
             }
             posts = db.GetOwnPosts(userD.Id, _context);
+            posts.Sort(delegate (Post x, Post y)
+            {
+                return CompareDates(x.date, y.date);
+            });
             Input = new InputModel
             {
                 PhoneNumber = userD.PhoneNumber,
@@ -116,7 +120,12 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
             return Page();
         }
 
-
+        public int CompareDates(DateTime x, DateTime y)
+        {
+            if (x > y) return -1;
+            else if (x == y) return 0;
+            else return 1;
+        }
         public async Task<IActionResult> OnGetAsync( string stringID)
         {
             //wczytaj obecnego u¿ytkownika
@@ -131,6 +140,10 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
                     return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
                 }
                 posts = db.GetOwnPosts(user.Id, _context);
+                posts.Sort(delegate (Post x, Post y)
+                {
+                    return CompareDates(x.date, y.date);
+                });
                 await LoadAsync(user);
                 return Page();
             }
@@ -138,6 +151,10 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
             else
             {
                 posts = db.GetOwnPosts(id, _context);
+                posts.Sort(delegate (Post x, Post y)
+                {
+                    return CompareDates(x.date, y.date);
+                });
                 userD = await _userManager.GetUserAsync(User);
                 var user = db.GetUser(id);
                 lookedUser = user.Result;
