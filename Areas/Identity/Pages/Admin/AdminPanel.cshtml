@@ -7,7 +7,9 @@
 @{
     //bardzo fajnie można wydobyć dane obecnego użytkownika
     var user = await UserManage.GetUserAsync(User);
+    ViewData["Title"] = "Panel Administratora";
 }
+
 <section class="welcomePage" style="flex-direction:row;">
     <div style="flex-direction:column; align-items:flex-start;">
         <h1>

@@ -47,7 +47,21 @@ namespace SocialNetwork.Data.DAL
         }
         public void SaveDB(Wrapper wrapped, IHttpContextAccessor httpContextAccessor)
         {
-            string jsonPostsAndMessages = JsonSerializer.Serialize(wrapped);
+            string jsonPostsAndMessages = httpContextAccessor.HttpContext.Session.GetString("jsonPostsAndMessages");
+            Wrapper _wrapped;
+            if (jsonPostsAndMessages != null)
+            {
+                _wrapped = JsonSerializer.Deserialize<Wrapper>(jsonPostsAndMessages);
+                _wrapped._messages = wrapped._messages;
+                _wrapped._posts = wrapped._posts;
+            }
+            else
+            {
+                _wrapped = new Wrapper();
+                _wrapped._messages = wrapped._messages;
+                _wrapped._posts = wrapped._posts;
+            }
+            jsonPostsAndMessages = JsonSerializer.Serialize(wrapped);
             httpContextAccessor.HttpContext.Session.SetString("jsonPostsAndMessages",jsonPostsAndMessages);
         }
 
@@ -163,11 +177,17 @@ namespace SocialNetwork.Data.DAL
             await context.SaveChangesAsync();
         }
 
-        public List<Post> GetPosts(string userID, SocialNetworkContext context)
+        public List<Post> GetPosts(string userID, SocialNetworkContext context, IHttpContextAccessor httpContextAccessor)
         {
+            Wrapper wrapper = this.LoadDB(httpContextAccessor);
+            
             List<AppUser> friends = this.GetFriends(userID, context);
             List<Post> friendsPosts = new List<Post>();
-            foreach(AppUser user in friends)
+            if (wrapper._posts != null)
+            {
+                friendsPosts.AddRange(wrapper._posts);
+            }
+            foreach (AppUser user in friends)
             {
                 if (user == null) continue;
                 List<Post> friendPosts = this.GetOwnPosts(user.Id, context);
@@ -176,6 +196,7 @@ namespace SocialNetwork.Data.DAL
                     friendsPosts.Add(post);
                 }
             }
+            friendsPosts = friendsPosts.Distinct().ToList();
             return friendsPosts;
         }
 

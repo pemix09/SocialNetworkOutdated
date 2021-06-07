@@ -1,7 +1,11 @@
 ﻿@page
 @model SocialNetwork.Areas.Identity.Pages.Admin.Roles.AddModel
 @{
+    ViewData["Title"] = "Dodaj rolę";
 }
+<head>
+    <title>Dodaj rolę</title>
+</head>
 <div class="form-group" style="width:400px;">
     <form method="post">
         <label asp-for="@Model.roleName"></label>
@@ -12,5 +16,5 @@
             <button class="btn btn btn-primary">Zatwierdź</button>
             <a asp-page="./Index" class="btn btn btn-primary">Cofnij</a>
         </div>
-        </form>
+    </form>
 </div>

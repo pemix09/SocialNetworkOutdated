@@ -16,7 +16,7 @@ namespace SocialNetwork.Models
         Wrapper LoadDB(IHttpContextAccessor httpContextAccessor);
         List<Post> GetOwnPosts(string userID, SocialNetworkContext context);
         Task<bool> AddMessageAsync(Message message);
-        List<Post> GetPosts(string userID, SocialNetworkContext context);
+        List<Post> GetPosts(string userID, SocialNetworkContext context, IHttpContextAccessor httpContextAccessor);
         List<Comment> GetPostComments(int postID, SocialNetworkContext context);
         Task AddComment(Comment comment, SocialNetworkContext context);
         List<AppUser> GetFriends(string userID, SocialNetworkContext context);

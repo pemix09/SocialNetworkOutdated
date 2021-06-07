@@ -8,8 +8,12 @@
 @inject UserManager<AppUser> _userManager
 
 
-
-
+@{
+    ViewData["Title"] = "Użytkownicy";
+}
+<head>
+    <title>Użytkownicy</title>
+</head>
 <section class="welcomePageAdmin">
     <div class="m-2">
 
@@ -32,20 +36,20 @@
                         <td>@user.LastName</td>
                         <td>@user.UserName</td>
                         <td>@user.Email</td>
-                        
-                            @{ 
-                                var roles = await _userManager.GetRolesAsync(user);
-                                foreach (var role in roles)
+
+                        @{
+                            var roles = await _userManager.GetRolesAsync(user);
+                            foreach (var role in roles)
+                            {
+                                if (await _userManager.IsInRoleAsync(user, role))
                                 {
-                                    if (await _userManager.IsInRoleAsync(user, role))
-                                    {
-                                        <td>@role</td>
-                                    }
+                                    <td>@role</td>
                                 }
                             }
+                        }
 
 
-                        
+
                         <td class="RowFlex">
                             <a asp-page="UserRoles" asp-route-stringID="@user.Id">
                                 <div title="Edytuj Role Użytkownika" class="headerButtonsWhite">

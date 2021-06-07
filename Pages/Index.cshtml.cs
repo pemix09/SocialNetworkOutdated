@@ -82,12 +82,15 @@ namespace SocialNetwork.Pages
                 wrapper._posts = posts;
                 db.SaveDB(wrapper, _httpContextAccessor);*/
 
-                posts = db.GetPosts(currentUserID, _context);
+                posts = db.GetPosts(currentUserID, _context, _httpContextAccessor);
 
                 posts.Sort(delegate (Post x, Post y)
-                 {
-                     return CompareDates(x.date, y.date);
-                 });
+                {
+                    return CompareDates(x.date, y.date);
+                });
+                Wrapper wrapper = new Wrapper();
+                wrapper._posts = posts;
+                db.SaveDB(wrapper, _httpContextAccessor);
             }
 
         }
@@ -118,12 +121,15 @@ namespace SocialNetwork.Pages
         {
             string userID = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             await db.AddFriend(stringID, userID, _context);
-            posts = db.GetPosts(userID, _context);
+            posts = db.GetPosts(userID, _context,_httpContextAccessor);
 
             posts.Sort(delegate (Post x, Post y)
             {
                 return CompareDates(x.date, y.date);
             });
+            Wrapper wrapper = new Wrapper();
+            wrapper._posts = posts;
+            db.SaveDB(wrapper, _httpContextAccessor);
             return Page();
         }
         public async Task<IActionResult> OnGetRemoveFriendPostsAsync(string stringID)
@@ -131,12 +137,15 @@ namespace SocialNetwork.Pages
 
             string userID = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             await db.RemoveFriend(stringID, userID, _context);
-            posts = db.GetPosts(userID, _context);
+            posts = db.GetPosts(userID, _context, _httpContextAccessor);
 
             posts.Sort(delegate (Post x, Post y)
             {
                 return CompareDates(x.date, y.date);
             });
+            Wrapper wrapper = new Wrapper();
+            wrapper._posts = posts;
+            db.SaveDB(wrapper, _httpContextAccessor);
             return Page();
         }
     }
