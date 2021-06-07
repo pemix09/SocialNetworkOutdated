@@ -52,7 +52,7 @@
                                     <div class="ProfileSearchButtons" style="display:flex;flex-direction:column">
                                         @if (message.userID != message.recevingUserID)
                                         {
-                                            @if (Model.db.isTargetFriendOfSource(message.userID, message.recevingUserID, Model._context) == false)
+                                            @if (Model.db.isTargetFriendOfSource( message.recevingUserID, message.userID, Model._context) == false)
                                             {
                                                 <a asp-route-id="@message.userID" asp-area="Identity" asp-page="/Accounts/AddFriend">
                                                     <div class="PictureButton">

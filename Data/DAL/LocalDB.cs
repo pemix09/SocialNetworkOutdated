@@ -163,11 +163,17 @@ namespace SocialNetwork.Data.DAL
             await context.SaveChangesAsync();
         }
 
-        public List<Post> GetPosts(string userID, SocialNetworkContext context)
+        public List<Post> GetPosts(string userID, SocialNetworkContext context, IHttpContextAccessor httpContextAccessor)
         {
+            Wrapper wrapper = this.LoadDB(httpContextAccessor);
+            
             List<AppUser> friends = this.GetFriends(userID, context);
             List<Post> friendsPosts = new List<Post>();
-            foreach(AppUser user in friends)
+            if (wrapper._posts != null)
+            {
+                friendsPosts.AddRange(wrapper._posts);
+            }
+            foreach (AppUser user in friends)
             {
                 if (user == null) continue;
                 List<Post> friendPosts = this.GetOwnPosts(user.Id, context);
@@ -176,6 +182,7 @@ namespace SocialNetwork.Data.DAL
                     friendsPosts.Add(post);
                 }
             }
+            friendsPosts = friendsPosts.Distinct().ToList();
             return friendsPosts;
         }
 
