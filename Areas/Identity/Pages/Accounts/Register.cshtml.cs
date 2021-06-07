@@ -22,7 +22,7 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
         private readonly ILogger<RegisterModel> _logger;
         private readonly SocialNetwork.Data.SocialNetworkContext _context;
 
-        public IdConverter IDconverter = new();
+        
 
         public RegisterModel(
             UserManager<AppUser> userManager,

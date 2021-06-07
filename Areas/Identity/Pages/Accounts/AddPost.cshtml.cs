@@ -24,7 +24,7 @@ namespace SocialNetwork.Pages
         private readonly IHttpContextAccessor _httpContextAccessor;
         string userID;
         public string _returnURL;
-        public IdConverter IDConverter = new IdConverter();
+        
         private readonly SocialNetwork.Data.SocialNetworkContext _context;
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
@@ -38,7 +38,7 @@ namespace SocialNetwork.Pages
             converter = Base64Converter;
             _httpContextAccessor = httpContextAccessor;
             userID = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);//Zwracany ci¹g znaków?
-            int result = IDConverter.GetIntID(userID);
+            
             _context = context;
             _userManager = userManager;
             _signInManager = signInManager;
