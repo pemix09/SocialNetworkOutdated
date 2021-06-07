@@ -4,8 +4,11 @@
 @using SocialNetwork.Models;
 
 @{
-    
+    ViewData["Title"] = "Role użytkowników";
 }
+<head>
+    <title>Role użytkowników</title>
+</head>
 <b>Obecna rola użytkownika: @Model.currentRoleName</b>
 <form method="post">
     <select required asp-for="@Model.selectedRole">

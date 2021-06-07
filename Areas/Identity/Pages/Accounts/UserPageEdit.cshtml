@@ -5,11 +5,12 @@
 @inject SignInManager<AppUser> SignInManager
 @inject UserManager<AppUser> UserManager
 @{
-   
+
     var user = await UserManager.GetUserAsync(User);
+    ViewData["Title"] = "Edycja profilu użytkownika";
 }
 <head>
-
+    <title>Edycja profilu użytkownika</title>
 </head>
 @Model.StatusMessage
 <body>
