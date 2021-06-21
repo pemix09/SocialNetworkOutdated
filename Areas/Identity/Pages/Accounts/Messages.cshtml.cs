@@ -38,32 +38,19 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
             userId = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
         }
-        //komparator do dat
-        public int CompareDates(DateTime x, DateTime y)
-        {
-            if (x > y) return -1;
-            else if (x == y) return 0;
-            else return 1;
-        }
+      
         public void OnGet()
         {
 
-            messages = db.GetMessages(userId,_context,_httpContextAccessor);
+            messages = db.GetMessages(userId);
             
             //czytamy wszystkie wiadomoœci
             foreach(Message message in messages)
             {
                 message.isRead = true;
             }
-            //posortuj wiadomoœci tak, by najnowsze by³y na górze
-            messages.Sort(delegate (Message x, Message y)
-                {
-                    return CompareDates(x.date, y.date);
-                });
+            
 
-            Wrapper wrapper = new Wrapper();
-            wrapper._messages = messages;
-            db.SaveDB(wrapper, _httpContextAccessor);
         }
         public void OnPost()
         {

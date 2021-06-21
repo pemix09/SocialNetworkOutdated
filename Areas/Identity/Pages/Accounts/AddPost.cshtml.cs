@@ -69,8 +69,7 @@ namespace SocialNetwork.Pages
                 post.userID = this.userID;//userID to userID, a nie identyfikator typu string, potrzebna nowa kolumna?
                 if (ModelState.IsValid == true)
                 {
-                    _context.Posts.Add(post);
-                    await _context.SaveChangesAsync();
+                    await db.AddPostAsync(post);
                     if (_returnURL != null)
                     {
                         return RedirectToPage(_returnURL);
@@ -117,9 +116,7 @@ namespace SocialNetwork.Pages
                 if (ModelState.IsValid == true)
                 {
                     //dodajemy post
-                    //db.AddPostAsync(post, _context);
-                    _context.Posts.Add(post);
-                    await _context.SaveChangesAsync();
+                    await db.AddPostAsync(post);
                     if (_returnURL != null)
                     {
                         return RedirectToPage(_returnURL);

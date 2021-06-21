@@ -60,7 +60,7 @@
                             <div class="ProfileSearchButtons">
                                 @if (user.Id != AppUser.Id)
                                 {
-                                    @if (Model.db.isTargetFriendOfSource(user.Id, AppUser.Id, Model._context) == false)
+                                    @if (Model.db.isTargetFriendOfSource(user.Id, AppUser.Id) == false)
                                     {
                                         <a asp-page-handler="AddFriendSearch" asp-route-stringID="@AppUser.Id" asp-route-searchQuery="@Model.SearchQuery">
                                             <div class="PictureButton">
@@ -95,7 +95,7 @@
                             <p>
                                 <!-- do sprawdzenia, ale chyba o to chodziło? -->
                                 Nazwa profilu: @AppUser.UserName<br />
-                                @if (Model.db.GetFriendsStatus(user.Id, AppUser.Id,Model._context) == 2)
+                                @if (Model.db.GetFriendsStatus(user.Id, AppUser.Id) == 2)
                                 {
                             <p>
                                 Adres email: @AppUser.Email<br />
@@ -156,7 +156,7 @@
 
 
                                 <div class="ProfileSearchButtons" style="display:flex;flex-direction:column">
-                                    @if (Model.db.isTargetFriendOfSource(user.Id, post.userID, Model._context) == false)
+                                    @if (Model.db.isTargetFriendOfSource(user.Id, post.userID) == false)
                                     {
                                         <a asp-page-handler="AddFriendPosts" asp-route-stringID="@post.userID">
                                             <div class="PictureButton">
