@@ -708,4 +708,13 @@
   <LogInfo>[21.06.2021 10:49:48] =&gt; Użytkownik o adresie: ::1  wszedł na stronę: /Identity/Accounts/Login</LogInfo>
   <LogInfo>[21.06.2021 10:49:48] =&gt; Użytkownik o adresie: ::1  wszedł na stronę: /</LogInfo>
   <LogInfo>[21.06.2021 10:49:50] =&gt; Użytkownik o adresie: ::1  wszedł na stronę: /Identity/Accounts/Messages</LogInfo>
+  <LogInfo>[21.06.2021 10:54:23] =&gt; Użytkownik o adresie: ::1  wszedł na stronę: /</LogInfo>
+  <LogInfo>[21.06.2021 10:54:36] =&gt; Użytkownik o adresie: ::1  wszedł na stronę: /Identity/Accounts/Login</LogInfo>
+  <LogInfo>[21.06.2021 10:54:37] =&gt; Użytkownik o adresie: ::1  wszedł na stronę: /Identity/Accounts/Login</LogInfo>
+  <LogInfo>[21.06.2021 10:54:38] =&gt; Użytkownik o adresie: ::1  wszedł na stronę: /</LogInfo>
+  <LogInfo>[21.06.2021 10:54:40] =&gt; Użytkownik o adresie: ::1  wszedł na stronę: /Identity/Accounts/Messages</LogInfo>
+  <LogInfo>[21.06.2021 10:54:46] =&gt; Użytkownik o adresie: ::1  wszedł na stronę: /Identity/Accounts/UserPageView</LogInfo>
+  <LogInfo>[21.06.2021 10:54:48] =&gt; Użytkownik o adresie: ::1  wszedł na stronę: /Identity/Accounts/Messages</LogInfo>
+  <LogInfo>[21.06.2021 10:54:49] =&gt; Użytkownik o adresie: ::1  wszedł na stronę: /Identity/Accounts/UserPageView</LogInfo>
+  <LogInfo>[21.06.2021 10:54:51] =&gt; Użytkownik o adresie: ::1  wszedł na stronę: /Identity/Accounts/Messages</LogInfo>
 </LogInfo>
