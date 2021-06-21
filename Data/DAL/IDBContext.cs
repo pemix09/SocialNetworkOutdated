@@ -12,8 +12,6 @@ namespace SocialNetwork.Models
 {
     interface IDBContext
     {
-        void SaveDB(Wrapper wrapped, IHttpContextAccessor httpContextAccessor);
-        Wrapper LoadDB(IHttpContextAccessor httpContextAccessor);
         List<Post> GetOwnPosts(string userID);
         Task AddMessageAsync(Message message);
         List<Post> GetPosts(string userID);

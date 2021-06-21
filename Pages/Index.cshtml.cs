@@ -88,9 +88,7 @@ namespace SocialNetwork.Pages
                 {
                     return CompareDates(x.date, y.date);
                 });
-                Wrapper wrapper = new Wrapper();
-                wrapper._posts = posts;
-                db.SaveDB(wrapper, _httpContextAccessor);
+               
             }
 
         }
@@ -127,9 +125,7 @@ namespace SocialNetwork.Pages
             {
                 return CompareDates(x.date, y.date);
             });
-            Wrapper wrapper = new Wrapper();
-            wrapper._posts = posts;
-            db.SaveDB(wrapper, _httpContextAccessor);
+       
             return Page();
         }
         public async Task<IActionResult> OnGetRemoveFriendPostsAsync(string stringID)
@@ -143,9 +139,7 @@ namespace SocialNetwork.Pages
             {
                 return CompareDates(x.date, y.date);
             });
-            Wrapper wrapper = new Wrapper();
-            wrapper._posts = posts;
-            db.SaveDB(wrapper, _httpContextAccessor);
+
             return Page();
         }
     }

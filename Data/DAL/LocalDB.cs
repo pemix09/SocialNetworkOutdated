@@ -41,40 +41,7 @@ namespace SocialNetwork.Data.DAL
             _context.Posts.Remove(post);
             await _context.SaveChangesAsync();
         }
-        public Wrapper LoadDB(IHttpContextAccessor httpContextAccessor)
-        {
-            string jsonPostsAndMessages = httpContextAccessor.HttpContext.Session.GetString("jsonPostsAndMessages");
-            Wrapper wrapped;
-            if (jsonPostsAndMessages != null )
-            {
-                wrapped = JsonSerializer.Deserialize<Wrapper>(jsonPostsAndMessages);
-
-            }
-            else
-            {
-                wrapped = new Wrapper();
-            }
-            return wrapped;
-        }
-        public void SaveDB(Wrapper wrapped, IHttpContextAccessor httpContextAccessor)
-        {
-            string jsonPostsAndMessages = httpContextAccessor.HttpContext.Session.GetString("jsonPostsAndMessages");
-            Wrapper _wrapped;
-            if (jsonPostsAndMessages != null)
-            {
-                _wrapped = JsonSerializer.Deserialize<Wrapper>(jsonPostsAndMessages);
-                _wrapped._messages = wrapped._messages;
-                _wrapped._posts = wrapped._posts;
-            }
-            else
-            {
-                _wrapped = new Wrapper();
-                _wrapped._messages = wrapped._messages;
-                _wrapped._posts = wrapped._posts;
-            }
-            jsonPostsAndMessages = JsonSerializer.Serialize(wrapped);
-            httpContextAccessor.HttpContext.Session.SetString("jsonPostsAndMessages",jsonPostsAndMessages);
-        }
+       
 
 
         public void AddUser(AppUser user)
