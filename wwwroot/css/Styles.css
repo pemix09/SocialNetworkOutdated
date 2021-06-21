@@ -292,6 +292,13 @@ textarea {
     align-items:center;
     align-content:center;
 }
+.ColumnFlexStart {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin:20px;
+}
 
 .ProfileSearchButtons{
     gap:20px;
