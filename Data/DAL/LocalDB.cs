@@ -105,23 +105,40 @@ namespace SocialNetwork.Data.DAL
             }
             return result;
         }
+
+        
+        //Zwróć wszystkie wiadomości, zarówno wysłane jak i odebrane
         public List<Message> GetMessages(string userID)
         {
             List<Message> messages;
             List<Message> result = new List<Message>();
             messages = _context.Messages.ToList();
 
-            foreach (Message message in messages)
+            //Znajdź wszystkie wiadomości, wysłane oraz otrzymane
+            messages = messages.FindAll(item => item.recevingUserID == userID || item.userID == userID);
+     
+
+            //Dodaj do listy wszystkie wiadomości, zarówno te otrzymane jak i wysłane
+            result.AddRange(messages.GroupBy(x => x.recevingUserID).Select(y => y.First()).ToList());
+
+            //posortuj wiadomości tak, by najnowsze były na górze
+            result.Sort(delegate (Message x, Message y)
             {
-                if (message.recevingUserID == userID)
-                {
-                    result.Add(message);
-                }
-            }
+                return CompareDates(x.date, y.date);
+            });
+
+
             return result;
         }
+        //komparator do dat
+        private int CompareDates(DateTime x, DateTime y)
+        {
+            if (x > y) return -1;
+            else if (x == y) return 0;
+            else return 1;
+        }
 
-      
+
 
         public async Task<Post> GetPostAsync(int id)
         {
