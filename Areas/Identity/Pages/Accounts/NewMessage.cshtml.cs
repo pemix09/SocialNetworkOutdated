@@ -36,7 +36,6 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
             if (Request.Cookies["RecID"] == null)
             {
                 Response.Cookies.Append("RecID", id);
-                
             }
             
         }
@@ -52,8 +51,9 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
             message.userID = userId;
             message.isRead = false;
             message.AppUser = user;
-            _context.Messages.Add(message);
-            await _context.SaveChangesAsync();
+
+            await db.AddMessageAsync(message);
+            
             return RedirectToPage("Messages");
             
         }

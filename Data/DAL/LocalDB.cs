@@ -25,10 +25,21 @@ namespace SocialNetwork.Data.DAL
             _context = context;
         }
 
-        public async Task<bool> AddMessageAsync(Message message)
+        public async Task AddMessageAsync(Message message)
         {
-            
-            return true;
+            _context.Messages.Add(message);
+            await _context.SaveChangesAsync();
+        
+        }
+        public async Task AddPostAsync(Post post)
+        {
+            _context.Posts.Add(post);
+            await _context.SaveChangesAsync();
+        }
+        public async Task RemovePostAsync(Post post)
+        {
+            _context.Posts.Remove(post);
+            await _context.SaveChangesAsync();
         }
         public Wrapper LoadDB(IHttpContextAccessor httpContextAccessor)
         {

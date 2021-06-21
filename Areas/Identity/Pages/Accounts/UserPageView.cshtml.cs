@@ -78,45 +78,31 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
 
         public async Task<IActionResult> OnGetRemovePostAsync(int postID)
         {
-            posts = _context.Posts.ToList();
-             
-            foreach(Post post in posts)
+            Post post = await db.GetPostAsync(postID);
+            await db.RemovePostAsync(post);
+
+            var user = db.GetUser(post.userID).Result;
+            
+            Input = new InputModel
             {
-                if(post.postID == postID)
-                {
-                    _context.Posts.Remove(post);
-                    await _context.SaveChangesAsync();
-                    var user = db.GetUser(post.userID);
-                    var userDD = user.Result;
-                    userD.Id = userDD.Id;
-                    Input = new InputModel
-                    {
-                        PhoneNumber = userDD.PhoneNumber,
-                        Username = userDD.UserName,
-                        FirstName = userDD.FirstName,
-                        LastName = userDD.LastName,
-                        ProfilePicture = userDD.ProfilePicture,
-                        email = userDD.Email
-                    };
-                    userD = userDD;
-                    posts = db.GetOwnPosts(userD.Id);
-                    return Page();
-                }
-            }
+                PhoneNumber = user.PhoneNumber,
+                Username = user.UserName,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                ProfilePicture = user.ProfilePicture,
+                email = user.Email
+            };
+            userD = user;
+
+            //weü swoje posty
             posts = db.GetOwnPosts(userD.Id);
+
+            //posortuj posty
             posts.Sort(delegate (Post x, Post y)
             {
                 return CompareDates(x.date, y.date);
             });
-            Input = new InputModel
-            {
-                PhoneNumber = userD.PhoneNumber,
-                Username = userD.UserName,
-                FirstName = userD.FirstName,
-                LastName = userD.LastName,
-                ProfilePicture = userD.ProfilePicture,
-                email = userD.Email
-            };
+
             return Page();
         }
 

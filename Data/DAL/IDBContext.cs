@@ -15,8 +15,10 @@ namespace SocialNetwork.Models
         void SaveDB(Wrapper wrapped, IHttpContextAccessor httpContextAccessor);
         Wrapper LoadDB(IHttpContextAccessor httpContextAccessor);
         List<Post> GetOwnPosts(string userID);
-        Task<bool> AddMessageAsync(Message message);
+        Task AddMessageAsync(Message message);
         List<Post> GetPosts(string userID);
+        Task AddPostAsync(Post post);
+        Task RemovePostAsync(Post post);
         List<Comment> GetPostComments(int postID);
         Task AddComment(Comment comment);
         List<AppUser> GetFriends(string userID);
