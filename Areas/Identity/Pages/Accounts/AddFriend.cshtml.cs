@@ -32,7 +32,7 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
         public async Task<IActionResult> OnGet(string id)
         {
             string userID = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            await db.AddFriend(id,userID,_context);
+            await db.AddFriend(id,userID);
             return RedirectToPage("/Index");
         }
     }

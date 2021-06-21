@@ -52,7 +52,7 @@ namespace SocialNetwork.Pages
         {
             SearchQuery = searchQuery;
             currentUserID = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            List<Message> messages = db.GetMessages(currentUserID, _context,_httpContextAccessor);
+            List<Message> messages = db.GetMessages(currentUserID);
 
             foreach(Message message in messages)
             {
@@ -68,7 +68,7 @@ namespace SocialNetwork.Pages
             if (searchQuery!=null)
             {
                 posts = null;
-                users = db.GetSearchResults(searchQuery, _context);
+                users = db.GetSearchResults(searchQuery);
             }
             else if(searchQuery == null && HttpContext != null)
             {
@@ -82,7 +82,7 @@ namespace SocialNetwork.Pages
                 wrapper._posts = posts;
                 db.SaveDB(wrapper, _httpContextAccessor);*/
 
-                posts = db.GetPosts(currentUserID, _context, _httpContextAccessor);
+                posts = db.GetPosts(currentUserID);
 
                 posts.Sort(delegate (Post x, Post y)
                 {
@@ -105,23 +105,23 @@ namespace SocialNetwork.Pages
         {
             SearchQuery = searchQuery;
             string userID = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            await db.AddFriend(stringID, userID, _context);
-            users = db.GetSearchResults(searchQuery, _context);
+            await db.AddFriend(stringID, userID);
+            users = db.GetSearchResults(searchQuery);
             return Page();
         }
         public async Task<IActionResult> OnGetRemoveFriendSearchAsync(string stringID, string searchQuery)
         {
             SearchQuery = searchQuery;
             string userID = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            await db.RemoveFriend(stringID, userID, _context);
-            users = db.GetSearchResults(searchQuery, _context);
+            await db.RemoveFriend(stringID, userID);
+            users = db.GetSearchResults(searchQuery);
             return Page();
         }
         public async Task<IActionResult> OnGetAddFriendPostsAsync(string stringID)
         {
             string userID = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            await db.AddFriend(stringID, userID, _context);
-            posts = db.GetPosts(userID, _context,_httpContextAccessor);
+            await db.AddFriend(stringID, userID);
+            posts = db.GetPosts(userID);
 
             posts.Sort(delegate (Post x, Post y)
             {
@@ -136,8 +136,8 @@ namespace SocialNetwork.Pages
         {
 
             string userID = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            await db.RemoveFriend(stringID, userID, _context);
-            posts = db.GetPosts(userID, _context, _httpContextAccessor);
+            await db.RemoveFriend(stringID, userID);
+            posts = db.GetPosts(userID);
 
             posts.Sort(delegate (Post x, Post y)
             {

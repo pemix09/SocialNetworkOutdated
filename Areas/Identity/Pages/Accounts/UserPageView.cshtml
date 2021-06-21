@@ -44,7 +44,7 @@
                     <b> @Model.Input.email</b>
                 </div>
             }
-            else if (Model.db.GetFriendsStatus(Model.userD.Id, Model.lookedUser.Id, Model._context) == 2)
+            else if (Model.db.GetFriendsStatus(Model.userD.Id, Model.lookedUser.Id) == 2)
             {
                 <div class="form-group">
                     <label asp-for="Input.PhoneNumber"></label>:

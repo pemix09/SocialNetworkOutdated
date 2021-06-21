@@ -99,11 +99,11 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
                         email = userDD.Email
                     };
                     userD = userDD;
-                    posts = db.GetOwnPosts(userD.Id, _context);
+                    posts = db.GetOwnPosts(userD.Id);
                     return Page();
                 }
             }
-            posts = db.GetOwnPosts(userD.Id, _context);
+            posts = db.GetOwnPosts(userD.Id);
             posts.Sort(delegate (Post x, Post y)
             {
                 return CompareDates(x.date, y.date);
@@ -139,7 +139,7 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
                 {
                     return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
                 }
-                posts = db.GetOwnPosts(user.Id, _context);
+                posts = db.GetOwnPosts(user.Id);
                 posts.Sort(delegate (Post x, Post y)
                 {
                     return CompareDates(x.date, y.date);
@@ -150,7 +150,7 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
             //wczytaj u¿ytkownika, na którego kliknêliœmy
             else
             {
-                posts = db.GetOwnPosts(id, _context);
+                posts = db.GetOwnPosts(id);
                 posts.Sort(delegate (Post x, Post y)
                 {
                     return CompareDates(x.date, y.date);

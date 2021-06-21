@@ -55,7 +55,7 @@
 
 
                         <div class="ProfileSearchButtons" style="display:flex;flex-direction:column">
-                            @if (Model.db.isTargetFriendOfSource(Model.user.Id, Model.post.userID, Model._context) == false)
+                            @if (Model.db.isTargetFriendOfSource(Model.user.Id, Model.post.userID) == false)
                             {
                                 <a asp-route-id="@Model.post.userID" asp-area="Identity" asp-page="/Accounts/AddFriend">
                                     <div class="PictureButton">
@@ -135,7 +135,7 @@
                         </div>
                     </a>
                     <div class="ProfileSearchButtons" style="display:flex;flex-direction:column">
-                        @if (Model.db.GetFriendsStatus(Model.user.Id, comment.userID, Model._context) == 0 || Model.db.GetFriendsStatus(Model.user.Id, comment.userID, Model._context) == 2)
+                        @if (Model.db.GetFriendsStatus(Model.user.Id, comment.userID) == 0 || Model.db.GetFriendsStatus(Model.user.Id, comment.userID) == 2)
                         {
                             <a asp-route-id="@comment.userID" asp-area="Identity" asp-page="/Accounts/AddFriend">
                                 <div class="PictureButton">

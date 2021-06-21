@@ -46,7 +46,7 @@
                                 }
                             </a>
                             <div class="ProfileSearchButtons" style="display:flex;flex-direction:column">
-                                @if (Model.db.isTargetFriendOfSource(Model._httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier), user.Id, Model._context) == false)
+                                @if (Model.db.isTargetFriendOfSource(Model._httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier), user.Id) == false)
                                 {
                                     <a asp-page-handler="AddFriend" asp-route-AddedStringID="@user.Id" asp-route-userID="@UserManager.GetUserId(HttpContext.User);">
                                         <div class="PictureButton">

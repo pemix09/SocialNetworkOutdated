@@ -14,25 +14,25 @@ namespace SocialNetwork.Models
     {
         void SaveDB(Wrapper wrapped, IHttpContextAccessor httpContextAccessor);
         Wrapper LoadDB(IHttpContextAccessor httpContextAccessor);
-        List<Post> GetOwnPosts(string userID, SocialNetworkContext context);
+        List<Post> GetOwnPosts(string userID);
         Task<bool> AddMessageAsync(Message message);
-        List<Post> GetPosts(string userID, SocialNetworkContext context, IHttpContextAccessor httpContextAccessor);
-        List<Comment> GetPostComments(int postID, SocialNetworkContext context);
-        Task AddComment(Comment comment, SocialNetworkContext context);
-        List<AppUser> GetFriends(string userID, SocialNetworkContext context);
+        List<Post> GetPosts(string userID);
+        List<Comment> GetPostComments(int postID);
+        Task AddComment(Comment comment);
+        List<AppUser> GetFriends(string userID);
         List<AppUser> GetFollowedUsers(int userID);
-        public bool isTargetFriendOfSource(string userSourceID, string userTargetID, SocialNetworkContext context);
-        int GetFriendsStatus(string userSourceID, string userTargetID, SocialNetworkContext context);
-        Task AddFriend(string userSourceID, string userTargetID, SocialNetworkContext context);
-        Task RemoveFriend(string userSourceID, string userTargetID, SocialNetworkContext context);
-        Task<Post> GetPostAsync(int postID, SocialNetwork.Data.SocialNetworkContext context);
-        Task EditPostAsync(Post editedPost, SocialNetwork.Data.SocialNetworkContext context);
-        Task DeletePostAsync(int postID, SocialNetwork.Data.SocialNetworkContext context);
+        public bool isTargetFriendOfSource(string userSourceID, string userTargetID);
+        int GetFriendsStatus(string userSourceID, string userTargetID);
+        Task AddFriend(string userSourceID, string userTargetID);
+        Task RemoveFriend(string userSourceID, string userTargetID);
+        Task<Post> GetPostAsync(int postID);
+        Task EditPostAsync(Post editedPost);
+        Task DeletePostAsync(int postID);
         void AddUser(AppUser user);
         Task<AppUser> GetUser(string userID);
         void EditUser(string userID, AppUser editedUser);
         void DeleteUser(int userID);
-        List<AppUser> GetSearchResults(string searchQuery, SocialNetworkContext context);
-        List<Message> GetMessages(string userID, SocialNetworkContext context, IHttpContextAccessor httpContextAccessor);
+        List<AppUser> GetSearchResults(string searchQuery);
+        List<Message> GetMessages(string userID);
     }
 }
