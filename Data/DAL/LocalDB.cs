@@ -130,6 +130,27 @@ namespace SocialNetwork.Data.DAL
 
             return result;
         }
+        public List<Message> GetConversation(string firstUserID, string SecondUserID)
+        {
+            List<Message> result;
+            List<Message> messages;
+
+            messages = _context.Messages.ToList();
+
+            //znajdź te wiadomości, których odbiorą jest firstUserID a nadawcą SecondUserID
+            result = messages.FindAll(item => item.recevingUserID == firstUserID && item.userID == SecondUserID);
+
+            //dodaj również te wiadomości, ktorych odbiorą jest secondUserID a nadawcą firstUserID
+            result.AddRange(messages.FindAll(item => item.recevingUserID == SecondUserID && item.userID == firstUserID));
+
+            //posortuj według daty
+            result.Sort(delegate (Message x, Message y)
+            {
+                return CompareDates(x.date, y.date); 
+            });
+
+            return result;
+        }
         //komparator do dat
         private int CompareDates(DateTime x, DateTime y)
         {

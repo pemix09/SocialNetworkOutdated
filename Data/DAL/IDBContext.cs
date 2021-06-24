@@ -34,5 +34,6 @@ namespace SocialNetwork.Models
         void DeleteUser(int userID);
         List<AppUser> GetSearchResults(string searchQuery);
         List<Message> GetMessages(string userID);
+        public List<Message> GetConversation(string firstUserID, string SecondUserID);
     }
 }
