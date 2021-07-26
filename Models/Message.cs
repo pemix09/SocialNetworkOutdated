@@ -28,6 +28,6 @@ namespace SocialNetwork.Models
         #nullable disable
         [Required]
         public Boolean isRead { get; set; }
-        public AppUser AppUser { get; set; }//nie mam pewności, ale chyba warto przypisac wiadomość do wysyłającego
+        public AppUser AppUser { get; set; }
     }
 }

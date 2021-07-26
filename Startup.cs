@@ -141,6 +141,7 @@ namespace SocialNetwork
             var _config = Configuration;
 
             Task<bool> x = _roleManager.RoleExistsAsync("MasterAdmin");
+            //Task<bool> x = _roleManager.RoleExistsAsync("MasterAdmin").GetAwaiter().GetResult()
             x.Wait();
             if (!x.Result)
             {
@@ -176,7 +177,7 @@ namespace SocialNetwork
                 u2.Wait();
                 if (u2.Result == null)
                 {
-                    Task<IdentityResult> chkUser = _userManager.CreateAsync(user2, userPWD);
+                    Task<IdentityResult> chkUser = _userManager.CreateAsync(user2, userPWD2);
                     chkUser.Wait();
                     if (chkUser.Result.Succeeded)
                     {
