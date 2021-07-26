@@ -49,7 +49,15 @@ namespace SocialNetwork.Pages
         }
         public async Task<IActionResult> OnPost(IFormFile file, string returnUrl = null)
         {
-            int postID = _context.Posts.Count();
+            /*            int postID = 
+            */
+            int max = 0;
+            var abc = _context.Posts.ToList();
+            foreach(var a in abc)
+            {
+                if (a.postID > max) max = a.postID;
+            }
+            max ++;
 
             _returnURL = returnUrl;
             // Extract file name from whatever was posted by browser
@@ -57,12 +65,11 @@ namespace SocialNetwork.Pages
             {
                 DateTime now = DateTime.Now;
                 post.date = now;
-                post.postID = postID;
+                post.postID = max;
                 post.userID = this.userID;//userID to userID, a nie identyfikator typu string, potrzebna nowa kolumna?
                 if (ModelState.IsValid == true)
                 {
-                    _context.Posts.Add(post);
-                    await _context.SaveChangesAsync();
+                    await db.AddPostAsync(post);
                     if (_returnURL != null)
                     {
                         return RedirectToPage(_returnURL);
@@ -101,7 +108,7 @@ namespace SocialNetwork.Pages
 
                 DateTime now = DateTime.Now;
                 post.date = now;
-                post.postID = postID;
+                post.postID = max;
                 post.userID = this.userID;
                 System.IO.File.Delete(fileName);
                 //Dobra mamy userID, zdjêcie w formacie Base64 itd. teraz wywo³aæ metodê dodawania tego postu
@@ -109,9 +116,7 @@ namespace SocialNetwork.Pages
                 if (ModelState.IsValid == true)
                 {
                     //dodajemy post
-                    //db.AddPostAsync(post, _context);
-                    _context.Posts.Add(post);
-                    await _context.SaveChangesAsync();
+                    await db.AddPostAsync(post);
                     if (_returnURL != null)
                     {
                         return RedirectToPage(_returnURL);

@@ -78,45 +78,40 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
 
         public async Task<IActionResult> OnGetRemovePostAsync(int postID)
         {
-            posts = _context.Posts.ToList();
-             
-            foreach(Post post in posts)
-            {
-                if(post.postID == postID)
-                {
-                    _context.Posts.Remove(post);
-                    await _context.SaveChangesAsync();
-                    var user = db.GetUser(post.userID);
-                    var userDD = user.Result;
-                    userD.Id = userDD.Id;
-                    Input = new InputModel
-                    {
-                        PhoneNumber = userDD.PhoneNumber,
-                        Username = userDD.UserName,
-                        FirstName = userDD.FirstName,
-                        LastName = userDD.LastName,
-                        ProfilePicture = userDD.ProfilePicture,
-                        email = userDD.Email
-                    };
-                    userD = userDD;
-                    posts = db.GetOwnPosts(userD.Id, _context);
-                    return Page();
-                }
-            }
-            posts = db.GetOwnPosts(userD.Id, _context);
+            Post post = await db.GetPostAsync(postID);
+            await db.RemovePostAsync(post);
+
+            var user = db.GetUser(post.userID).Result;
+            
             Input = new InputModel
             {
-                PhoneNumber = userD.PhoneNumber,
-                Username = userD.UserName,
-                FirstName = userD.FirstName,
-                LastName = userD.LastName,
-                ProfilePicture = userD.ProfilePicture,
-                email = userD.Email
+                PhoneNumber = user.PhoneNumber,
+                Username = user.UserName,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                ProfilePicture = user.ProfilePicture,
+                email = user.Email
             };
+            userD = user;
+
+            //weŸ swoje posty
+            posts = db.GetOwnPosts(userD.Id);
+
+            //posortuj posty
+            posts.Sort(delegate (Post x, Post y)
+            {
+                return CompareDates(x.date, y.date);
+            });
+
             return Page();
         }
 
-
+        public int CompareDates(DateTime x, DateTime y)
+        {
+            if (x > y) return -1;
+            else if (x == y) return 0;
+            else return 1;
+        }
         public async Task<IActionResult> OnGetAsync( string stringID)
         {
             //wczytaj obecnego u¿ytkownika
@@ -130,14 +125,22 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
                 {
                     return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
                 }
-                posts = db.GetOwnPosts(user.Id, _context);
+                posts = db.GetOwnPosts(user.Id);
+                posts.Sort(delegate (Post x, Post y)
+                {
+                    return CompareDates(x.date, y.date);
+                });
                 await LoadAsync(user);
                 return Page();
             }
             //wczytaj u¿ytkownika, na którego kliknêliœmy
             else
             {
-                posts = db.GetOwnPosts(id, _context);
+                posts = db.GetOwnPosts(id);
+                posts.Sort(delegate (Post x, Post y)
+                {
+                    return CompareDates(x.date, y.date);
+                });
                 userD = await _userManager.GetUserAsync(User);
                 var user = db.GetUser(id);
                 lookedUser = user.Result;

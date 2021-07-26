@@ -25,45 +25,23 @@ namespace SocialNetwork.Data.DAL
             _context = context;
         }
 
-        public async Task<bool> AddMessageAsync(Message message)
+        public async Task AddMessageAsync(Message message)
         {
-            
-            return true;
+            _context.Messages.Add(message);
+            await _context.SaveChangesAsync();
+        
         }
-        public Wrapper LoadDB(IHttpContextAccessor httpContextAccessor)
+        public async Task AddPostAsync(Post post)
         {
-            string jsonPostsAndMessages = httpContextAccessor.HttpContext.Session.GetString("jsonPostsAndMessages");
-            Wrapper wrapped;
-            if (jsonPostsAndMessages != null )
-            {
-                wrapped = JsonSerializer.Deserialize<Wrapper>(jsonPostsAndMessages);
-
-            }
-            else
-            {
-                wrapped = new Wrapper();
-            }
-            return wrapped;
+            _context.Posts.Add(post);
+            await _context.SaveChangesAsync();
         }
-        public void SaveDB(Wrapper wrapped, IHttpContextAccessor httpContextAccessor)
+        public async Task RemovePostAsync(Post post)
         {
-            string jsonPostsAndMessages = httpContextAccessor.HttpContext.Session.GetString("jsonPostsAndMessages");
-            Wrapper _wrapped;
-            if (jsonPostsAndMessages != null)
-            {
-                _wrapped = JsonSerializer.Deserialize<Wrapper>(jsonPostsAndMessages);
-                _wrapped._messages = wrapped._messages;
-                _wrapped._posts = wrapped._posts;
-            }
-            else
-            {
-                _wrapped = new Wrapper();
-                _wrapped._messages = wrapped._messages;
-                _wrapped._posts = wrapped._posts;
-            }
-            jsonPostsAndMessages = JsonSerializer.Serialize(wrapped);
-            httpContextAccessor.HttpContext.Session.SetString("jsonPostsAndMessages",jsonPostsAndMessages);
+            _context.Posts.Remove(post);
+            await _context.SaveChangesAsync();
         }
+       
 
 
         public void AddUser(AppUser user)
@@ -71,14 +49,14 @@ namespace SocialNetwork.Data.DAL
             throw new NotImplementedException();
         }
 
-        public async Task DeletePostAsync(int postID, SocialNetwork.Data.SocialNetworkContext context)
+        public async Task DeletePostAsync(int postID)
         {
-            Post Post = await context.Posts.FindAsync(postID);
+            Post Post = await _context.Posts.FindAsync(postID);
 
             if (Post != null)
             {
-                context.Posts.Remove(Post);
-                await context.SaveChangesAsync();
+                _context.Posts.Remove(Post);
+                await _context.SaveChangesAsync();
             }
 
         }
@@ -88,12 +66,12 @@ namespace SocialNetwork.Data.DAL
             throw new NotImplementedException();
         }
 
-        public async Task EditPostAsync(Post editedPost, SocialNetwork.Data.SocialNetworkContext context)
+        public async Task EditPostAsync(Post editedPost)
         {
-            context.Attach(editedPost).State = EntityState.Modified;
+            _context.Attach(editedPost).State = EntityState.Modified;
             try
             {
-                await context.SaveChangesAsync();
+                await _context.SaveChangesAsync();
             }
             //jeśli postu nie znajdziesz w bazie, to nic z nim nie rób
             catch (DbUpdateConcurrencyException)
@@ -112,12 +90,12 @@ namespace SocialNetwork.Data.DAL
             throw new NotImplementedException();
         }
 
-        public List<AppUser> GetFriends(string userID, SocialNetworkContext context)
+        public List<AppUser> GetFriends(string userID)
         {
-            
-            List<Friend> friends = new List<Friend>();
+
+            List<Friend> friends;
             List<AppUser> result = new List<AppUser>();
-            friends = context.Friends.ToList(); 
+            friends = _context.Friends.ToList(); 
             foreach(Friend friend in friends)
             {
                 if(friend.friendUserID == userID)
@@ -127,40 +105,71 @@ namespace SocialNetwork.Data.DAL
             }
             return result;
         }
-        public List<Message> GetMessages(string userID, SocialNetworkContext context, IHttpContextAccessor httpContextAccessor)
-        {
-            Wrapper wrapper = this.LoadDB(httpContextAccessor);
-            List<Message> messages = new List<Message>();
-            if(wrapper._messages != null)
-            {
-                messages.AddRange(wrapper._messages);
-                messages = messages.Distinct().ToList();
-            }
-            
-            List<Message> result = new List<Message>();
-            messages = context.Messages.ToList();
 
-            foreach (Message message in messages)
+        
+        //Zwróć wszystkie wiadomości, zarówno wysłane jak i odebrane
+        public List<Message> GetMessages(string userID)
+        {
+            List<Message> messages;
+            List<Message> result = new List<Message>();
+            messages = _context.Messages.ToList();
+
+            //Znajdź wszystkie wiadomości, wysłane oraz otrzymane
+            messages = messages.FindAll(item => item.recevingUserID == userID || item.userID == userID);
+     
+
+            //Dodaj do listy wszystkie wiadomości, zarówno te otrzymane jak i wysłane
+            result.AddRange(messages.GroupBy(x => x.recevingUserID).Select(y => y.First()).ToList());
+
+            //posortuj wiadomości tak, by najnowsze były na górze
+            result.Sort(delegate (Message x, Message y)
             {
-                if (message.recevingUserID == userID)
-                {
-                    result.Add(message);
-                }
-            }
+                return CompareDates(x.date, y.date);
+            });
+
+
             return result;
         }
-
-      
-
-        public async Task<Post> GetPostAsync(int id, SocialNetworkContext context)
+        public List<Message> GetConversation(string firstUserID, string SecondUserID)
         {
-            Post Post = await context.Posts.FirstOrDefaultAsync(m => m.postID == id);
+            List<Message> result;
+            List<Message> messages;
+
+            messages = _context.Messages.ToList();
+
+            //znajdź te wiadomości, których odbiorą jest firstUserID a nadawcą SecondUserID
+            result = messages.FindAll(item => item.recevingUserID == firstUserID && item.userID == SecondUserID);
+
+            //dodaj również te wiadomości, ktorych odbiorą jest secondUserID a nadawcą firstUserID
+            result.AddRange(messages.FindAll(item => item.recevingUserID == SecondUserID && item.userID == firstUserID));
+
+            //posortuj według daty
+            result.Sort(delegate (Message x, Message y)
+            {
+                return CompareDates(x.date, y.date); 
+            });
+
+            return result;
+        }
+        //komparator do dat
+        private int CompareDates(DateTime x, DateTime y)
+        {
+            if (x > y) return -1;
+            else if (x == y) return 0;
+            else return 1;
+        }
+
+
+
+        public async Task<Post> GetPostAsync(int id)
+        {
+            Post Post = await _context.Posts.FirstOrDefaultAsync(m => m.postID == id);
             return Post;
         }
 
-        public List<Comment> GetPostComments(int postID, SocialNetworkContext context)
+        public List<Comment> GetPostComments(int postID)
         {
-            List<Comment> comments = context.Comments.ToList();
+            List<Comment> comments = _context.Comments.ToList();
             List<Comment> result = new List<Comment>();
             foreach(Comment comment in comments)
             {
@@ -171,26 +180,21 @@ namespace SocialNetwork.Data.DAL
             }
             return result;
         }
-        public async Task AddComment(Comment comment, SocialNetworkContext context)
+        public async Task AddComment(Comment comment)
         {
-            context.Comments.Add(comment);
-            await context.SaveChangesAsync();
+            _context.Comments.Add(comment);
+            await _context.SaveChangesAsync();
         }
 
-        public List<Post> GetPosts(string userID, SocialNetworkContext context, IHttpContextAccessor httpContextAccessor)
-        {
-            Wrapper wrapper = this.LoadDB(httpContextAccessor);
-            
-            List<AppUser> friends = this.GetFriends(userID, context);
+        public List<Post> GetPosts(string userID)
+        {            
+            List<AppUser> friends = this.GetFriends(userID);
             List<Post> friendsPosts = new List<Post>();
-            if (wrapper._posts != null)
-            {
-                friendsPosts.AddRange(wrapper._posts);
-            }
+        
             foreach (AppUser user in friends)
             {
                 if (user == null) continue;
-                List<Post> friendPosts = this.GetOwnPosts(user.Id, context);
+                List<Post> friendPosts = this.GetOwnPosts(user.Id);
                 foreach(Post post in friendPosts)
                 {
                     friendsPosts.Add(post);
@@ -200,9 +204,9 @@ namespace SocialNetwork.Data.DAL
             return friendsPosts;
         }
 
-        public List<Post> GetOwnPosts(string userID, SocialNetworkContext context)
+        public List<Post> GetOwnPosts(string userID)
         {
-            List<Post> posts = context.Posts.ToList();
+            List<Post> posts = _context.Posts.ToList();
             List<Post> result = new List<Post>();
             foreach(Post post in posts)
             {
@@ -214,9 +218,9 @@ namespace SocialNetwork.Data.DAL
             return result;
         }
 
-        public List<AppUser> GetSearchResults(string searchQuery, SocialNetworkContext context)
+        public List<AppUser> GetSearchResults(string searchQuery)
         {
-            List<AppUser> users = context.Users.ToList();
+            List<AppUser> users = _context.Users.ToList();
             List<AppUser> result = new List<AppUser>();
 
             foreach(AppUser user in users)
@@ -247,13 +251,13 @@ namespace SocialNetwork.Data.DAL
             return user;
         }
 
-        public bool isTargetFriendOfSource(string userSourceID, string userTargetID, SocialNetworkContext context)
+        public bool isTargetFriendOfSource(string userSourceID, string userTargetID)
         {
             //AppUser user1 = GetUser(userSourceID).Result;
             //AppUser user2 = GetUser(userTargetID).Result;
             //IQueryable<string> sourceFriendList = context.Friends.Where(x => x.userID == userSourceID).Select(x => x.friendUserID);
 
-            List<Friend> friends = context.Friends.ToList();
+            List<Friend> friends = _context.Friends.ToList();
 
             //możesz powyższe wykorzystać przy metodzie GetFriends
             //wybiera pola friendUserID, gdzie userID == userSourceID
@@ -270,17 +274,17 @@ namespace SocialNetwork.Data.DAL
         //1 -> znajomy który sprawdza wysłał zapro
         //2 -> obustronne dodanie do znajomych
         //3 -> spradzany znjaomy wysłał zapro
-        public int GetFriendsStatus(string userSourceID, string userTargetID, SocialNetworkContext context)
+        public int GetFriendsStatus(string userSourceID, string userTargetID)
         {
-            bool oneWay = isTargetFriendOfSource(userSourceID, userTargetID, context);
-            bool secondWay = isTargetFriendOfSource(userTargetID, userSourceID, context);
+            bool oneWay = isTargetFriendOfSource(userSourceID, userTargetID);
+            bool secondWay = isTargetFriendOfSource(userTargetID, userSourceID);
             if(oneWay && secondWay) return 2;  
             if (oneWay) return 1;
             if (secondWay) return 3;
             return 0;
         }
 
-        public async Task AddFriend(string userSourceID, string userTargetID, SocialNetworkContext context)
+        public async Task AddFriend(string userSourceID, string userTargetID)
         {
             //poniższa walidacja nie jest potrzebna, bo ja już to wcześniej sprawdzam
             /*Friend x = await _context.Friends.SingleAsync(x => x.userID == userSourceID && x.friendUserID == userTargetID);
@@ -291,12 +295,12 @@ namespace SocialNetwork.Data.DAL
             Friend f = new Friend();
             f.userID = userSourceID;
             f.friendUserID = userTargetID;
-            context.Friends.Add(f);
-            await context.SaveChangesAsync();
+            _context.Friends.Add(f);
+            await _context.SaveChangesAsync();
         }
-        public async Task RemoveFriend(string userSourceID, string userTargetID, SocialNetworkContext context)
+        public async Task RemoveFriend(string userSourceID, string userTargetID)
         {
-            List<Friend> friends = context.Friends.ToList();
+            List<Friend> friends = _context.Friends.ToList();
             Friend f = new Friend();
             foreach (Friend friend in friends)
             {

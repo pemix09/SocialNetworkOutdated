@@ -18,11 +18,9 @@ namespace SocialNetwork.Models
         [Required]
         [DataType(DataType.DateTime)]
         public DateTime date { get; set; }
-        [Required]
         [DataType(DataType.Text)]
         #nullable enable
         public string? userID { get; set; }
-        [Required]
         [DataType(DataType.Text)]
         public string? recevingUserID { get; set; }
         #nullable disable

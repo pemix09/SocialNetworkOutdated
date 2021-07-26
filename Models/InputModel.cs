@@ -28,6 +28,7 @@ namespace SocialNetwork.Models
         [MinLength(7, ErrorMessage ="Minimalna długość numeru telefonu to 7 cyfr")]
         [DataType(DataType.PhoneNumber, ErrorMessage ="To pole musi mieć format numeru telefonu")]
         [DisplayFormat(ConvertEmptyStringToNull = false)]
+        [RegularExpression("^[0-9]*$", ErrorMessage ="Numer telefonu nie jest w prawidłowym formacie")]
         [Required(AllowEmptyStrings = true,ErrorMessage ="Numer telefonu jest wymagany")]
         public string? phone { get; set; }
         [Display(Name = "Nazwa użytkownika")]

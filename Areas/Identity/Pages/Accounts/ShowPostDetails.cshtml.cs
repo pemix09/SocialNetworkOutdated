@@ -37,8 +37,8 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
         public async Task OnGet(int id)
         {
             //mamy nasz post
-            post = await db.GetPostAsync(id, _context);
-            comments = db.GetPostComments(id, _context);
+            post = await db.GetPostAsync(id);
+            comments = db.GetPostComments(id);
             if (Request.Cookies["PostID"] == null)
             {
                 Response.Cookies.Append("PostID", id.ToString());
@@ -51,7 +51,7 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
             //za drugim razem dodawania komentarza siê wypierdala wszystko
             int postIntID = Int16.Parse(postID);
             Response.Cookies.Delete("PostID");
-            Post postD = await db.GetPostAsync(postIntID, _context);
+            Post postD = await db.GetPostAsync(postIntID);
             commentModel.postID = postD.postID;
 
             var user = await _userManager.GetUserAsync(User);
@@ -60,16 +60,16 @@ namespace SocialNetwork.Areas.Identity.Pages.Accounts
 
             if (ModelState.IsValid)
             {
-                await db.AddComment(commentModel,_context);
-                post = db.GetPostAsync(commentModel.postID, _context).Result;
-                comments = db.GetPostComments(commentModel.postID, _context);
+                await db.AddComment(commentModel);
+                post = db.GetPostAsync(commentModel.postID).Result;
+                comments = db.GetPostComments(commentModel.postID);
                 //Response.Cookies.Append("PostID", commentModel.postID.ToString());
                 return Page();
             }
             else
             {
-                post = db.GetPostAsync(postIntID, _context).Result;
-                comments = db.GetPostComments(postIntID, _context);
+                post = db.GetPostAsync(postIntID).Result;
+                comments = db.GetPostComments(postIntID);
                 return Page();
             }
             //jeœli model nie jest dobry, nie pozwól przejœæ dalej
