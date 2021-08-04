@@ -33,3 +33,5 @@ Posty znajomych:
 - HTML
 - C#
 - .NET Core Razor Pages
+
+## Projekt nie będzie więcej rozwijany, nowa wersja:
