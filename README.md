@@ -3,28 +3,28 @@ Sieć społecznościowa, która jest innowacyjna, ze względu na podejście na p
 
 ## Zrzuty ekranu:
 Strona startowa:
-![Strona startowa](https://github.com/pemix09/SocialNetwork/blob/master/screenshots/1Bez%C2%A0tytu%C5%82u.png)
+![Strona startowa](./screenshots/1Bez%C2%A0tytu%C5%82u.png)
 
 Dodawanie komentarzy do postów:
-![Dodawanie komentarza](https://github.com/pemix09/SocialNetwork/blob/master/screenshots/dodawanie%20komentarza.png)
+![Dodawanie komentarza](./screenshots/dodawanie%20komentarza.png)
 
 Ekran logowania:
-![Logowanie](https://github.com/pemix09/SocialNetwork/blob/master/screenshots/logowanie.png)
+![Logowanie](./screenshots/logowanie.png)
 
 Ekran rejestracji:
-![Rejestracja](https://github.com/pemix09/SocialNetwork/blob/master/screenshots/rejestracja.png)
+![Rejestracja](./screenshots/rejestracja.png)
 
 Panel administratora:
-![Panel admina](https://github.com/pemix09/SocialNetwork/blob/master/screenshots/panel%20admina.png)
+![Panel admina](./screenshots/panel%20admina.png)
 
 Strona wiadomości:
-![Wiadomości](https://github.com/pemix09/SocialNetwork/blob/master/screenshots/wiadomo%C5%9Bci.png)
+![Wiadomości](./screenshots/wiadomo%C5%9Bci.png)
 
 Wyszukiwanie użytkowników:
-![Wyszukiwanie użytkowników](https://github.com/pemix09/SocialNetwork/blob/master/screenshots/wyszukiwanie.png)
+![Wyszukiwanie użytkowników](./screenshots/wyszukiwanie.png)
 
 Posty znajomych:
-![posty znajomych](https://github.com/pemix09/SocialNetwork/blob/master/screenshots/posty%20znajomych.png)
+![posty znajomych](./screenshots/posty%20znajomych.png)
 
 ## Zastosowane Technologie:
 - Javascript
